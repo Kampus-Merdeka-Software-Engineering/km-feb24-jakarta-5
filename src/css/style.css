@@ -1,6 +1,50 @@
-body {
-  background-color: teal;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  background-color: black;
+  min-height: fit-content;
+}
+
+main {
+  background-color: darkgrey;
+  min-height: 500px;
+  text-align: center;
+}
+
+footer {
+  background-color: black;
+  min-height: 100px;
+  text-align: center;
+  font-size: 15px;
+}
+
+li,
 a {
-  font-family: sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  width: 100px;
+  cursor: pointer;
+}
+
+.navlink {
+  list-style: none;
+}
+.navlink li {
+  display: inline-block;
+  padding: 0px 20px;
 }
