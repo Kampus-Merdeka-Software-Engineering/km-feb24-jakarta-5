@@ -178,10 +178,169 @@ nav ul li a{
   background-color: #000;
 }
 
+.scope{
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid #000;
+}
+
+.scope .scope-side-bg{
+  background-color: #000;
+  width: 20vw;
+}
+
+.scope .scope-text-container{
+  margin-left: 5vw;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.scope .scope-text-container h3{
+  font-size: 2em;
+}
+
+.scope .scope-text-container p{
+  font-size: 1.5em;
+}
+
+.scope .scope-text-container ol{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-left: 25px;
+  transform: translateY(-20px);
+  height: 200px;
+}
+
+.scope .scope-text-container ol li{
+  font-size: 1em;
+}
+
+.scope .scope-side-picture{
+  align-self: center;
+  margin-left: 10vw;
+}
+
+.scope .scope-side-picture img{
+  width: 270px;
+}
+
+.research-methodology{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+.research-methodology h3{
+  font-size: 2em;
+  align-self: center;
+}
+
+.research-methodology ul li{
+  font-size: 1.5em;
+}
+
+.research-methodology .research{
+  padding-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 40vw;
+}
+
+.research-methodology .research ul{
+  padding-left: 20px;
+}
+
+.research-methodology .methodology{
+  padding-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.research-methodology .methodology img{
+  width: 580px;
+  height: 280px;
+}
+
+.data-gathering{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  background-color: #000;
+  color: #fff;padding: 5vw;
+}
+
+.data-gathering .dg-text-container h3{
+  font-size: 2em;
+  text-align: center;
+}
+
+.data-gathering .dg-text-container p{
+  font-size: 1.5em;
+  padding: 40px 9vw;
+}
+
+.data-gathering .dg-box-container{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 9vw;
+  gap: 50px;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+
+.data-gathering .dg-box-container .dg-box{
+  border: 2px #fff solid;
+  padding: 10px;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-gathering .dg-box-container .dg-box h4{
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.data-gathering .dg-box-container .dg-box p{
+  font-size: 4em;
+  font-weight: 500;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.visual-analysis h3{
+  font-size: 2em;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 @media screen and (max-width: 800px){
   /*  */
+}
+
+@media screen and (max-width: 1385px){
+  .scope .scope-side-picture{
+    display: none;
+  }
 }
