@@ -381,3 +381,190 @@ async function createChart6() {
 
 // Memanggil fungsi untuk membuat grafik
 createChart6();
+
+// Fungsi untuk mengelompokkan dan mengagregasi data berdasarkan negara
+function aggregateDataByCountry(jsonData) {
+    return jsonData.reduce((acc, curr) => {
+        if (!acc[curr.Country]) {
+            acc[curr.Country] = { revenue: 0, cost: 0 };
+        }
+        acc[curr.Country].revenue += curr.Revenue;
+        acc[curr.Country].cost += curr.Cost;
+        return acc;
+    }, {});
+}
+
+// Fungsi untuk mengurutkan data berdasarkan nilai Revenue
+function sortDataByRevenue(aggregatedData) {
+    const sortedEntries = Object.entries(aggregatedData).sort((a, b) => b[1].revenue - a[1].revenue);
+    return Object.fromEntries(sortedEntries);
+}
+
+// Fungsi untuk membuat grafik Stacked Bar Chart untuk Revenue dan Cost berdasarkan Country
+async function createChart7() {
+    const jsonData = await fetchData();
+    let aggregatedData = aggregateDataByCountry(jsonData);
+    aggregatedData = sortDataByRevenue(aggregatedData);
+
+    const countries = Object.keys(aggregatedData);
+    const revenues = countries.map(country => aggregatedData[country].revenue);
+    const costs = countries.map(country => aggregatedData[country].cost);
+
+    const ctx = document.getElementById('myChart7').getContext('2d');
+    const myChart7 = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: countries,
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: revenues,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cost',
+                    data: costs,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Country'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Memanggil fungsi untuk membuat grafik
+createChart7();
+
+// Fungsi untuk mengelompokkan dan mengagregasi data berdasarkan negara dan sub kategori
+function aggregateDataByCountryAndSubCategory(jsonData) {
+    const result = {};
+
+    jsonData.forEach(item => {
+        if (!result[item.Country]) {
+            result[item.Country] = {};
+        }
+        if (!result[item.Country][item.Sub_Category]) {
+            result[item.Country][item.Sub_Category] = { profit: 0, cost: 0 };
+        }
+        result[item.Country][item.Sub_Category].profit += item.Profit;
+        result[item.Country][item.Sub_Category].cost += item.Cost;
+    });
+
+    // Hitung margin profit untuk setiap negara dan sub kategori
+    for (const country in result) {
+        for (const subCategory in result[country]) {
+            const data = result[country][subCategory];
+            data.profitMargin = data.profit / data.cost;
+        }
+    }
+
+    return result;
+}
+
+// Fungsi untuk membuat heatmap untuk profit margin berdasarkan country dan sub category
+async function createChart8() {
+    const jsonData = await fetchData();
+    const aggregatedData = aggregateDataByCountryAndSubCategory(jsonData);
+
+    const countries = Object.keys(aggregatedData);
+    const subCategories = Array.from(new Set(jsonData.map(item => item.Sub_Category)));
+
+    const data = [];
+
+    countries.forEach((country, i) => {
+        subCategories.forEach((subCategory, j) => {
+            const profitMargin = aggregatedData[country][subCategory] ? aggregatedData[country][subCategory].profitMargin : 0;
+            data.push({ x: i, y: j, v: profitMargin });
+        });
+    });
+
+    const ctx = document.getElementById('myChart8').getContext('2d');
+    const myChart8 = new Chart(ctx, {
+        type: 'matrix',
+        data: {
+            datasets: [{
+                label: 'Profit Margin Heatmap',
+                data: data,
+                backgroundColor(ctx) {
+                    const value = ctx.dataset.data[ctx.dataIndex].v;
+                    const alpha = value > 0 ? value : 0.5;  // Adjust alpha for visibility
+                    return `rgba(0, 123, 255, ${alpha})`;
+                },
+                borderWidth: 1,
+                width(ctx) {
+                    const a = ctx.chart.chartArea || {};
+                    return (a.right - a.left) / countries.length;
+                },
+                height(ctx) {
+                    const a = ctx.chart.chartArea || {};
+                    return (a.bottom - a.top) / subCategories.length;
+                }
+            }]
+        },
+        options: {
+            tooltips: {
+                callbacks: {
+                    title() { return ''; },
+                    label(item) {
+                        const country = countries[item.xLabel];
+                        const subCategory = subCategories[item.yLabel];
+                        const value = item.v.toFixed(2);
+                        return `${country}, ${subCategory}: ${value}`;
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'category',
+                    labels: countries,
+                    title: {
+                        display: true,
+                        text: 'Country'
+                    }
+                },
+                y: {
+                    type: 'category',
+                    labels: subCategories,
+                    title: {
+                        display: true,
+                        text: 'Sub Category'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Memanggil fungsi untuk membuat grafik
+createChart8();
