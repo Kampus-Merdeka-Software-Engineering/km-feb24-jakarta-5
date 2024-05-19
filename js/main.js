@@ -100,7 +100,7 @@ async function createChart2() {
 
     const ctx = document.getElementById('myChart2').getContext('2d');
     const myChart2 = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: years,
             datasets: [{
@@ -205,14 +205,28 @@ async function createChart4() {
 
     const ctx = document.getElementById('myChart4').getContext('2d');
     new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: ageGroups,
             datasets: [{
                 label: 'Total Profit per Age Group',
                 data: profits,
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
                 borderWidth: 1
             }]
         },
@@ -298,3 +312,72 @@ async function createChart5() {
 
 // Memanggil fungsi untuk membuat grafik
 createChart5();
+
+// Fungsi untuk mengelompokkan dan mengagregasi data berdasarkan tahun dan gender pelanggan
+function aggregateDataByYearAndGender(jsonData) {
+    const result = {
+        'M': { 2011: 0, 2012: 0, 2013: 0, 2014: 0, 2015: 0, 2016: 0 },
+        'F': { 2011: 0, 2012: 0, 2013: 0, 2014: 0, 2015: 0, 2016: 0 }
+    };
+
+    jsonData.forEach(item => {
+        if (result[item.Customer_Gender] && result[item.Customer_Gender][item.Year] !== undefined) {
+            result[item.Customer_Gender][item.Year] += item.Order_Quantity;
+        }
+    });
+
+    return result;
+}
+
+// Fungsi untuk membuat grafik Line Chart untuk Order Quantity berdasarkan Customer Gender
+async function createChart6() {
+    const jsonData = await fetchData();
+    const aggregatedData = aggregateDataByYearAndGender(jsonData);
+
+    const years = [2011, 2012, 2013, 2014, 2015, 2016];
+    const maleData = years.map(year => aggregatedData['M'][year]);
+    const femaleData = years.map(year => aggregatedData['F'][year]);
+
+    const ctx = document.getElementById('myChart6').getContext('2d');
+    const myChart6 = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: years,
+            datasets: [
+                {
+                    label: 'Male',
+                    data: maleData,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Female',
+                    data: femaleData,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Order Quantity'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Memanggil fungsi untuk membuat grafik
+createChart6();
