@@ -27,6 +27,7 @@ async function fetchData(){
     return jsonData;
 }
 
+
 // Fungsi untuk mengelompokkan profit per quantity berdasarkan country
 function aggregateData(data) {
     const aggregatedData = {};
