@@ -65,7 +65,7 @@ nav > .wrapper {
  }
 
  header{
-    background : url('../images/ss.png');
+    background : url('../assets/images/ss.png');
     height: 100vh;
     background-position: center;
     background-size: cover;
