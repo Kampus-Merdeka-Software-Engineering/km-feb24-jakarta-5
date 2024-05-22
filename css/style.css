@@ -9,10 +9,12 @@ body{
     font-optical-sizing: auto ;
     scroll-behavior: smooth;
 }
-.wrapper{
+nav > .wrapper{
     width: 80%;
-    margin-left: 30px;
-    padding : 20px 0px 20px 0px;
+    margin: auto;
+    padding: 10px 0px 10px 0px;
+    top: 0;
+    height: 50px;
 }
 
 nav {
@@ -21,17 +23,19 @@ nav {
     position: sticky;
     top : 0;
     z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 nav > .wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 1.2rem;
     align-items: center;
 }
 
 .menu{
-    width : 50%;
+    width : 75%;
+    margin-right: 3%;
 }
 
 .menu > ul{
@@ -39,12 +43,16 @@ nav > .wrapper {
     list-style-type: none;
     margin : 0px;
     padding: 0px;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
  .menu > ul > li > a{
     text-decoration: none;
     color : #fff;
+    font-weight: 550;
+ }
+ .menu > ul > li > a:hover{
+   border-bottom: 2px solid #fff;
  }
 
  .logo{
@@ -52,9 +60,8 @@ nav > .wrapper {
     align-items: center;
  }
  .logo > img{
-   padding-left: 20px;
-   height : 36px;
-   width: 40px;
+   margin-left: 1%;
+   width: 10%;
  }
 
  header{

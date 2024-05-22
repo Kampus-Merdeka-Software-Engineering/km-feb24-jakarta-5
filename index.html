@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capstone Project Team 5</title>
-    <link rel="icon" href="assets/images/logo-revou.png" type="images/x-icon">
+    <link rel="icon" href="assets/images/km.png" type="images/x-icon">
     <link rel="stylesheet" href = "css/style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+ 
 </head>
 <body>
     <nav>
         <div class="wrapper">
             <div class="logo"> 
-                <img src ="assets/images/km.png"/> 
                 <img src ="assets/images/logo-revou.png"/></div>
             <div class="menu">
                 <ul> 
@@ -64,12 +69,13 @@
         </div>
     </section>
 
+    <!--Dashboard-->
     <section id="dashboard"> 
         <div class ="wrapper">
             <h4>Bike Sales in Europe<br>Dashboard</h4>
             <nav id = "nav-dashboard">
                 <div class = "wrapper">
-                    <form>
+                    <form id = filterform class = "filterform">
                         <!--Year Filter-->
                         <select name ="year" id="year-filter">
                             <option value="">Year</option>
@@ -128,7 +134,7 @@
                     <p><i class="fa-solid fa-wallet"></i>Profit</p>
                     <small>20.4M €</small> 
                 </div>
-               <div class="item" id="profit-per-unit">
+               <div class="item" id="profit-per-unit"   >
                     <p><i class="fa-solid fa-bicycle"></i>Profit/<br>Unit</p>
                     <small>566 €</small> 
                 </div>
@@ -181,8 +187,6 @@
         <div class ="wrapper">
             <h4> Our Team </h4>
         </div>
-    </section>  
-    <script src="js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+    </section>    
 </body>
     </html>
