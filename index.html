@@ -69,111 +69,100 @@
 
     <!--Dashboard-->
     <section id="dashboard"> 
-        <div class ="wrapper">
-            <h4>Bike Sales in Europe<br>Dashboard</h4>
+        <div class = "dashboard">
+            <h3> Bike Sales in Europe <br> Dashboard</h3>
             <nav id = "nav-dashboard">
-                <div class = "wrapper">
-                    <form id = filterform class = "filterform">
-                        <!--Year Filter-->
-                        <select name ="year" id="year-filter">
+                <header class = filter>
+                    <h2> Filter By</h2>
+                    <form id="filterForm" class="filter-form">
+                        <select name="year" id="year">
                             <option value="">Year</option>
-                            <option value="">2011</option>
-                            <option value="">2012</option>
-                            <option value="">2013</option>
-                            <option value="">2014</option> 
-                            <option value="">2015</option>
-                            <option value="">2016</option>
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
                         </select>
-                        <!--Product Category Filter-->  
-                        <select name ="country" id="country-filter">
+                        <select name="countryType" id="countryType">
                             <option value="">Country</option>
-                            <option value="">United States</option>
-                            <option value="">United Kingdom</option>
-                            <option value="">Australia</option>
-                            <option value="">German</option>
-                            <option value="">France</option>
-                            <option value="">Canada</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Canada">Canada</option>
                         </select>
-                        <!--product Subcategory Filter-->  
-                        <select name ="subcategory" id="subcategory-filter">
+                        <select name="subcategory" id="subcategory-filter">
                             <option value="">Sub Category</option>
-                            <option value="Road Bike">Road Bike</option>
-                            <option value="Mountain Bike">Mountain Bike</option>
-                            <option value="Touring Bike">Touring Bike</option>
+                            <option value="Road Bikes">Road Bikes</option>
+                            <option value="Mountain Bikes">Mountain Bikes</option>
+                            <option value="Touring Bikes">Touring Bikes</option>
                         </select>
-                        <!--Customer Gender -->
-                        <select name ="gender" id="gender-filter">
+                        <select name="gender" id="gender">
                             <option value="">Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
                         </select>
                     </form>
-                </div>
+                </header>
             </nav>
-        <!--grid-->
-            <div class = "frame">
-                 <div class="item" id="order-quantity">
-                    <p><i class="fa-solid fa-cart-shopping"></i>Order<br>Quantity</p>
-                    <small>36.2K</small> 
-                </div>
-                 <div class="item"  id="total-cost">
-                    <p><i class="fa-solid fa-sack-dollar"></i>Cost</p>
-                    <small>1.59K €</small> 
-                 </div>
-                <div class="item" id="unit-price">
-                    <p><i class="fa-solid fa-dollar-sign"></i>Unit Price</p>
-                    <small>1.90 K €</small>                    
-                </div>
-                <div class="item" id="total-revenue">
-                    <p><i class="fa-solid fa-money-bill-1-wave"></i>Revenue</p>
-                    <small>61.43M €</small> 
-                </div>
-                <div class="item" id="total-profit">
-                    <p><i class="fa-solid fa-wallet"></i>Profit</p>
-                    <small>20.4M €</small> 
-                </div>
-               <div class="item" id="profit-per-unit"   >
-                    <p><i class="fa-solid fa-bicycle"></i>Profit/<br>Unit</p>
-                    <small>566 €</small> 
-                </div>
-            </div> 
-
-        <div class = "chartwrapper">
-            <!-- bar profit vs country -->
-            <div class = "chart">
-                <canvas id = "myChart"></canvas>
-            </div>
-            <!-- bar profit vs year -->
-            <div class = "chart">
-                <canvas id = "myChart2"></canvas>
-            </div>
-            <!-- pie profit vs sub_category -->
-            <div class = "chart">
-                <canvas id = "myChart3"></canvas>
-            </div>
-            <!-- bar profit vs age_group -->
-            <div class = "chart">
-                <canvas id = "myChart4"></canvas>
-            </div>
-            <!-- bar sub_category vs profit & order -->
-            <div class = "chart">
-                <canvas id = "myChart5"></canvas>
-            </div>
-            <!-- pie order_quantity vs gender -->
-            <div class = "chart">
-                <canvas id = "myChart6"></canvas>
-            </div>      
-            <!-- stacked bar Revenue and Cost by Country -->
-            <div class = "chart">
-                <canvas id = "myChart7"></canvas>
-            </div>  
-            <!-- heatmap -->
-            <div class = "chart">
-                <canvas id = "myChart8"></canvas>
-            </div>                  
+            <main>
+                <section class="section-1">
+                    <div class="card" data-name="net.profit">
+                        <p><i class="fa-solid fa-money-bill-trend-up"></i><span id="netProfit">0</span></p>
+                        <small>Net Profit</small>
+                    </div>
+                    <div class="card" data-name="revenue">
+                        <p><i class="fa-solid fa-dollar-sign"></i><span id="revenue">0</span></p>
+                        <small>Revenue</small>
+                    </div>
+                    <div class="card" data-name="cost">
+                        <p><i class="fa-solid fa-address-card"></i><span id="cost">0</span></p>
+                        <small>Total cost</small>
+                    </div>
+                    <div class="card" data-name="total.orders">
+                        <p><i class="fa-solid fa-bag-shopping"></i><span id="order">0</span></p>
+                        <small>Total Orders</small>
+                    </div>
+                </section>
+                <section class="section-2">
+                    <div class="chart">
+                      <div id="ts-chart-container" class="chart-container">
+                        <canvas id="profitchartbyyear"></canvas>
+                      </div>
+                    </div>
+                </section>
+                <section class="section-3">
+                    <div class="chart">
+                      <div id="chart-container" class="chart-container">
+                        <canvas id="order-chart" width="400" height="400"></canvas>
+                    </div>
+                    </div>
+                    <div class="chart">
+                      <div id="pie-chart-container" class="chart-container">
+                        <canvas id="pie-chart" width="400" height="400"></canvas>
+                        <!-- Diagram batang akan ditampilkan di sini -->
+                    </div>
+                    </div>
+                    <div class="chart">
+                      <div id="newcust-chart-container" class="chart-container">
+                        <canvas id="newcust-chart" width="400" height="400"></canvas>
+                        <!-- Diagram batang akan ditampilkan di sini -->
+                    </div>
+                    </div>
+                </section>
+                <section class="section-4">
+                    <div class="chart">
+                      <div id="subcat-chart-container" class="chart-container">
+                        <canvas id="subcatSalesProfit"></canvas>
+                      </div>
+                    </div>
+                </section>
+            </main>
         </div>
-
     </section>
+</section>
 
     <section id="analysis"> 
         <div class ="wrapper">
@@ -282,7 +271,11 @@
     <footer>
         <p>&copy; Team 5 - Jakarta 2024</p>
     </footer>
-<script src="js/main.js"></script>
+<script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </body>
     </html>
