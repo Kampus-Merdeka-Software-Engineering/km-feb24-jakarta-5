@@ -401,6 +401,7 @@ form {
 
 #team > .wrapper .member img{
    width: 100%;
+   border-radius: 5%;
 }
 
 
