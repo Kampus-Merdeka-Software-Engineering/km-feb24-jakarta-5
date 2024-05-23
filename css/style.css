@@ -65,7 +65,7 @@ nav > .wrapper {
    width: 10%;
 }
 
-header{
+.header1{
    background : url('../assets/images/ss.png');
    height: 100vh;
    background-position: center;
@@ -229,7 +229,6 @@ header{
  #dashboard .dashboard {
    padding: 0px 0px 20px 0px;
  }
-
 
  #dashboard > .dashboard > h3{
    text-align: center;
