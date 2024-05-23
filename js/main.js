@@ -22,7 +22,7 @@ function displayMenu(){
 
 //memanggil data json
 async function fetchData(){
-    const response = await fetch('data-bersih.json');
+    const response = await fetch('dataset.json');
     const jsonData = await response.json();
     return jsonData;
 }
