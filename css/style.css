@@ -215,11 +215,10 @@ nav > .wrapper {
  }
 
  #dashboard{
-   background-color: #fff;
+   background-color: whitesmoke ;
    color: #153448;
    font-family:"Kanit", sans-serif ;
    align-items: center;
-   padding: 60px 0px 0px 0px;
  }
 
  #dashboard > .dashboard{

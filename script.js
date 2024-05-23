@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function drawChart(data) {
         const year = document.getElementById('year').value;
         const chartData = year ? getMonthlyAverageData(data, year) : getYearlyAverageData(data);
+        const chartTitle = year ? 'Profit Chart by Month' : 'Profit Chart by Year';
         const options = {
             responsive: true,
             maintainAspectRatio: false,
@@ -112,6 +113,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         text: 'Average Profit'
                     }
                 }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: chartTitle,
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
             }
         };
         const config = {
@@ -137,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function redrawChart(data) {
         const year = document.getElementById('year').value;
         const chartData = year ? getMonthlyAverageData(data, year) : getYearlyAverageData(data);
+        const chartTitle = year ? 'Profit Chart by Month' : 'Profit Chart by Year';
         if (chart) {
             chart.data.datasets[0].data = chartData;
             chart.options.scales.x.time = year ? {
@@ -153,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tooltipFormat: 'yyyy'
             };
             chart.options.scales.x.title.text = year ? 'Month' : 'Year';
+            chart.options.plugins.title.text = chartTitle;
             chart.update();
         } else {
             drawChart(data);
@@ -210,4 +223,5 @@ document.addEventListener('DOMContentLoaded', function() {
         return chartData;
     }
 });
+
     
