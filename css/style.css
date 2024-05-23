@@ -44,7 +44,7 @@ nav > .wrapper {
     margin : 0px;
     padding: 0px;
     justify-content: space-around;
-}
+}     
 
  .menu > ul > li > a{
     text-decoration: none;
@@ -65,7 +65,7 @@ nav > .wrapper {
  }
 
  header{
-    background : url('../assets/images/ss.png');
+    background : url('../images/ss.png');
     height: 100vh;
     background-position: center;
     background-size: cover;
@@ -218,13 +218,16 @@ nav > .wrapper {
    color: #153448;
    font-family:"Kanit", sans-serif ;
    align-items: center;
+   padding: 60px 0px 0px 0px;
  }
 
  #dashboard > .wrapper{
-   margin: 0 auto;
+   margin-left: 0px;
+   margin-right: 0px;
    padding: 0px 50px 30px 50px;
-   width : 84%;
+   width : 92%;
    display: block;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
  }
 
  #dashboard > .wrapper > h4{
@@ -238,26 +241,39 @@ nav > .wrapper {
    justify-content: center;
    display: block;
  }
+
  #nav-dashboard{
    background-color: #fff;
-   display:block;
+   display:inline;
    float: left;
    margin-top: 10px;
    margin-bottom: 10px;
    position: static;
+   height: 50px;
+   width: 100%;
  }
 
- #nav-dashboard > .wrapper {
+header > .filter{
    display: flex;
-   justify-content: space-evenly;
+   justify-content: space-between;
    font-weight: bold;
    width: 100%;
    padding: 0px 0px 0px 0px ;
+   height: 1px;
 }
 
-form {
-   margin-bottom: 20px;
-}
+header > .filter form {
+   display: flex;
+   align-items: center; 
+ }
+
+ header > .filter form select {
+   margin-right: 20px;
+   background-color: #ffff;
+   padding: 2px;
+   font-family: "Montserrat", sans-serif;
+   border: none;
+ }
 
 .frame{
    display: grid;
@@ -311,98 +327,53 @@ form {
    flex-wrap: wrap;
 }
 
-#analysis {
-   background-color: #E3F4F4;
+#analysis{
+   background-color:#E3F4F4;
    color: #3C5B6F;
-   font-family: "Kanit", sans-serif;
+   font-family:"Kanit", sans-serif ;
    align-items: center;
-}
-#analysis > .wrapper {
+ }
+
+ #analysis > .wrapper{
    margin: 0 auto;
    padding: 0px 50px 30px 50px;
-   width: 80%;
+   width : 80%;
    display: flex;
    justify-content: space-evenly;
-   flex-direction: column;
-}
-#analysis > .wrapper > h4 {
+ }
+
+ #analysis > .wrapper > h4{
    text-align: center;
    font-size: 2rem;
-   margin: 0px;
-   padding: 30px 0px 30px 0px;
+   margin : 0px;
+   padding :30px 0px 30px 0px;
    text-transform: uppercase;
-   letter-spacing: 1.5px;
-}
+   letter-spacing:1.5px ;
+ }
 
-#analysis .wrapper h5{
-   font-size: 1.5rem;
-   margin: 0;
-}
-
-#analysis .wrapper p{
-   font-size: 1rem;
-}
-
-#team {
+ #team{
    background-color: #153448;
    color: #EEF7FF;
-   font-family: "Kanit", sans-serif;
+   font-family:"Kanit", sans-serif ;
    align-items: center;
-}
-#team > .wrapper {
-   margin: 0;
-   padding: 0px 0px 30px 0px;
-   width: 100%;
+ }
+
+ #team > .wrapper{
+   margin: 0 auto;
+   padding: 0px 50px 30px 50px;
+   width : 80%;
    display: flex;
    justify-content: space-evenly;
-   flex-direction: column;
-   align-items: center;
-}
+ }
 
-#team > .wrapper .leader-wrapper{
-   display: flex;
-   justify-content: center;
-   gap: 25px;
-}
-
-#team > .wrapper .member-wrapper{
-   display: flex;
-   justify-content: space-evenly;
-   gap: 25px;
-   padding: 0 25px;
-}
-
-#team > .wrapper > h4 {
+ #team > .wrapper > h4{
    text-align: center;
    font-size: 2rem;
-   margin: 0px;
-   padding: 30px 0px 30px 0px;
+   margin : 0px;
+   padding :30px 0px 30px 0px;
    text-transform: uppercase;
-   letter-spacing: 1.5px;
-}
-
-#team > .wrapper .member{
-   width: 20%;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-}
-
-#team > .wrapper .member h5{
-   margin-bottom: 0;
-   font-size: 1rem;
-   text-align: center;
-}
-
-#team > .wrapper .member p{
-   margin-top: 0;
-   text-align: center;
-}
-
-#team > .wrapper .member img{
-   width: 100%;
-   border-radius: 5%;
-}
+   letter-spacing:1.5px ;
+ }
 
 
  button.hamburger{
@@ -421,17 +392,6 @@ form {
    display  : none;
  }
 
-footer{
-   background-color: #E3F4F4;
-   margin: 0;
-   padding: 25px;
-}
-
-footer p{
-   text-align: center;
-   margin: 0;
-}
-    
  @media only screen and (max-width: 1024px){
    .wrapper{
       width: 90%;
