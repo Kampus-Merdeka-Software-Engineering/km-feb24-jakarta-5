@@ -343,7 +343,7 @@ nav > .wrapper {
    padding: 20px;
    border-radius: 8px;
    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-   color: black;
+   color: #153448;
    text-align: center;
    justify-content: center;
    align-items: center;
@@ -354,7 +354,7 @@ nav > .wrapper {
  
  .section-1 > .card > p {
    font-size: 1.8rem;
-   color: #FB8904;
+   color: #ffde3d;
    font-weight: 650;
    margin: auto;
    align-items: center;
