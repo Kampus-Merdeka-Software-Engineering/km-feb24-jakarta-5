@@ -1,4 +1,4 @@
-//humburger menu
+//hamburger menu
 const menu = document.querySelector('.menu');
 const hamburger = document.querySelector('.hamburger');
 const bars = document.querySelector('.icon-bars');
@@ -20,7 +20,7 @@ function displayMenu(){
     }
 }
 
-
+//interactive card and dashboard
 document.addEventListener('DOMContentLoaded', function() {
     const filterForm = document.getElementById('filterForm');
     const netProfitElement = document.getElementById('netProfit');
@@ -28,8 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const costElement = document.getElementById('cost');
     const orderElement = document.getElementById('order');
     const chartCanvas = document.getElementById('profitchartbyyear');
+    const pieChartCanvas = document.getElementById('pie-chart');
     const ctx = chartCanvas.getContext('2d');
+    const pieCtx = pieChartCanvas.getContext('2d');
     let chart;
+    let pieChart;
 
     // Fetch the JSON data
     fetch('dataset.json')
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Initial rendering
             updateDashboard(data);
             drawChart(data);
+            drawPieChart(data);
 
             // Add event listeners for each filter
             filterForm.querySelectorAll('select').forEach(select => {
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const filteredData = filterData(data);
                     updateDashboard(filteredData);
                     redrawChart(filteredData);
+                    redrawPieChart(filteredData);
                 });
             });
         })
@@ -65,6 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Function to format numbers to millions
+    function formatNumberToMillions(num) {
+        if (num >= 1e6) {
+            return (num / 1e6).toFixed(2) + 'M';
+        }
+        return num.toFixed(2);
+    }
+
     // Function to update the dashboard with filtered data
     function updateDashboard(data) {
         const totalProfit = data.reduce((sum, item) => sum + item.Profit, 0);
@@ -72,16 +85,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalCost = data.reduce((sum, item) => sum + item.Cost, 0);
         const totalOrders = data.reduce((sum, item) => sum + item.Order_Quantity, 0);
 
-        netProfitElement.textContent = totalProfit.toFixed(2);
-        revenueElement.textContent = totalRevenue.toFixed(2);
-        costElement.textContent = totalCost.toFixed(2);
+        netProfitElement.textContent = formatNumberToMillions(totalProfit);
+        revenueElement.textContent = formatNumberToMillions(totalRevenue);
+        costElement.textContent = formatNumberToMillions(totalCost);
         orderElement.textContent = totalOrders;
     }
 
-    // Function to draw the initial chart
+    // Function to draw the initial line chart
     function drawChart(data) {
         const year = document.getElementById('year').value;
         const chartData = year ? getMonthlyAverageData(data, year) : getYearlyAverageData(data);
+        const chartTitle = year ? 'Profit Chart by Month' : 'Profit Chart by Year';
         const options = {
             responsive: true,
             maintainAspectRatio: false,
@@ -112,6 +126,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         text: 'Average Profit'
                     }
                 }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: chartTitle,
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
             }
         };
         const config = {
@@ -122,7 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     data: chartData,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
+                    borderWidth: 3, // Set the width of the line
+                    tension: 0.1,
+                    pointRadius: 6, // Set the size of the points
+                    pointHoverRadius: 8 // Set the size of the points on hover
                 }]
             },
             options: options
@@ -133,10 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
         chart = new Chart(ctx, config);
     }
 
-    // Function to redraw the chart with filtered data
+    // Function to redraw the line chart with filtered data
     function redrawChart(data) {
         const year = document.getElementById('year').value;
         const chartData = year ? getMonthlyAverageData(data, year) : getYearlyAverageData(data);
+        const chartTitle = year ? 'Profit Chart by Month' : 'Profit Chart by Year';
         if (chart) {
             chart.data.datasets[0].data = chartData;
             chart.options.scales.x.time = year ? {
@@ -153,10 +181,84 @@ document.addEventListener('DOMContentLoaded', function() {
                 tooltipFormat: 'yyyy'
             };
             chart.options.scales.x.title.text = year ? 'Month' : 'Year';
+            chart.options.plugins.title.text = chartTitle;
             chart.update();
         } else {
             drawChart(data);
         }
+    }
+
+    // Function to draw the initial pie chart
+    function drawPieChart(data) {
+        const pieChartData = getPieChartData(data);
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Total Orders by Category',
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
+            }
+        };
+        const config = {
+            type: 'pie',
+            data: {
+                labels: pieChartData.labels,
+                datasets: [{
+                    data: pieChartData.data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: options
+        };
+        if (pieChart) {
+            pieChart.destroy();
+        }
+        pieChart = new Chart(pieCtx, config);
+    }
+
+    // Function to redraw the pie chart with filtered data
+    function redrawPieChart(data) {
+        const pieChartData = getPieChartData(data);
+        if (pieChart) {
+            pieChart.data.labels = pieChartData.labels;
+            pieChart.data.datasets[0].data = pieChartData.data;
+            pieChart.update();
+        } else {
+            drawPieChart(data);
+        }
+    }
+
+    // Function to get pie chart data based on filtered data
+    function getPieChartData(data) {
+        const subCategoryData = {};
+        data.forEach(item => {
+            const subCategory = item.Sub_Category;
+            if (!subCategoryData[subCategory]) {
+                subCategoryData[subCategory] = 0;
+            }
+            subCategoryData[subCategory] += item.Order_Quantity;
+        });
+
+        return {
+            labels: Object.keys(subCategoryData),
+            data: Object.values(subCategoryData)
+        };
     }
 
     // Function to get yearly average profit data based on filtered data
@@ -210,4 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return chartData;
     }
 });
+
+
     
