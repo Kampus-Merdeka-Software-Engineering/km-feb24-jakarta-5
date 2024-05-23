@@ -256,7 +256,7 @@ nav > .wrapper {
 
  .filter h2 {
    color: #fff;
-   font-family: "Montserrat", sans-serif;
+   font-family: "Nunito Sans", sans-serif;
    margin: 0; /* Remove default margin */
  }
 
@@ -285,7 +285,6 @@ nav > .wrapper {
      'section4 section4 section4 section4';
    grid-template-columns: repeat(4, 1fr);
  }
-
 
  .section-1 {
    margin-top: 20px;
@@ -352,7 +351,7 @@ nav > .wrapper {
  
  
  .section-1 > .card > p {
-   font-size: 1.8rem;
+   font-size: 2rem;
    color: #ffde3d;
    font-weight: 650;
    margin: auto;
@@ -526,7 +525,7 @@ nav > .wrapper {
 #analysis{
    background-color:#E3F4F4;
    color: #3C5B6F;
-   font-family:"Kanit", sans-serif ;
+   font-family: "Nunito Sans", sans-serif; ;
    align-items: center;
  }
 
@@ -546,6 +545,7 @@ nav > .wrapper {
    padding :30px 0px 30px 0px;
    text-transform: uppercase;
    letter-spacing:1.5px ;
+   font-family: "Kanit", sans-serif ;
  }
 
  #analysis .wrapper h5{
@@ -560,7 +560,7 @@ nav > .wrapper {
  #team{
    background-color: #153448;
    color: #EEF7FF;
-   font-family:"Kanit", sans-serif ;
+   font-family:"Nunito Sans", sans-serif ;
    align-items: center;
  }
 
@@ -572,6 +572,11 @@ nav > .wrapper {
    justify-content: space-evenly;
    flex-direction: column;
    align-items: center;
+ }
+
+ #team > .wrapper h4 b{
+   font-family:"Kanit", sans-serif ;
+   font-size: 2rem;
  }
 
  #team > .wrapper .leader-wrapper{
@@ -615,7 +620,8 @@ nav > .wrapper {
 }
 
 #team > .wrapper .member img{
-   width: 100%;
+   width: 95%;
+   border-radius: 5%;
 }
 
 
