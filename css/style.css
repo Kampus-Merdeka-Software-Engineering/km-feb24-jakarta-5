@@ -193,14 +193,16 @@ a {
   font-size: 3rem;
   margin: 0px;
   padding: 0px;
+  color: #ffde3d;
 }
 #statistic > .wrapper > div > p > i {
   margin-right: 10px;
   font-size: 3rem;
+  color: #ffde3d;
 }
 #statistic > .wrapper > div > small {
    font-size: 1.5rem;
-   color: #ffde3d;
+   color: #fff;
    text-shadow: black;
 }
 
@@ -251,7 +253,8 @@ a {
 .filter h2 {
   color: #fff;
   font-family: "Nunito Sans", sans-serif;
-  margin: 0; /* Remove default margin */
+  font-size: 20px;
+  margin: 0; 
 }
 .filter form {
   display: flex;
@@ -325,7 +328,6 @@ a {
   z-index: 92;
 }
 
-
 .section-1 .card {
   margin-top: 10px;
   flex-basis: 270px;
@@ -346,13 +348,17 @@ a {
   font-weight: 650;
   margin: auto;
   align-items: center;
-  margin-bottom: 3px;
+  margin-top: -5px;
+  margin-bottom: -6px;
 }
 .section-1 > .card > p > i {
   margin-right: 15px;
 }
 .section-1 > .card > small {
-  font-size: 1rem;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
 
 .section-2 .chart {
@@ -368,7 +374,7 @@ a {
   display: flex;
   justify-content: center;
   padding: 5px;
-  height: 380px;
+  height: 390px;
   margin-top: 0px;
 }
 
@@ -376,6 +382,7 @@ a {
   background-color: white;
   border-radius: 5px;
   margin-top: 0px;
+  margin-bottom: 9px;
 }
 .section-3 .chart-container {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -384,7 +391,7 @@ a {
   justify-content: center;
   padding: 5px;
   width: 385px;
-  height: 300px;
+  height: 310px;
   margin-top: 0px;
 }
  
@@ -512,10 +519,9 @@ a {
    flex-wrap: wrap;
 } */
 
-
 #analysis {
-  background-color:#E3F4F4;
-  color: #3C5B6F;
+  background-color:#fff;
+  color: #153448;
   font-family: "Nunito Sans", sans-serif;
   align-items: center;
 }
@@ -545,10 +551,9 @@ a {
   text-align: justify;
 }
 
-
 #team {
   background-color: #153448;
-  color: #EEF7FF;
+  color: #fff;
   font-family: "Nunito Sans", sans-serif;
   align-items: center;
 }
