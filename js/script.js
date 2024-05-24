@@ -20,7 +20,7 @@ function displayMenu(){
     }
 }
 
-//interactive card and dashboard
+
 //interactive card and dashboard
 document.addEventListener('DOMContentLoaded', function() {
     const filterForm = document.getElementById('filterForm');
