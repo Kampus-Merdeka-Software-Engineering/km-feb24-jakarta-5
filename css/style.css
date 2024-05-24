@@ -59,11 +59,11 @@ nav > .wrapper {
     display: flex;
     align-items: center;
  }
+
 .logo > img {
    margin-left: 1%;
    width: 10%;
 }
-
 
 .header1 {
   background: url('../assets/images/ss.png');
@@ -204,7 +204,6 @@ a {
    text-shadow: black;
 }
 
-
 #dashboard {
   background-color: whitesmoke;
   color: #153448;
@@ -221,6 +220,7 @@ a {
   text-align: center;
   font-size: 2rem;
   margin: 0 auto;
+  margin-bottom: -50px;
   padding: 30px 0px 20px 0px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -229,19 +229,25 @@ a {
   display: block;
 }
 
+#nav-dashboard{
+  margin-right: 20px;
+  margin-left: 20px;
+}
 
 .filter {
   display: flex;
-  width: 98.5%;
+  width: 98%;
   justify-content: space-between;
   align-items: center;
   position: absolute;
   top: 70px;
-  padding: 10px;
+  padding: 15px;
   background-color: #153448;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 30px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  height: 25px;
+  border-radius: 10px;
 }
+
 .filter h2 {
   color: #fff;
   font-family: "Nunito Sans", sans-serif;
@@ -260,7 +266,6 @@ a {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
 #dashboard > .dashboard > main {
   margin: 125px 0 20px;
   grid-area: main;
@@ -274,15 +279,16 @@ a {
 }
 
 .section-1 {
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 0px;
   grid-area: section1;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 7px;
-  width: 98%;
-  margin-left: 10px;
+  width: 96.8%;
+  margin-right: 20px;
+  margin-left: 20px;
   background-color: whitesmoke;
   z-index: 95;
 }
