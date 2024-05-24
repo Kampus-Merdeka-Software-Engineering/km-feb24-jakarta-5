@@ -144,8 +144,8 @@ a {
 
 
 #about {
-  background-color: #EEF7FF;
-  color: #153448;
+  background-color: #153448;
+  color: #fff;
 }
 #about > .wrapper {
   text-align: center;
@@ -171,8 +171,8 @@ a {
 
 
 #statistic {
-  background-color: #EEF7FF;
-  color: #153448;
+  background-color: #153448;
+  color: #fff;
   font-family: "Kanit", sans-serif;
   align-items: center;
 }

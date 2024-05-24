@@ -70,10 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to format numbers to millions
-    function formatNumberToMillions(num) {
+    // Function to format numbers to millions or thousands
+    function formatNumber(num) {
         if (num >= 1e6) {
             return (num / 1e6).toFixed(2) + 'M';
+        } else if (num >= 1e3) {
+            return (num / 1e3).toFixed(2) + 'K';
         }
         return num.toFixed(2);
     }
@@ -85,9 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalCost = data.reduce((sum, item) => sum + item.Cost, 0);
         const totalOrders = data.reduce((sum, item) => sum + item.Order_Quantity, 0);
 
-        netProfitElement.textContent = formatNumberToMillions(totalProfit);
-        revenueElement.textContent = formatNumberToMillions(totalRevenue);
-        costElement.textContent = formatNumberToMillions(totalCost);
+        netProfitElement.textContent = formatNumber(totalProfit);
+        revenueElement.textContent = formatNumber(totalRevenue);
+        costElement.textContent = formatNumber(totalCost);
         orderElement.textContent = totalOrders;
     }
 
@@ -312,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return chartData;
     }
 });
+
 
 
     
