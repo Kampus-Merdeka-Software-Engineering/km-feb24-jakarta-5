@@ -21,6 +21,7 @@ function displayMenu(){
 }
 
 //interactive card and dashboard
+//interactive card and dashboard
 document.addEventListener('DOMContentLoaded', function() {
     const filterForm = document.getElementById('filterForm');
     const netProfitElement = document.getElementById('netProfit');
@@ -30,12 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartCanvas = document.getElementById('profitchartbyyear');
     const pieChartCanvas = document.getElementById('pie-chart');
     const barChartCanvas = document.getElementById('bar-chart');
+    const ageHistogramCanvas = document.getElementById('age-histogram');
     const ctx = chartCanvas.getContext('2d');
     const pieCtx = pieChartCanvas.getContext('2d');
     const barCtx = barChartCanvas.getContext('2d');
+    const ageHistogramCtx = ageHistogramCanvas.getContext('2d');
     let chart;
     let pieChart;
     let barChart;
+    let ageHistogram;
 
     // Fetch the JSON data
     fetch('dataset.json')
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             drawChart(data);
             drawPieChart(data);
             drawBarChart(data);
+            drawAgeHistogram(data);
 
             // Add event listeners for each filter
             filterForm.querySelectorAll('select').forEach(select => {
@@ -55,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     redrawChart(filteredData);
                     redrawPieChart(filteredData);
                     redrawBarChart(filteredData);
+                    redrawAgeHistogram(filteredData);
                 });
             });
         })
@@ -319,6 +325,76 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to draw the initial age histogram
+    function drawAgeHistogram(data) {
+        const ageData = getAgeData(data);
+        const labels = Object.keys(ageData);
+        const ageValues = Object.values(ageData);
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Customers'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Age'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Customer Age Distribution',
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
+            }
+        };
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Customers',
+                    data: ageValues,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 0.7)',
+                    borderWidth: 1
+                }]
+            },
+            options: options
+        };
+        if (ageHistogram) {
+            ageHistogram.destroy();
+        }
+        ageHistogram = new Chart(ageHistogramCtx, config);
+    }
+
+    // Function to redraw the age histogram with filtered data
+    function redrawAgeHistogram(data) {
+        const ageData = getAgeData(data);
+        const labels = Object.keys(ageData);
+        const ageValues = Object.values(ageData);
+
+        if (ageHistogram) {
+            ageHistogram.data.labels = labels;
+            ageHistogram.data.datasets[0].data = ageValues;
+            ageHistogram.update();
+        } else {
+            drawAgeHistogram(data);
+        }
+    }
+
     // Function to get pie chart data based on filtered data
     function getPieChartData(data) {
         const subCategoryData = {};
@@ -399,7 +475,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return chartData;
     }
+
+    // Function to get age data based on filtered data
+    function getAgeData(data) {
+        const ageData = {};
+        data.forEach(item => {
+            const age = item.Customer_Age;
+            if (!ageData[age]) {
+                ageData[age] = 0;
+            }
+            ageData[age] += 1;
+        });
+        return ageData;
+    }
 });
+
 
 
 

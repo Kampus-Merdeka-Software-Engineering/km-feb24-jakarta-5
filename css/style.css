@@ -56,13 +56,13 @@ nav > .wrapper {
 
 
 .logo {
-  display: flex;
-  align-items: center;
-}
+    display: flex;
+    align-items: center;
+ }
 
 .logo > img {
-  margin-left: 1%;
-  width: 10%;
+   margin-left: 1%;
+   width: 10%;
 }
 
 .header1 {
@@ -164,7 +164,7 @@ a {
   letter-spacing: 1.5px;
 }
 #about > .wrapper > p {
-  text-align: justify;
+  text-align: center;
   margin: 0px;
   padding: 0px 30px 0px 30px;
 }
@@ -206,7 +206,6 @@ a {
    text-shadow: black;
 }
 
-
 #dashboard {
   background-color: whitesmoke;
   color: #153448;
@@ -231,11 +230,11 @@ a {
   justify-content: center;
   display: block;
 }
+
 #nav-dashboard{
   margin-right: 20px;
   margin-left: 20px;
 }
-
 
 .filter {
   display: flex;
@@ -250,6 +249,7 @@ a {
   height: 25px;
   border-radius: 10px;
 }
+
 .filter h2 {
   color: #fff;
   font-family: "Nunito Sans", sans-serif;
@@ -268,7 +268,6 @@ a {
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 #dashboard > .dashboard > main {
   margin: 125px 0 20px;
@@ -414,6 +413,112 @@ a {
 }
 
 
+ /* #dashboard > .wrapper{
+   margin-left: 0px;
+   margin-right: 0px;
+   padding: 0px 50px 30px 50px;
+   width : 92%;
+   display: block;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ #dashboard > .wrapper > h4{
+   text-align: center;
+   font-size: 2rem;
+   margin : 0 auto;
+   padding :30px 0px 20px 0px;
+   text-transform: uppercase;
+   letter-spacing:1.5px ;
+   display: flex;
+   justify-content: center;
+   display: block;
+ } */
+
+ /* #nav-dashboard{
+   background-color: #fff;
+   display:inline;
+   float: left;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   position: static;
+   height: 50px;
+   width: 100%;
+ } */
+
+/* header > .filter{
+   display: flex;
+   justify-content: space-between;
+   font-weight: bold;
+   width: 100%;
+   padding: 0px 0px 0px 0px ;
+   height: 1px;
+} */
+
+/* header > .filter form {
+   display: flex;
+   align-items: center; 
+ } */
+/* 
+ header > .filter form select {
+   margin-right: 20px;
+   background-color: #ffff;
+   padding: 2px;
+   font-family: "Montserrat", sans-serif;
+   border: none;
+ } */
+
+/* .frame{
+   display: grid;
+   grid-template-columns: 15% 15% 15% 15% 15% 15%;
+   grid-gap : 20px;
+   width: 100%;
+   text-align: center;
+   justify-content: center ;
+} */
+
+/* .frame > .item {
+   border : 1px solid;
+   background-color: #153448;
+   border-radius: 5px;
+}  */
+
+/* .frame > .item > p{
+   font-size: medium;
+   color: #fff;
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   text-align: center;
+   font-family:Arial, Helvetica, sans-serif ;
+   font-size: 18px;
+}
+
+.frame > .item > p > i{
+   margin-right: 1px;
+   font-size: 1.5rem;
+   color: #ffde3d;
+}
+
+.frame > .item > small{
+   color : #ffde3d;
+   font-size: 23px;
+   align-items: center;
+   text-align: center;
+}
+
+.chart {
+   width: 30%;
+   display: inline-block;
+   margin: 1%;
+   justify-content: space-around;
+}
+
+.chartwrapper {
+   display: flex;
+   justify-content: space-around;
+   flex-wrap: wrap;
+} */
+
 #analysis {
   background-color:#fff;
   color: #153448;
@@ -445,7 +550,6 @@ a {
   font-size: 1rem;
   text-align: justify;
 }
-
 
 #team {
   background-color: #153448;
@@ -504,7 +608,6 @@ a {
   width: 95%;
   border-radius: 5%;
 }
-
 
 button.hamburger {
   background-color: #153448;
@@ -583,26 +686,26 @@ footer p{
 }
 
 @media only screen and (max-width: 786px){
-   .menu {
+   .menu{
       width: 70%;
-    }
-   .header-jumbotron > h4 {
+   }
+   .header-jumbotron > h4{
       font-size: 1rem;
-    }
-   .header-jumbotron > h5 {
+   }
+   .header-jumbotron > h5{
       font-size: 2rem;
       line-height: 2.2rem;
-    }
-   .header-jumbotron > p {
+   }
+   .header-jumbotron > p{
       font-size: 0.8rem;
-    }
-   .button {
+   }
+   .button{
       width: 110px;
       height: 50px;
-    }
-   .buttton-xl {
+   }
+   .buttton-xl{
     font-size: 0.5rem;
-  }
+   }
 
   #statistic > .wrapper > div > p {
     font-size: 2rem;
@@ -614,7 +717,7 @@ footer p{
     font-size: 0.8rem;
   }
    
-  #statistic > .wrapper > div > p > i {
+  #statistic > .wrapper > div > p> i {
     font-size: 2rem;
   }
 }
