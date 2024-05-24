@@ -185,6 +185,7 @@ a {
   text-align: center;
 }
 #statistic > .wrapper > div {
+  padding-top: 20px;
   text-align: center;
   justify-content: center;
 }
