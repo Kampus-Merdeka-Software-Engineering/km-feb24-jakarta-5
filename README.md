@@ -1,11 +1,12 @@
 <p align="center">
  <img src="assets/images/logo-team-5.png", width="256px"/>
-  <br> Capstone Project
-  <br> Data Analytics & Software Engineering with AI
 </p>
 
+# Team 5 - Bike Sales in Europe
+To fulfill the primary task of Software Engineering modules, by creating a simple website to visualize and showcase our findings and recommendations that we get from the dataset. 
 
-## 🌐 Technologies Used
+
+## 🧰 Technologies Used
 
 | Technology                                                            | Description                                                                                               |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -13,6 +14,14 @@
 | [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)               | Responsible for adding style to a web page by dictating how a site is displayed on a browser.             |
 | [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Responsible for dynamic and interactive web page to interact with visitors and execute complex actions.   |
 | [Chart.js](https://www.chartjs.org/)                                  | Responsible for JavaScript charting library for the modern web.                                           |
+
+
+## 🌐 Links
+
+| Website                                                                           | Description                                            |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| [Demo](https://kampus-merdeka-software-engineering.github.io/km-feb24-jakarta-5/) | Powered by [GitHub Pages](https://pages.github.com/).  |
+| Final                                                                             | Coming soon.                                           |
 
 
 ## ⭐ Team Members
