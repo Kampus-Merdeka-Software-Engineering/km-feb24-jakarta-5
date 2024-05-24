@@ -29,10 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderElement = document.getElementById('order');
     const chartCanvas = document.getElementById('profitchartbyyear');
     const pieChartCanvas = document.getElementById('pie-chart');
+    const barChartCanvas = document.getElementById('bar-chart');
     const ctx = chartCanvas.getContext('2d');
     const pieCtx = pieChartCanvas.getContext('2d');
+    const barCtx = barChartCanvas.getContext('2d');
     let chart;
     let pieChart;
+    let barChart;
 
     // Fetch the JSON data
     fetch('dataset.json')
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateDashboard(data);
             drawChart(data);
             drawPieChart(data);
+            drawBarChart(data);
 
             // Add event listeners for each filter
             filterForm.querySelectorAll('select').forEach(select => {
@@ -50,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateDashboard(filteredData);
                     redrawChart(filteredData);
                     redrawPieChart(filteredData);
+                    redrawBarChart(filteredData);
                 });
             });
         })
@@ -246,6 +251,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to draw the initial bar chart
+    function drawBarChart(data) {
+        const genderProfitData = getGenderProfitData(data);
+        const labels = Object.keys(genderProfitData);
+        const profitValues = Object.values(genderProfitData);
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'x',
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Profit'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Gender'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Profit by Gender',
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
+            }
+        };
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Profit',
+                    data: profitValues,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: options
+        };
+        barChart = new Chart(barCtx, config);
+    }
+
+    // Function to redraw the bar chart with filtered data
+    function redrawBarChart(data) {
+        const genderProfitData = getGenderProfitData(data);
+        const labels = Object.keys(genderProfitData);
+        const profitValues = Object.values(genderProfitData);
+
+        if (barChart) {
+            barChart.data.labels = labels;
+            barChart.data.datasets[0].data = profitValues;
+            barChart.update();
+        } else {
+            drawBarChart(data);
+        }
+    }
+
     // Function to get pie chart data based on filtered data
     function getPieChartData(data) {
         const subCategoryData = {};
@@ -261,6 +334,19 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: Object.keys(subCategoryData),
             data: Object.values(subCategoryData)
         };
+    }
+
+    // Function to get gender profit data based on filtered data
+    function getGenderProfitData(data) {
+        const genderProfitData = {};
+        data.forEach(item => {
+            const gender = item.Customer_Gender;
+            if (!genderProfitData[gender]) {
+                genderProfitData[gender] = 0;
+            }
+            genderProfitData[gender] += item.Profit;
+        });
+        return genderProfitData;
     }
 
     // Function to get yearly average profit data based on filtered data
