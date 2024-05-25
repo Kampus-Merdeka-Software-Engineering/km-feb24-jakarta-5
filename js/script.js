@@ -37,6 +37,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+//"Click Here to Explore"
+document.addEventListener('DOMContentLoaded', function() {
+    const exploreButton = document.querySelector('.button-xl');
+    exploreButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = exploreButton.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        const navHeight = document.querySelector('nav').offsetHeight;
+        window.scrollTo({
+            top: targetElement.offsetTop - navHeight,
+            behavior: 'smooth'
+        });
+    });
+});
+
+
 //interactive card and dashboard
 document.addEventListener('DOMContentLoaded', function() {
     const filterForm = document.getElementById('filterForm');
@@ -47,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartCanvas = document.getElementById('profitchartbyyear');
     const pieChartCanvas = document.getElementById('pie-chart');
     const ageHistogramCanvas = document.getElementById('age-histogram');
-    const barChartCanvas = document.getElementById('bar-chart'); // Rename this as genderPieChartCanvas
+    const genderPieChartCanvas = document.getElementById('bar-chart');
     const ctx = chartCanvas.getContext('2d');
     const pieCtx = pieChartCanvas.getContext('2d');
-    const barCtx = barChartCanvas.getContext('2d'); // Rename this as genderPieCtx
+    const genderPieCtx = genderPieChartCanvas.getContext('2d');
     const ageHistogramCtx = ageHistogramCanvas.getContext('2d');
     let chart;
     let pieChart;
-    let genderPieChart; // Renamed from barChart
+    let genderPieChart;
     let ageHistogram;
 
     // Fetch the JSON data
@@ -65,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateDashboard(data);
             drawChart(data);
             drawPieChart(data);
-            drawGenderPieChart(data); // Renamed from drawBarChart
+            drawGenderPieChart(data);
             drawAgeHistogram(data);
 
             // Add event listeners for each filter
@@ -75,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateDashboard(filteredData);
                     redrawChart(filteredData);
                     redrawPieChart(filteredData);
-                    redrawGenderPieChart(filteredData); // Renamed from redrawBarChart
+                    redrawGenderPieChart(filteredData);
                     redrawAgeHistogram(filteredData);
                 });
             });
@@ -180,10 +196,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     borderColor: [
                         'rgba(54, 162, 235, 0.6)',
                     ],
-                    borderWidth: 3, // Set the width of the line
+                    borderWidth: 3,
                     tension: 0.1,
-                    pointRadius: 6, // Set the size of the points
-                    pointHoverRadius: 8 // Set the size of the points on hover
+                    pointRadius: 6,
+                    pointHoverRadius: 8
                 }]
             },
             options: options
@@ -278,7 +294,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
     // Function to draw the initial age histogram
     function drawAgeHistogram(data) {
         const ageData = getAgeData(data);
@@ -289,24 +304,23 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of Customers'
-                    }
-                },
                 x: {
                     title: {
                         display: true,
                         text: 'Age'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Customers'
                     }
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: 'Customer Age Distribution',
+                    text: 'Number of Customers by Age',
                     font: {
                         size: 24
                     },
@@ -352,6 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to draw the initial gender pie chart
     function drawGenderPieChart(data) {
         const genderProfitData = getGenderProfitData(data);
+        console.log('Gender Profit Data:', genderProfitData); // Debugging log
         const labels = Object.keys(genderProfitData);
         const profitValues = Object.values(genderProfitData);
 
@@ -391,12 +406,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (genderPieChart) {
             genderPieChart.destroy();
         }
-        genderPieChart = new Chart(barCtx, config);
+        genderPieChart = new Chart(genderPieCtx, config);
     }
 
     // Function to redraw the gender pie chart with filtered data
     function redrawGenderPieChart(data) {
         const genderProfitData = getGenderProfitData(data);
+        console.log('Redrawing Gender Profit Data:', genderProfitData); // Debugging log
         const labels = Object.keys(genderProfitData);
         const profitValues = Object.values(genderProfitData);
 
@@ -444,11 +460,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const genderProfitData = {};
         data.forEach(item => {
             const gender = item.Customer_Gender;
-            if (!genderProfitData[gender]) {
-                genderProfitData[gender] = 0;
+            const genderLabel = gender === 'M' ? 'Male' : gender === 'F' ? 'Female' : gender;
+            if (!genderProfitData[genderLabel]) {
+                genderProfitData[genderLabel] = 0;
             }
-            genderProfitData[gender] += item.Profit;
+            genderProfitData[genderLabel] += item.Profit;
         });
+        console.log('Processed Gender Profit Data:', genderProfitData); // Debugging log
         return genderProfitData;
     }
 
@@ -483,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const monthlyData = {};
         filteredData.forEach(item => {
             const date = new Date(item.Date);
-            const month = date.getMonth(); // 0 (January) to 11 (December)
+            const month = date.getMonth();
             if (!monthlyData[month]) {
                 monthlyData[month] = { sum: 0, count: 0 };
             }
@@ -504,3 +522,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+

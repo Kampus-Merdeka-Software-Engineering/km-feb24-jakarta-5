@@ -116,7 +116,6 @@ nav > .wrapper {
   font-family: "Nunito Sans", sans-serif;
 }
 
-
 .button {
   background-color: #ffde3d;
   padding: 0;
@@ -134,13 +133,11 @@ nav > .wrapper {
   font-size: 2.5rem;
 }
 
-
 a {
   font-size: 1.2rem;
   text-decoration: none;
   color: #153448;
 }
-
 
 #about {
   background-color: #153448;
@@ -432,7 +429,7 @@ a {
   flex-direction: column;
 }
 
-#analysis > .wrapper> .section-5 {
+#analysis > .wrapper> .container {
   grid-area: section5;
   width: 1150px;
   background-color: #fff;
@@ -483,9 +480,9 @@ a {
   align-items: center;
 }
 #team > .wrapper {
-  margin: 0;
+  margin: auto;
   padding: 0px 0px 30px 0px;
-  width: 100%;
+  width: 93%;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -544,6 +541,7 @@ a {
 #team > .wrapper .member img {
   width: 95%;
   border-radius: 5%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 button.hamburger {
@@ -560,11 +558,10 @@ button.hamburger > i.icon-close {
   display: none;
 }
 
-
 footer {
-  background-color: #E3F4F4;
+  background-color: whitesmoke;
   margin: 0;
-  padding: 25px;
+  padding: 15px;
 }
 
 footer p{
