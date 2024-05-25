@@ -595,10 +595,22 @@ a {
   flex-direction: column;
   align-items: center;
 }
+
+#team > .wrapper .member h6 {
+  margin-top: 0;
+  margin-bottom: 3px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  color:#fff ;
+}
+
 #team > .wrapper .member h5 {
+  margin-top: 0;
   margin-bottom: 0;
   font-size: 1rem;
   text-align: center;
+  color: #ffde3d;
 }
 #team > .wrapper .member p {
   margin-top: 0;
