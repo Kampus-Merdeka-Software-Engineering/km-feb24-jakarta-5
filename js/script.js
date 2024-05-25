@@ -20,6 +20,22 @@ function displayMenu(){
     }
 }
 
+//smooth scroll
+document.addEventListener('DOMContentLoaded', (event) => {
+    const menuLinks = document.querySelectorAll('nav .menu ul li a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            window.scrollTo({
+                top: targetElement.offsetTop - document.querySelector('nav').offsetHeight,
+                behavior: 'smooth'
+            });
+        });
+    });
+});
 
 //interactive card and dashboard
 document.addEventListener('DOMContentLoaded', function() {
