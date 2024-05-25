@@ -489,7 +489,7 @@ a {
   align-items: center;
 }
 #team > .wrapper h4 b {
-  font-family:"Kanit", sans-serif;
+  font-family: "Kanit", sans-serif;
   font-size: 2rem;
 }
 #team > .wrapper .leader-wrapper {
@@ -503,7 +503,7 @@ a {
   gap: 25px;
   padding: 0 25px;
 }
-#team > .wrapper > h4{
+#team > .wrapper > h4 {
   text-align: center;
   font-size: 2rem;
   margin: 0px;
@@ -517,22 +517,21 @@ a {
   flex-direction: column;
   align-items: center;
 }
-
 #team > .wrapper .member h6 {
   margin-top: 0;
   margin-bottom: 3px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
-  color:#fff ;
+  color: #fff;
 }
-
 #team > .wrapper .member h5 {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 1rem;
   text-align: center;
   color: #ffde3d;
+  line-height: 1.5;
 }
 #team > .wrapper .member p {
   margin-top: 0;
@@ -543,6 +542,7 @@ a {
   border-radius: 5%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
+
 
 button.hamburger {
   background-color: #153448;
@@ -563,8 +563,7 @@ footer {
   margin: 0;
   padding: 15px;
 }
-
-footer p{
+footer p {
   text-align: center;
   margin: 0;
 }
