@@ -226,6 +226,21 @@ a {
   display: block;
 }
 
+#dashboard .dashboard h4{
+  text-align: right;
+  margin-top: 1px;
+  margin-right: 22px;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: italic;
+}
+
+#dashboard .dashboard h4 a{
+  font-size: 15px;
+}
+#dashboard .dashboard h4 a b{
+  text-decoration: underline;
+}
+
 #nav-dashboard{
   margin-right: 20px;
   margin-left: 20px;
@@ -422,7 +437,7 @@ a {
 
 #analysis > .wrapper {
   margin: 0 auto;
-  padding: 0px 50px 30px 50px;
+  padding: 30px 50px 30px 50px;
   width: 91%;
   display: flex;
   justify-content: center;
