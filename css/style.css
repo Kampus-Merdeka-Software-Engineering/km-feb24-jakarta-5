@@ -11,9 +11,8 @@ body{
 }
 
 nav > .wrapper {
-  width: 80%;
   margin: auto;
-  padding: 10px 0px 10px 0px;
+  padding: 10px 5vw 10px 5vw;
   top: 0;
   height: 50px;
 }
@@ -29,7 +28,7 @@ nav {
 
 nav > .wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 1.2rem;
   align-items: center;
 }
@@ -43,8 +42,13 @@ nav > .wrapper {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
-  justify-content: space-around;
-}     
+  justify-content: end;
+  gap: 25px;
+} 
+.menu > ul li{
+  display: inline-block;
+}
+
 .menu > ul > li > a {
   text-decoration: none;
   color: #fff;
@@ -61,7 +65,7 @@ nav > .wrapper {
 
 .logo > img {
    margin-left: 1%;
-   width: 10%;
+   height: 40px;
 }
 
 .header1 {
@@ -638,6 +642,9 @@ footer p {
 @media only screen and (max-width: 786px){
    .menu{
       width: 70%;
+   }
+   .menu a{
+    font-size: 1em;
    }
    .header-jumbotron > h4{
       font-size: 1rem;
