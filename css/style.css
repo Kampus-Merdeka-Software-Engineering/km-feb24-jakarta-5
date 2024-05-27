@@ -228,20 +228,20 @@ a {
   display: block;
 }
 
-#dashboard .dashboard h4{
+
+#dashboard .dashboard h4 {
   text-align: right;
   margin-top: 1px;
   margin-right: 22px;
   font-family: "Nunito Sans", sans-serif;
-  font-style: italic;
 }
-
-#dashboard .dashboard h4 a{
+#dashboard .dashboard h4 a {
   font-size: 15px;
 }
-#dashboard .dashboard h4 a b{
-  text-decoration: underline;
+#dashboard .dashboard h4 p {
+  font-size: 15px;
 }
+
 
 #nav-dashboard{
   margin-right: 20px;
