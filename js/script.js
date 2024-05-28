@@ -64,14 +64,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const pieChartCanvas = document.getElementById('pie-chart');
     const ageHistogramCanvas = document.getElementById('age-histogram');
     const genderPieChartCanvas = document.getElementById('bar-chart');
+    const barStackCanvas = document.getElementById('bar-stack');
+
     const ctx = chartCanvas.getContext('2d');
     const pieCtx = pieChartCanvas.getContext('2d');
     const genderPieCtx = genderPieChartCanvas.getContext('2d');
     const ageHistogramCtx = ageHistogramCanvas.getContext('2d');
+    const barStackCtx = barStackCanvas.getContext('2d');
+
     let chart;
     let pieChart;
     let genderPieChart;
     let ageHistogram;
+    let barStackChart;
+
 
     // Fetch the JSON data
     fetch('dataset.json')
@@ -83,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
             drawPieChart(data);
             drawGenderPieChart(data);
             drawAgeHistogram(data);
+            drawBarStackChart(data);
+
 
             // Add event listeners for each filter
             filterForm.querySelectorAll('select').forEach(select => {
@@ -93,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     redrawPieChart(filteredData);
                     redrawGenderPieChart(filteredData);
                     redrawAgeHistogram(filteredData);
+                    redrawBarStackChart(filteredData);
                 });
             });
         })
@@ -425,6 +434,66 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+     // Function to draw the initial bar stack chart
+     function drawBarStackChart(data) {
+        const barStackData = getBarStackData(data);
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Order Quantity'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Country'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Order Quantity by Country and Sub-Category',
+                    font: {
+                        size: 24
+                    },
+                    color: '#153448'
+                }
+            }
+        };
+
+        const config = {
+            type: 'bar',
+            data: barStackData,
+            options: options
+        };
+
+        if (barStackChart) {
+            barStackChart.destroy();
+        }
+        barStackChart = new Chart(barStackCtx, config);
+    }
+
+
+    // Function to redraw the bar stack chart with filtered data
+    function redrawBarStackChart(data) {
+        const barStackData = getBarStackData(data);
+        if (barStackChart) {
+            barStackChart.data = barStackData;
+            barStackChart.update();
+        } else {
+            drawBarStackChart(data);
+        }
+    }
+
     // Function to get pie chart data based on filtered data
     function getPieChartData(data) {
         const subCategoryData = {};
@@ -468,6 +537,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         console.log('Processed Gender Profit Data:', genderProfitData); // Debugging log
         return genderProfitData;
+    }
+
+     // Function to extract bar stack data
+     function getBarStackData(data) {
+        const subCategories = [...new Set(data.map(item => item.Sub_Category))];
+        const countries = [...new Set(data.map(item => item.Country))];
+        
+        const datasets = subCategories.map(subCategory => {
+            return {
+                label: subCategory,
+                data: countries.map(country => {
+                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                    return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                }),
+                backgroundColor: getRandomColor()
+            };
+        });
+
+        return {
+            labels: countries,
+            datasets: datasets
+        };
+    }
+
+    // Helper function to get random color
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 
     // Function to get yearly average profit data based on filtered data
