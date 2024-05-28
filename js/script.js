@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 //"Click Here to Explore"
 document.addEventListener('DOMContentLoaded', function() {
-    const exploreButton = document.querySelector('.button-xl');
+    const exploreButton = document.querySelector('.button');
     exploreButton.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = exploreButton.getAttribute('href').substring(1);

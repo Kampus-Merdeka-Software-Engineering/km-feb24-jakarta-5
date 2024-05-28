@@ -132,14 +132,7 @@ nav > .wrapper {
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-.buttton-xl{
-  font-size: 2.5rem;
-}
-
-a {
   font-size: 1.2rem;
-  text-decoration: underline;
   color: #153448;
 }
 
