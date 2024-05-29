@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
-html, 
-body{
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap");
+html,
+body {
   margin: 0px;
   padding: 0px;
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
-  font-optical-sizing: auto ;
+  font-optical-sizing: auto;
   scroll-behavior: smooth;
 }
 
@@ -44,8 +44,8 @@ nav > .wrapper {
   padding: 0px;
   justify-content: end;
   gap: 25px;
-} 
-.menu > ul li{
+}
+.menu > ul li {
   display: inline-block;
 }
 
@@ -59,23 +59,23 @@ nav > .wrapper {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
- }
+  display: flex;
+  align-items: center;
+}
 
 .logo > img {
-   margin-left: 1%;
-   height: 40px;
+  margin-left: 1%;
+  height: 40px;
 }
 
 .header1 {
-  background: url('../assets/images/ss.png');
+  background: url("../assets/images/ss.png");
   height: 100vh;
   background-position: center;
   background-size: cover;
   background-repeat: none;
   position: relative;
-  font-family: "Kanit", sans-serif ;
+  font-family: "Kanit", sans-serif;
   letter-spacing: 5px;
 }
 .header-opacity {
@@ -183,21 +183,22 @@ nav > .wrapper {
   text-align: center;
   justify-content: center;
 }
- #statistic > .wrapper > div > p {
+#statistic > .wrapper > div > p {
   font-size: 3rem;
   margin: 0px;
   padding: 0px;
   color: #ffde3d;
 }
-#statistic > .wrapper > div > p > i {
-  margin-right: 10px;
+#statistic > .wrapper > div > p > img {
+  width: 5rem;
+  margin-right: 5px;
   font-size: 3rem;
   color: #ffde3d;
 }
 #statistic > .wrapper > div > small {
-   font-size: 1.5rem;
-   color: #fff;
-   text-shadow: black;
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: black;
 }
 
 #dashboard {
@@ -225,7 +226,6 @@ nav > .wrapper {
   display: block;
 }
 
-
 #dashboard .dashboard h4 {
   text-align: right;
   margin-top: 1px;
@@ -239,8 +239,7 @@ nav > .wrapper {
   font-size: 15px;
 }
 
-
-#nav-dashboard{
+#nav-dashboard {
   margin-right: 20px;
   margin-left: 20px;
 }
@@ -263,7 +262,11 @@ nav > .wrapper {
   color: #fff;
   font-family: "Nunito Sans", sans-serif;
   font-size: 20px;
-  margin: 0; 
+  margin: 0;
+}
+.filter img {
+  width: 20px;
+  margin-right: 5px;
 }
 .filter form {
   display: flex;
@@ -282,11 +285,11 @@ nav > .wrapper {
   margin: 125px 0 20px;
   grid-area: main;
   display: grid;
-  grid-template-areas: 
-    'section1 section1 section1 section1'
-    'section2 section2 section2 section2'
-    'section3 section3 section3 section3'
-    'section4 section4 section4 section4';
+  grid-template-areas:
+    "section1 section1 section1 section1"
+    "section2 section2 section2 section2"
+    "section3 section3 section3 section3"
+    "section4 section4 section4 section4";
   grid-template-columns: repeat(4, 1fr);
 }
 
@@ -329,9 +332,9 @@ nav > .wrapper {
   grid-area: section4;
   margin-top: 20px;
   display: flex;
-  flex-direction: row; 
-  width: 99%; 
-  justify-content: space-evenly; 
+  flex-direction: row;
+  width: 99%;
+  justify-content: space-evenly;
   background-color: whitesmoke;
   margin-left: 10px;
   z-index: 93;
@@ -403,15 +406,15 @@ nav > .wrapper {
   height: 310px;
   margin-top: 0px;
 }
- 
+
 .section-4 .chart {
   background-color: whitesmoke;
   border-radius: 5px;
   margin-top: 0px;
   margin-bottom: 9px;
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .section-4 .chart-container {
@@ -428,7 +431,7 @@ nav > .wrapper {
 }
 
 #analysis {
-  background-color:whitesmoke;
+  background-color: whitesmoke;
   color: #153448;
   font-family: "Nunito Sans", sans-serif;
   align-items: center;
@@ -443,14 +446,14 @@ nav > .wrapper {
   flex-direction: column;
 }
 
-#analysis > .wrapper> .container {
+#analysis > .wrapper > .container {
   grid-area: section5;
   width: 1150px;
   background-color: #fff;
   display: block;
   justify-content: center;
   align-items: center;
-  margin :10px;
+  margin: 10px;
   z-index: 92;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -458,15 +461,14 @@ nav > .wrapper {
   height: 400px;
 }
 
-
 #analysis > .wrapper > h4 {
   text-align: center;
   font-size: 2rem;
   margin: 0px;
   padding: 30px 0px 30px 0px;
   text-transform: uppercase;
-  letter-spacing: .5px;
-  font-family: "Kanit", sans-serif ;
+  letter-spacing: 0.5px;
+  font-family: "Kanit", sans-serif;
 }
 
 #analysis .wrapper h5 {
@@ -474,7 +476,14 @@ nav > .wrapper {
   font-size: 1.5rem;
   margin: 5px;
 }
+
+#analysis .wrapper img {
+  width: 1.5rem;
+  margin-right: auto;
+}
+
 #analysis .wrapper p {
+  margin-left: 1cm;
   margin-top: 0px;
   padding: 20px 50px 10px 55px;
   padding-top: 5px;
@@ -482,9 +491,13 @@ nav > .wrapper {
   text-align: justify;
 }
 
-#analysis .wrapper ul{
+#analysis .wrapper ul {
   margin-top: 0px;
   padding: 10px 50px 20px 55px;
+}
+
+#analysis .wrapper li {
+  margin-left: 1cm;
 }
 
 #team {
@@ -511,7 +524,7 @@ nav > .wrapper {
   justify-content: center;
   gap: 25px;
 }
-#team > .wrapper .member-wrapper{
+#team > .wrapper .member-wrapper {
   display: flex;
   justify-content: space-evenly;
   gap: 25px;
@@ -557,7 +570,6 @@ nav > .wrapper {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-
 button.hamburger {
   background-color: #153448;
   border: none;
@@ -581,34 +593,34 @@ footer p {
   text-align: center;
   margin: 0;
 }
-   
+
 @media only screen and (max-width: 1024px) {
-  .wrapper{
+  .wrapper {
     width: 90%;
   }
 }
 
 @media only screen and (max-width: 900px) {
-  .menu{
+  .menu {
     width: 70%;
   }
 
-  .header-jumbotron > h4{
+  .header-jumbotron > h4 {
     font-size: 1.2rem;
   }
-  .header-jumbotron > h5{
+  .header-jumbotron > h5 {
     font-size: 2.2rem;
     line-height: 2.4rem;
   }
-  .header-jumbotron > p{
+  .header-jumbotron > p {
     font-size: 1rem;
   }
 
-  .button{
+  .button {
     width: 120px;
     height: 60px;
   }
-  .buttton-xl{
+  .buttton-xl {
     font-size: 0.7rem;
   }
 
@@ -620,69 +632,69 @@ footer p {
   #statistic > .wrapper > div > small {
     font-size: 1rem;
   }
-  #statistic > .wrapper > div > p> i {
+  #statistic > .wrapper > div > p > i {
     font-size: 2.5rem;
   }
 
- nav > .wrapper {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-  align-items: center;
-}
+  nav > .wrapper {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    align-items: center;
+  }
 }
 
-@media only screen and (max-width: 786px){
-   .menu{
-      width: 70%;
-   }
-   .menu a{
+@media only screen and (max-width: 786px) {
+  .menu {
+    width: 70%;
+  }
+  .menu a {
     font-size: 1em;
-   }
-   .header-jumbotron > h4{
-      font-size: 1rem;
-   }
-   .header-jumbotron > h5{
-      font-size: 2rem;
-      line-height: 2.2rem;
-   }
-   .header-jumbotron > p{
-      font-size: 0.8rem;
-   }
-   .button{
-      width: 110px;
-      height: 50px;
-   }
-   .buttton-xl{
+  }
+  .header-jumbotron > h4 {
+    font-size: 1rem;
+  }
+  .header-jumbotron > h5 {
+    font-size: 2rem;
+    line-height: 2.2rem;
+  }
+  .header-jumbotron > p {
+    font-size: 0.8rem;
+  }
+  .button {
+    width: 110px;
+    height: 50px;
+  }
+  .buttton-xl {
     font-size: 0.5rem;
-   }
+  }
 
   #statistic > .wrapper > div > p {
     font-size: 2rem;
-    margin : 0px;
-    padding : 0px;
+    margin: 0px;
+    padding: 0px;
   }
 
   #statistic > .wrapper > div > small {
     font-size: 0.8rem;
   }
-   
-  #statistic > .wrapper > div > p> i {
+
+  #statistic > .wrapper > div > p > i {
     font-size: 2rem;
   }
 }
 
 @media only screen and (max-width: 600px) {
-    .header-jumbotron > h5 {
+  .header-jumbotron > h5 {
     font-size: 1.8rem;
     line-height: 2.4rem;
-  } 
-   
+  }
+
   a {
     font-size: 1rem;
   }
   #statistic > .wrapper {
-    padding : 10px;
+    padding: 10px;
     flex-direction: column;
   }
   #statistic > .wrapper > div {
@@ -690,8 +702,8 @@ footer p {
   }
   #statistic > .wrapper > div > p {
     font-size: 1.2rem;
-    margin : 0px;
-    padding : 0px;
+    margin: 0px;
+    padding: 0px;
   }
   #statistic > .wrapper > div > p > i {
     font-size: 1.2rem;
@@ -709,11 +721,11 @@ footer p {
   button.hamburger {
     display: inline;
   }
-  .menu{
-    display : none;
+  .menu {
+    display: none;
   }
 
-  .tampil{
+  .tampil {
     display: inline;
   }
   .tampil > ul {
@@ -721,9 +733,9 @@ footer p {
     background-color: #153448;
     width: 63.4%;
     position: fixed;
-    top : 85px;
+    top: 85px;
   }
   .tampil > ul > li {
     padding: 10px 20px 10px 20px;
-}
+  }
 }
