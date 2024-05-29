@@ -307,6 +307,7 @@ nav > .wrapper {
   background-color: whitesmoke;
   z-index: 95;
 }
+
 .section-2 {
   grid-area: section2;
   width: 99%;
