@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         const config = {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: labels,
                 datasets: [{
