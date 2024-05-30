@@ -67,144 +67,126 @@
     </section>
 
     <section id="statistic">
-      <div class="wrapper">
-        <div>
-          <p>
-            <img src="assets/images/icons/State.png" style="width: 35px" />42
-          </p>
-          <small>Country</small>
+        <div class = "wrapper">
+            <div>
+                <p><img src="assets/images/icons/Country.png" style="width: 3rem;">60+</p>
+                <small>Country</small>
+            </div>
+            <div>
+                <p><img src="assets/images/icons/bicycle.png">15+</p>
+                <small>Total Order</small>
+            </div>
+            <div>
+                <p><img src="assets/images/icons/euro.png">20+</p>
+                <small>Total Profit</small>
+            </div>           
         </div>
-        <div>
-          <p><img src="assets/images/icons/bicycle.png">36.201</p>
-          <small>Total Order</small>
-        </div>
-        <div>
-          <p><img src="assets/images/icons/euro.png" />20.399.762</p>
-          <small>Total Profit</small>
-        </div>
-      </div>
     </section>
 
     <!--Dashboard-->
-    <section id="dashboard">
-      <div class="dashboard">
-        <h3>
-          Bike Sales in Europe <br />
-          Dashboard
-        </h3>
-        <nav id="nav-dashboard">
-          <header class="filter">
-            <h2><img src="assets/images/icons/filter.png" />Filter by</h2>
-            <form id="filterForm" class="filter-form">
-              <select name="year" id="year">
-                <option value="">Year</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-              </select>
-              <select name="countryType" id="countryType">
-                <option value="">Country</option>
-                <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Australia">Australia</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-                <option value="Canada">Canada</option>
-              </select>
-              <select name="subcategory" id="subcategory-filter">
-                <option value="">Category</option>
-                <option value="Road Bikes">Road Bikes</option>
-                <option value="Mountain Bikes">Mountain Bikes</option>
-                <option value="Touring Bikes">Touring Bikes</option>
-              </select>
-              <select name="gender" id="gender">
-                <option value="">Gender</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-            </form>
-          </header>
-        </nav>
-        <main>
-          <section class="section-1">
-            <div class="card" data-name="net.profit">
-              <p>
-                <i class="fa-solid fa-sack-dollar"></i
-                ><span id="netProfit">0</span>
-              </p>
-              <small>Net Profit</small>
-            </div>
-            <div class="card" data-name="revenue">
-              <p>
-                <i class="fa-solid fa-euro-sign"></i><span id="revenue">0</span>
-              </p>
-              <small>Revenue</small>
-            </div>
-            <div class="card" data-name="cost">
-              <p><i class="fa-solid fa-wallet"></i><span id="cost">0</span></p>
-              <small>Total cost</small>
-            </div>
-            <div class="card" data-name="total.orders">
-              <p>
-                <i class="fa-solid fa-cart-shopping"></i
-                ><span id="order">0</span>
-              </p>
-              <small>Total Orders</small>
-            </div>
-          </section>
-          <section class="section-2">
-            <div class="chart">
-              <div id="ts-chart-container" class="chart-container">
-                <canvas id="profitchartbyyear"></canvas>
-              </div>
-            </div>
-          </section>
-          <section class="section-3">
-            <div class="chart">
-              <div id="chart-container" class="chart-container">
-                <canvas id="pie-chart" width="400" height="400"></canvas>
-              </div>
-            </div>
-            <div class="chart">
-              <div id="age-histogram-container" class="chart-container">
-                <canvas id="age-histogram" width="400" height="400"></canvas>
-              </div>
-            </div>
-            <div class="chart">
-              <div id="bar-chart-container" class="chart-container">
-                <canvas id="bar-chart" width="400" height="400"></canvas>
-              </div>
-            </div>
-          </section>
-          <section class="section-4">
-            <div class="chart">
-              <div id="bar-stack-chart-container" class="chart-container">
-                <canvas id="bar-stack"></canvas>
-              </div>
-            </div>
-            <div class="chart">
-              <div id="scatter-chart-container" class="chart-container">
-                <canvas id="scatter-chart"></canvas>
-              </div>
-            </div>
-          </section>
-        </main>
-        <h4>
-          <p>
-            Data source:
-            <a
-              href="https://www.kaggle.com/datasets/sadiqshah/bike-sales-in-europe"
-              target="_blank"
-              title="Bike Sales in Europe"
-              >Kaggle</a
-            >
-          </p>
-        </h4>
-      </div>
+    <section id="dashboard"> 
+        <div class = "dashboard">
+            <h3> Bike Sales in Europe <br> Dashboard</h3>
+            <nav id = "nav-dashboard">
+                <header class = filter>
+                    <h2><img src="assets/images/icons/filter.png">Filter by</h2>
+                    <form id="filterForm" class="filter-form">
+                        <select name="year" id="year">
+                            <option value="">Year</option>
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                        </select>
+                        <select name="countryType" id="countryType">
+                            <option value="">Country</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Canada">Canada</option>
+                        </select>
+                        <select name="subcategory" id="subcategory-filter">
+                            <option value="">Category</option>
+                            <option value="Road Bikes">Road Bikes</option>
+                            <option value="Mountain Bikes">Mountain Bikes</option>
+                            <option value="Touring Bikes">Touring Bikes</option>
+                        </select>
+                        <select name="gender" id="gender">
+                            <option value="">Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </form>
+                </header>
+            </nav>
+            <main>
+                <section class="section-1">
+                    <div class="card" data-name="net.profit">
+                        <p><i class="fa-solid fa-sack-dollar"></i><span id="netProfit">0</span></p>
+                        <small>Net Profit</small>
+                    </div>
+                    <div class="card" data-name="revenue">
+                        <p><i class="fa-solid fa-euro-sign"></i><span id="revenue">0</span></p>
+                        <small>Revenue</small>
+                    </div>
+                    <div class="card" data-name="cost">
+                        <p><i class="fa-solid fa-wallet"></i><span id="cost">0</span></p>
+                        <small>Total cost</small>
+                    </div>
+                    <div class="card" data-name="total.orders">
+                        <p><i class="fa-solid fa-cart-shopping"></i><span id="order">0</span></p>
+                        <small>Total Orders</small>
+                    </div>
+                </section>
+                <section class="section-2">
+                    <div class="chart">
+                      <div id="ts-chart-container" class="chart-container">
+                        <canvas id="profitchartbyyear"></canvas>
+                      </div>
+                    </div>
+                </section>
+                <section class="section-3">
+                    <div class="chart">
+                      <div id="chart-container" class="chart-container">
+                        <canvas id="pie-chart" width="400" height="400"></canvas>
+                    </div>
+                    </div>
+                    <div class="chart">
+                      <div id= "age-histogram-container"  class="chart-container">
+                        <canvas id="age-histogram" width="400" height="400"></canvas>
+                    </div>
+                    </div>
+                    <div class="chart">
+                      <div id="bar-chart-container" class="chart-container">
+                        <canvas id="bar-chart" width="400" height="400"></canvas>
+                    </div>
+                    </div>
+                </section>
+                <section class="section-4">
+                    <div class="chart">
+                      <div id="bar-stack-chart-container" class="chart-container">
+                        <canvas id="bar-stack"></canvas>
+                      </div>
+                      </div>
+                      <div class="chart">
+                        <div id="scatter-chart-container" class="chart-container">
+                          <canvas id="scatter-chart"></canvas>
+                        </div>          
+                      </div>
+                </section>
+            </main>
+            <h4>
+                <p>Data source:
+                    <a href="https://www.kaggle.com/datasets/sadiqshah/bike-sales-in-europe" target="_blank" title="Bike Sales in Europe">Kaggle</a>
+                </p>
+            </h4>
+        </div>
     </section>
+</section>
 
     <section id="analysis">
       <div class="wrapper">

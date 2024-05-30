@@ -434,67 +434,66 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-     // Function to draw the initial bar stack chart
-     function drawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
+    // Function to draw the initial bar stack chart
+function drawBarStackChart(data) {
+    const barStackData = getBarStackData(data);
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: 'Order Quantity'
-                    }
-                },
-                y: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: 'Country'
-                    }
-                }
-            },
-            plugins: {
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        scales: {
+            x: {
+                stacked: true,
                 title: {
                     display: true,
-                    text: 'Order Quantity by Country and Sub-Category',
-                    font: {
-                        size: 24
-                    },
-                    color: '#153448'
+                    text: 'Order Quantity'
+                }
+            },
+            y: {
+                stacked: true,
+                title: {
+                    display: true,
+                    text: 'Country'
                 }
             }
-        };
-
-        const config = {
-            type: 'bar',
-            data: barStackData,
-            options: options
-        };
-
-        if (barStackChart) {
-            barStackChart.destroy();
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Order Quantity by Country and Sub-Category',
+                font: {
+                    size: 24
+                },
+                color: '#153448'
+            }
         }
-        barStackChart = new Chart(barStackCtx, config);
+    };
+
+    const config = {
+        type: 'bar',
+        data: barStackData,
+        options: options
+    };
+
+    if (barStackChart) {
+        barStackChart.destroy();
     }
+    barStackChart = new Chart(barStackCtx, config);
+}
 
-
-    // Function to redraw the bar stack chart with filtered data
-    function redrawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
-        if (barStackChart) {
-            barStackChart.data = barStackData;
-            barStackChart.update();
-        } else {
-            drawBarStackChart(data);
-        }
+// Function to redraw the bar stack chart with filtered data
+function redrawBarStackChart(data) {
+    const barStackData = getBarStackData(data);
+    if (barStackChart) {
+        barStackChart.data = barStackData;
+        barStackChart.update();
+    } else {
+        drawBarStackChart(data);
     }
+}
 
-    // Function to extract bar stack data with sorted countries by total order quantity
+// Function to extract bar stack data with sorted countries by total order quantity
 function getBarStackData(data) {
     // Calculate total order quantity for each country
     const countryOrderQuantities = {};
@@ -511,15 +510,30 @@ function getBarStackData(data) {
     // Get unique sub-categories
     const subCategories = [...new Set(data.map(item => item.Sub_Category))];
     
+    // Define a fixed color palette
+    const colorPalette = {
+        'Road Bikes': 'rgba(255, 99, 132, 1)',
+        'Mountain Bikes': 'rgba(54, 162, 235, 1)',
+        'Touring Bikes': 'rgba(255, 206, 86, 1)',
+        // Add more colors as needed for each sub-category
+    };
+
+    // Debug: Log the sub-categories and their corresponding colors
+    console.log('Sub-Categories:', subCategories);
+    console.log('Color Palette:', colorPalette);
+
     // Create datasets for each sub-category
     const datasets = subCategories.map(subCategory => {
+        const color = colorPalette[subCategory] || 'rgba(0, 0, 0, 1)'; // Fallback color for undefined sub-categories
+        console.log(`Sub-Category: ${subCategory}, Color: ${color}`); // Debug: Log the assigned color
+
         return {
             label: subCategory,
             data: sortedCountries.map(country => {
                 const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
                 return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
             }),
-            backgroundColor: getRandomColor()
+            backgroundColor: color // Assign the predefined color
         };
     });
 
@@ -527,16 +541,6 @@ function getBarStackData(data) {
         labels: sortedCountries,
         datasets: datasets
     };
-}
-
-// Helper function to get random color
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
 }
 
 
@@ -669,4 +673,93 @@ function getRandomColor() {
     }
 
 });
+
+//pagination table
+document.addEventListener('DOMContentLoaded', function() {
+    // Memanggil elemen-elemen HTML yang diperlukan
+    const dataTable = document.getElementById('dataTable');
+    const paginationContainer = document.getElementById('pagination');
+
+    // Memanggil dataset dari file JSON
+    fetch('dataset.json')
+        .then(response => response.json())
+        .then(data => {
+            // Memperbarui tabel ketika dataset tersedia
+            updateTable(data);
+        })
+        .catch(error => console.error('Error loading the dataset:', error));
+
+    // Fungsi untuk memperbarui tabel dengan data yang diberikan
+    function updateTable(data) {
+        // Menghitung total profit untuk setiap produk
+        const productProfits = {};
+        data.forEach(item => {
+            const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
+            if (!productProfits[key]) {
+                productProfits[key] = 0;
+            }
+            productProfits[key] += item.Profit;
+        });
+
+        // Mengonversi objek productProfits menjadi array untuk diurutkan
+        const sortedProducts = Object.keys(productProfits)
+            .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
+            .sort((a, b) => b.totalProfit - a.totalProfit)
+            .slice(0, 100); // Mengambil 100 produk paling menguntungkan
+
+        // Menampilkan data di dalam tabel
+        renderTable(sortedProducts);
+    }
+
+    // Fungsi untuk menampilkan data dalam tabel dengan pagination
+    function renderTable(data) {
+        const rowsPerPage = 10; // Jumlah baris per halaman
+        const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
+
+        // Fungsi untuk membuat halaman data
+        function renderPage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = data.slice(start, end);
+
+            // Menghapus konten tabel sebelumnya
+            dataTable.innerHTML = '';
+
+            // Membuat header tabel
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Product Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
+            dataTable.appendChild(headerRow);
+
+            // Menambahkan baris untuk setiap produk
+            pageData.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${start + index + 1}</td><td>${product.product}</td><td>${product.category}</td><td>${product.subCategory}</td><td>${product.country}</td><td>${formatNumber(product.totalProfit)}</td>`; // Menggunakan fungsi formatNumber untuk memformat nominal profit
+                dataTable.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk membuat tombol halaman
+        function renderPaginationButtons() {
+            paginationContainer.innerHTML = '';
+            for (let i = 1; i <= pageCount; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.addEventListener('click', () => renderPage(i));
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        // Menampilkan halaman pertama saat pertama kali memuat tabel
+        renderPage(1);
+
+        // Menampilkan tombol pagination
+        renderPaginationButtons();
+    }
+
+    // Fungsi untuk memformat nominal profit dengan titik
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+});
+
 
