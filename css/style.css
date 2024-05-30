@@ -358,7 +358,7 @@ nav > .wrapper {
 .section-1 > .card > p {
   font-size: 2rem;
   color: #ffde3d;
-  font-weight: 650;
+  font-weight: 600;
   margin: auto;
   align-items: center;
   margin-top: -5px;
@@ -493,7 +493,8 @@ tr:nth-child(even) {
   margin: 0 auto;
 }
 
-#dataTable th, #dataTable td {
+#dataTable th,
+#dataTable td {
   padding: 8px;
   text-align: left;
   border: 1px solid #ddd;
@@ -502,18 +503,18 @@ tr:nth-child(even) {
 #dataTable th {
   background-color: #f2f2f2;
   position: -webkit-sticky;
-  position: sticky ;
+  position: sticky;
   top: 48px;
   z-index: 2;
   border-bottom: 1px solid #ddd;
 }
 #dataTable th:nth-child(1),
 #dataTable td:nth-child(1) {
-    width: 5%;
+  width: 5%;
 }
 #dataTable th:nth-child(5),
 #dataTable td:nth-child(5) {
-    width: 40%;
+  width: 40%;
 }
 #pagination {
   margin-top: 10px;
@@ -532,11 +533,11 @@ tr:nth-child(even) {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 3px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .pagination-button.active {
-  background-color: #FB8904;
+  background-color: #fb8904;
   color: #fff;
 }
 
@@ -544,7 +545,6 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
   color: #000;
 }
-
 
 #analysis {
   background-color: whitesmoke;
@@ -710,7 +710,7 @@ footer p {
   margin: 0;
 }
 
-@media only screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .wrapper {
     width: 90%;
   }
@@ -758,8 +758,9 @@ footer p {
     padding: 0px;
   }
   #statistic > .wrapper > div > small {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
+
   #statistic > .wrapper > div > p > i {
     font-size: 2.5rem;
   }
@@ -767,8 +768,16 @@ footer p {
   nav > .wrapper {
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
+    font-size: 1.5rem;
     align-items: center;
+  }
+
+  div > .wrapper > small {
+    font-size: 2rem;
+  }
+
+  .section-1 > .card > p {
+    font-size: 1.8rem;
   }
 
   .section-3 .chart-container {
@@ -787,7 +796,7 @@ footer p {
 
 @media only screen and (max-width: 780px) {
   .menu {
-    width: 70%;
+    width: 78%;
   }
   .menu a {
     font-size: 1em;
@@ -817,11 +826,19 @@ footer p {
   }
 
   #statistic > .wrapper > div > small {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
 
   #statistic > .wrapper > div > p > i {
     font-size: 2rem;
+  }
+
+  .section-1 > .card > p {
+    font-size: 1.6rem;
+  }
+
+  .section-1 > .card > small {
+    font-size: 1.6rem;
   }
 
   .section-3 .chart-container {
@@ -836,9 +853,6 @@ footer p {
     width: 635px;
     height: 480px;
   }
-
-
-
 }
 
 @media only screen and (max-width: 600px) {
@@ -850,49 +864,80 @@ footer p {
   a {
     font-size: 1rem;
   }
+
   #statistic > .wrapper {
     padding: 10px;
     flex-direction: column;
   }
-  #statistic > .wrapper > div {
-    display: flex;
-  }
+
   #statistic > .wrapper > div > p {
-    font-size: 1.2rem;
-    margin: 0px;
-    padding: 0px;
+    font-size: 2rem;
+    align-items: center;
   }
-  #statistic > .wrapper > div > p > i {
-    font-size: 1.2rem;
+  #statistic > .wrapper > div > p > img {
+    width: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-
   #statistic > .wrapper > div > small {
+    font-size: 1.5rem;
+
+    color: #fff;
+    text-shadow: black;
+  }
+
+  .filter {
+    width: 95%;
+  }
+
+  .section-1 {
+    width: 93%;
+  }
+
+  .section-1 > .card > p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    align-items: center;
+  }
+
+  .section-1 > .card > small {
     font-size: 1rem;
-    padding-left: 10px;
+    align-items: center;
   }
 
-  #about > .wrapper > div {
+  .section-2 {
+    width: 98%;
+  }
+
+  .section-3 {
+    display: inline;
     width: 100%;
+    background-color: whitesmoke;
+    /* justify-content: space-evenly; */
   }
 
-  button.hamburger {
-    display: inline;
-  }
-  .menu {
-    display: none;
+  .section-3 .chart-container {
+    width: 400px;
+    justify-content: center;
+    margin-top: 10px;
   }
 
-  .tampil {
+  .section-4 {
     display: inline;
   }
-  .tampil > ul {
-    flex-direction: column;
-    background-color: #153448;
-    width: 63.4%;
-    position: fixed;
-    top: 85px;
+
+  .section-4 .chart-container {
+    width: 520px;
+    height: 310px;
   }
-  .tampil > ul > li {
-    padding: 10px 20px 10px 20px;
+
+  #analysis > .wrapper > .container {
+    width: 455px;
+    height: 680px;
+  }
+
+  #team > .wrapper .member-wrapper {
+    gap: 1px;
+    padding: 0 5px;
   }
 }
