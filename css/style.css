@@ -513,7 +513,7 @@ tr:nth-child(even) {
 }
 #dataTable th:nth-child(5),
 #dataTable td:nth-child(5) {
-    width: 40%;
+    width: 20%;
 }
 #pagination {
   margin-top: 10px;
