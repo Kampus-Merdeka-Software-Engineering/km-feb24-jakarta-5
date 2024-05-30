@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         const config = {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: labels,
                 datasets: [{
@@ -493,6 +493,52 @@ document.addEventListener('DOMContentLoaded', function() {
             drawBarStackChart(data);
         }
     }
+
+    // Function to extract bar stack data with sorted countries by total order quantity
+function getBarStackData(data) {
+    // Calculate total order quantity for each country
+    const countryOrderQuantities = {};
+    data.forEach(item => {
+        if (!countryOrderQuantities[item.Country]) {
+            countryOrderQuantities[item.Country] = 0;
+        }
+        countryOrderQuantities[item.Country] += item.Order_Quantity;
+    });
+
+    // Sort countries by total order quantity
+    const sortedCountries = Object.keys(countryOrderQuantities).sort((a, b) => countryOrderQuantities[b] - countryOrderQuantities[a]);
+
+    // Get unique sub-categories
+    const subCategories = [...new Set(data.map(item => item.Sub_Category))];
+    
+    // Create datasets for each sub-category
+    const datasets = subCategories.map(subCategory => {
+        return {
+            label: subCategory,
+            data: sortedCountries.map(country => {
+                const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+            }),
+            backgroundColor: getRandomColor()
+        };
+    });
+
+    return {
+        labels: sortedCountries,
+        datasets: datasets
+    };
+}
+
+// Helper function to get random color
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 
     // Function to get pie chart data based on filtered data
     function getPieChartData(data) {
