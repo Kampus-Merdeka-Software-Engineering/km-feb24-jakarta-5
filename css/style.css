@@ -190,7 +190,7 @@ nav > .wrapper {
   color: #ffde3d;
 }
 #statistic > .wrapper > div > p > img {
-  width: 5rem;
+  width: 50px;
   margin-right: 5px;
   font-size: 3rem;
   color: #ffde3d;
@@ -599,6 +599,18 @@ footer p {
   .wrapper {
     width: 90%;
   }
+
+  .section-3 .chart-container {
+    width: 310px;
+  }
+
+  .section-4 .chart-container {
+    width: 470px;
+  }
+
+  #analysis > .wrapper > .container {
+    width: 900px;
+  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -643,9 +655,22 @@ footer p {
     font-size: 1rem;
     align-items: center;
   }
+
+  .section-3 .chart-container {
+    width: 270px;
+  }
+
+  .section-4 .chart-container {
+    width: 400px;
+  }
+
+  #analysis > .wrapper > .container {
+    width: 760px;
+    height: 460px;
+  }
 }
 
-@media only screen and (max-width: 786px) {
+@media only screen and (max-width: 780px) {
   .menu {
     width: 70%;
   }
@@ -683,6 +708,22 @@ footer p {
   #statistic > .wrapper > div > p > i {
     font-size: 2rem;
   }
+
+  .section-3 .chart-container {
+    width: 230px;
+  }
+
+  .section-4 .chart-container {
+    width: 350px;
+  }
+
+  #analysis > .wrapper > .container {
+    width: 635px;
+    height: 480px;
+  }
+
+
+
 }
 
 @media only screen and (max-width: 600px) {
