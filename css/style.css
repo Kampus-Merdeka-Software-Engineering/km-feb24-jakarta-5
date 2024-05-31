@@ -445,7 +445,7 @@ nav > .wrapper {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  color: #153448;
+  color: #575656;
   background-color: white;
   position: -webkit-sticky;
   position: sticky;
@@ -851,8 +851,8 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 505px;
-    height: 580px;
+    width: 635px;
+    height: 480px;
   }
 }
 
@@ -933,8 +933,8 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 355px;
-    height: 700px;
+    width: 455px;
+    height: 680px;
   }
 
   #team > .wrapper .member-wrapper {
