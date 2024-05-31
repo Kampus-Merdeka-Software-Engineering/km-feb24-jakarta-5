@@ -21,7 +21,7 @@ To fulfill the primary task of Software Engineering modules, by creating a simpl
 | Website                                                                           | Description                                            |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | [Demo](https://kampus-merdeka-software-engineering.github.io/km-feb24-jakarta-5/) | Powered by [GitHub Pages](https://pages.github.com/).  |
-| Final                                                                             | Coming soon.                                           |
+| [Final](https://km-feb24-jakarta-5.vercel.app/)                                   | Powered by [Vercel](https://vercel.com/)               |
 
 
 ## ⭐ Team Members
