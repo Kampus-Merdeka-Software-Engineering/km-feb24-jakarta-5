@@ -3,7 +3,7 @@
 </p>
 
 # Team 5 - Bike Sales in Europe
-To fulfill the primary task of Software Engineering modules, by creating a simple website to visualize and showcase our findings and recommendations that we get from the dataset. 
+We are creating a website to visualize and showcase our findings and recommendations that we got from the dataset. 
 
 
 ## 🧰 Technologies Used
@@ -21,7 +21,7 @@ To fulfill the primary task of Software Engineering modules, by creating a simpl
 | Website                                                                           | Description                                            |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | [Demo](https://kampus-merdeka-software-engineering.github.io/km-feb24-jakarta-5/) | Powered by [GitHub Pages](https://pages.github.com/).  |
-| [Final](https://km-feb24-jakarta-5.vercel.app/)                                   | Powered by [Vercel](https://vercel.com/)               |
+| [Final](https://km-feb24-jakarta-5.vercel.app/)                                   | Powered by [Vercel](https://vercel.com/).              |
 
 
 ## ⭐ Team Members
