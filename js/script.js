@@ -848,6 +848,146 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Function to change business insight per country
+function removeActive(){
+    let buttonActive = document.querySelector('.button-ci-active');
+    if (buttonActive){
+        if (buttonActive.classList.contains('button-ci-active')){
+            buttonActive.classList.remove('button-ci-active');
+        }
+    }  
+    let visibleContent = document.querySelectorAll('.visible');
+    if (visibleContent[0]){
+        if (visibleContent[0].classList.contains('visible')){
+            visibleContent[0].classList.add('hide');
+            visibleContent[0].classList.remove('visible');
+        }
+    }
+    if (visibleContent[1]){
+        if (visibleContent[1].classList.contains('visible')){
+            visibleContent[1].classList.add('hide');
+            visibleContent[1].classList.remove('visible');
+        }
+    }  
+}
 
+function showOvr(){
+    removeActive()
+    const concOvr = document.querySelector('#conclusion-ovr');
+    const recOvr = document.querySelector('#recommendations-ovr');
+    buttonOvr.classList.add('button-ci-active')
+    concOvr.classList.add('visible')
+    recOvr.classList.add('visible')
+    if (concOvr.classList.contains('hide')){
+        concOvr.classList.remove('hide')
+    }
+    if (recOvr.classList.contains('hide')){
+        recOvr.classList.remove('hide')
+    }
+}
 
+function showUs(){
+    removeActive()
+    const concUs = document.querySelector('#conclusion-us');
+    const recUs = document.querySelector('#recommendations-us');
+    buttonUs.classList.add('button-ci-active')
+    concUs.classList.add('visible')
+    recUs.classList.add('visible')
+    if (concUs.classList.contains('hide')){
+        concUs.classList.remove('hide')
+    }
+    if (recUs.classList.contains('hide')){
+        recUs.classList.remove('hide')
+    }
+}
 
+function showUk(){
+    removeActive()
+    const concUk = document.querySelector('#conclusion-uk');
+    const recUk = document.querySelector('#recommendations-uk');
+    buttonUk.classList.add('button-ci-active')
+    concUk.classList.add('visible')
+    recUk.classList.add('visible')
+    if (concUk.classList.contains('hide')){
+        concUk.classList.remove('hide')
+    }
+    if (recUk.classList.contains('hide')){
+        recUk.classList.remove('hide')
+    }
+}
+
+function showAus(){
+    removeActive()
+    const concAus = document.querySelector('#conclusion-aus');
+    const recAus = document.querySelector('#recommendations-aus');
+    buttonAus.classList.add('button-ci-active')
+    concAus.classList.add('visible')
+    recAus.classList.add('visible')
+    if (concAus.classList.contains('hide')){
+        concAus.classList.remove('hide')
+    }
+    if (recAus.classList.contains('hide')){
+        recAus.classList.remove('hide')
+    }
+}
+
+function showGer(){
+    removeActive()
+    const concGer = document.querySelector('#conclusion-ger');
+    const recGer = document.querySelector('#recommendations-ger');
+    buttonGer.classList.add('button-ci-active')
+    concGer.classList.add('visible')
+    recGer.classList.add('visible')
+    if (concGer.classList.contains('hide')){
+        concGer.classList.remove('hide')
+    }
+    if (recGer.classList.contains('hide')){
+        recGer.classList.remove('hide')
+    }
+}
+
+function showFr(){
+    removeActive()
+    const concFr = document.querySelector('#conclusion-fr');
+    const recFr = document.querySelector('#recommendations-fr');
+    buttonFr.classList.add('button-ci-active')
+    concFr.classList.add('visible')
+    recFr.classList.add('visible')
+    if (concFr.classList.contains('hide')){
+        concFr.classList.remove('hide')
+    }
+    if (recFr.classList.contains('hide')){
+        recFr.classList.remove('hide')
+    }
+}
+
+function showCd(){
+    removeActive()
+    const concCd = document.querySelector('#conclusion-cd');
+    const recCd = document.querySelector('#recommendations-cd');
+    buttonCd.classList.add('button-ci-active')
+    concCd.classList.add('visible')
+    recCd.classList.add('visible')
+    if (concCd.classList.contains('hide')){
+        concCd.classList.remove('hide')
+    }
+    if (recCd.classList.contains('hide')){
+        recCd.classList.remove('hide')
+    }
+}
+
+const buttonOvr = document.querySelector('#button-ci-ovr');
+const buttonUs = document.querySelector('#button-ci-us');
+const buttonUk = document.querySelector('#button-ci-uk');
+const buttonAus = document.querySelector('#button-ci-aus');
+const buttonGer = document.querySelector('#button-ci-ger');
+const buttonFr = document.querySelector('#button-ci-fr');
+const buttonCd = document.querySelector('#button-ci-cd');
+
+buttonOvr.addEventListener('click',showOvr);
+buttonUs.addEventListener('click',showUs);
+buttonUk.addEventListener('click',showUk);
+buttonAus.addEventListener('click',showAus);
+buttonGer.addEventListener('click',showGer);
+buttonFr.addEventListener('click',showFr);
+buttonCd.addEventListener('click',showCd);
