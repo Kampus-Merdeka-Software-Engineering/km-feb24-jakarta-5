@@ -59,20 +59,6 @@ nav > .wrapper {
 }
 
 
-.button.hamburger {
-  background-color: #153448;
-  border: none;
-  cursor: pointer;
-  display: none;
-}
-.button.hamburger > i {
-  color: #fff;
-  font-size: 1.5rem;
-}
-.button.hamburger > i.icon-close {
-  display: none;
-}
-
 
 .logo {
   display: flex;
