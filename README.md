@@ -3,17 +3,21 @@
 </p>
 
 # Team 5 - Bike Sales in Europe
-To fulfill the primary task of Software Engineering modules, by creating a simple website to visualize and showcase our findings and recommendations that we get from the dataset. 
+We are creating a website to visualize and showcase our findings and recommendations that we got from the dataset. 
 
 
 ## 🧰 Technologies Used
 
-| Technology                                                            | Description                                                                                               |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)             | Foundation for interpret and compose text, images, and other material into visible or audible web pages.  |
-| [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)               | Responsible for adding style to a web page by dictating how a site is displayed on a browser.             |
-| [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Responsible for dynamic and interactive web page to interact with visitors and execute complex actions.   |
-| [Chart.js](https://www.chartjs.org/)                                  | Responsible for JavaScript charting library for the modern web.                                           |
+| Technology                                                            | Description                                                                                                      |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)             | Foundation for interpret and compose text, images, and other material into visible or audible web pages.         |
+| [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)               | Responsible for adding style to a web page by dictating how a site is displayed on a browser.                    |
+| [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Responsible for dynamic and interactive web page to interact with visitors and execute complex actions.          |
+| [Chart.js](https://www.chartjs.org/)                                  | Responsible for JavaScript charting library for the modern web.                                                  |
+| [GitHub](https://github.com/)                                         | Responsible for hosting website files and free demo hosting services through [Pages](https://pages.github.com/). |
+| [GitHub Desktop](https://desktop.github.com/)                         | Responsible for fullfill Git needs (commit, pull, push, fetch, and many more) with GUI interface.                |
+| [Vercel](https://vercel.com/)                                         | Responsible for hosting finalized website and optimized deployments for global performance and accessibility.    |
+
 
 
 ## 🌐 Links
@@ -21,7 +25,7 @@ To fulfill the primary task of Software Engineering modules, by creating a simpl
 | Website                                                                           | Description                                            |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | [Demo](https://kampus-merdeka-software-engineering.github.io/km-feb24-jakarta-5/) | Powered by [GitHub Pages](https://pages.github.com/).  |
-| Final                                                                             | Coming soon.                                           |
+| [Final](https://km-feb24-jakarta-5.vercel.app/)                                   | Powered by [Vercel](https://vercel.com/).              |
 
 
 ## ⭐ Team Members

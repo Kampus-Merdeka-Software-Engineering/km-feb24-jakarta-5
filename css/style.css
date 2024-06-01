@@ -58,6 +58,22 @@ nav > .wrapper {
   border-bottom: 2px solid #fff;
 }
 
+
+.button.hamburger {
+  background-color: #153448;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+.button.hamburger > i {
+  color: #fff;
+  font-size: 1.5rem;
+}
+.button.hamburger > i.icon-close {
+  display: none;
+}
+
+
 .logo {
   display: flex;
   align-items: center;
@@ -69,7 +85,7 @@ nav > .wrapper {
 }
 
 .header1 {
-  background: url("../assets/images/ss.png");
+  background: url("../assets/images/team-5.png");
   height: 100vh;
   background-position: center;
   background-size: cover;
@@ -445,7 +461,7 @@ nav > .wrapper {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  color: #153448;
+  color: #575656;
   background-color: white;
   position: -webkit-sticky;
   position: sticky;
@@ -687,26 +703,12 @@ tr:nth-child(even) {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-button.hamburger {
-  background-color: #153448;
-  border: none;
-  cursor: pointer;
-  display: none;
-}
-button.hamburger > i {
-  color: #fff;
-  font-size: 1.5rem;
-}
-button.hamburger > i.icon-close {
-  display: none;
-}
-
-footer {
+.footer {
   background-color: whitesmoke;
   margin: 0;
   padding: 15px;
 }
-footer p {
+.footer p {
   text-align: center;
   margin: 0;
 }
@@ -749,7 +751,7 @@ footer p {
     width: 120px;
     height: 60px;
   }
-  .buttton-xl {
+  .button-xl {
     font-size: 0.7rem;
   }
 
@@ -816,7 +818,7 @@ footer p {
     width: 110px;
     height: 50px;
   }
-  .buttton-xl {
+  .button-xl {
     font-size: 0.5rem;
   }
 
@@ -851,8 +853,8 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 505px;
-    height: 580px;
+    width: 635px;
+    height: 480px;
   }
 }
 
@@ -960,8 +962,8 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 355px;
-    height: 700px;
+    width: 455px;
+    height: 680px;
   }
 
   #team > .wrapper .member-wrapper {
