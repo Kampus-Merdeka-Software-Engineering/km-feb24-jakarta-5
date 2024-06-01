@@ -887,6 +887,33 @@ footer p {
     text-shadow: black;
   }
 
+  button.hamburger {
+    display: flex;
+  }
+
+  .menu{
+    display: none;
+  }
+
+  .tampil{
+    display: inline;
+  }
+
+  .tampil > ul {
+    flex-direction: column;
+    right: auto;
+    background-color: #153448;
+    width: 63.4%;
+    position: fixed;
+    top: 85px;
+  }
+
+  .tampil > ul > li {
+    padding: 10px 20px 10px 20px;
+  }
+
+  
+
   .filter {
     width: 95%;
   }
@@ -914,7 +941,7 @@ footer p {
     display: inline;
     width: 100%;
     background-color: whitesmoke;
-    /* justify-content: space-evenly; */
+    justify-content: space-evenly;
   }
 
   .section-3 .chart-container {
