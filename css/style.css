@@ -857,7 +857,7 @@ tr:nth-child(even) {
 @media only screen and (max-width: 780px) {
   .menu {
     width: 78%;
-    display: inline;
+    /* display: inline; */
   }
 
   button.hamburger {
@@ -953,7 +953,7 @@ tr:nth-child(even) {
   }
 
   button.hamburger {
-    display: flex;
+    display: inline;
   }
 
   .menu{
