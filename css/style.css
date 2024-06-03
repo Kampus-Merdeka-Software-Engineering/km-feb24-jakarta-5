@@ -578,6 +578,7 @@ tr:nth-child(even) {
   border-radius: 10px;
   padding: 10px 10px 10px 10px;
   height: 400px;
+  margin-top: 0;
 }
 
 #analysis > .wrapper > h4 {
@@ -617,6 +618,66 @@ tr:nth-child(even) {
 
 #analysis .wrapper li {
   margin-left: 1cm;
+}
+
+#analysis .country-insight-wrapper{
+  max-width: 1215px;
+  margin-left: 10px;
+}
+
+#analysis .wrapper .visible{
+  display: block;
+}
+
+#analysis .wrapper .hide{
+  display: none;
+}
+
+#analysis .country-insight-wrapper .button-container{
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+#analysis .country-insight-wrapper .button-container button{
+  display: inline-block;
+  font-size: 1.25em;
+  padding: 2px 5px;
+  border: 1px solid #c8bdbd;
+}
+
+#analysis .country-insight-wrapper .button-container .button-ci{
+  background-color: #ededed;
+  border-radius: 10px;
+}
+
+#analysis .country-insight-wrapper .button-container .button-ci-active{
+  background-color: #fff;
+}
+
+
+#analysis .country-insight-wrapper .button-container .button-ci:hover{
+  background-color: #eeefff;
+  cursor: pointer;
+}
+
+#analysis .country-insight-wrapper .button-container .button-ci-active:hover{
+  background-color: #fff;
+  cursor: auto;
+}
+
+#analysis .country-insight-container{
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px #000 solid;
+  margin-right: 2.75em;
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+#analysis .country-insight-container p{
+  margin: 0;
+  padding-left: 0;
 }
 
 #team {
