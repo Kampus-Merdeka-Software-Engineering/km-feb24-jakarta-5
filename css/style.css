@@ -53,6 +53,7 @@ nav > .wrapper {
   text-decoration: none;
   color: #fff;
   font-weight: 550;
+  font-size: 20px;
 }
 .menu > ul > li > a:hover {
   border-bottom: 2px solid #fff;
@@ -452,7 +453,7 @@ nav > .wrapper {
 }
 
 .table-container {
-  max-height: 1000px;
+  max-height: 1200px;
   overflow-y: auto;
   padding: 0;
   margin-top: 0;
@@ -465,7 +466,7 @@ nav > .wrapper {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  color: #575656;
+  color: #153448;
   background-color: white;
   position: -webkit-sticky;
   position: sticky;
@@ -548,23 +549,26 @@ tr:nth-child(even) {
 }
 
 .pagination-button {
-  margin: 0 5px;
+  margin: 0 2px;
   padding: 5px 10px;
   cursor: pointer;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 3px;
   font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  color: #153448;
 }
 
 .pagination-button.active {
-  background-color: #fb8904;
+  background-color: #153448;
   color: #fff;
 }
 
 .pagination-button:hover {
   background-color: #f2f2f2;
-  color: #000;
+  color: #153448;
+  cursor: pointer;
 }
 
 #analysis {
@@ -584,8 +588,7 @@ tr:nth-child(even) {
 }
 
 #analysis > .wrapper > .container {
-  grid-area: section5;
-  width: 1150px;
+  width: 1200px;
   background-color: #fff;
   display: block;
   justify-content: center;
@@ -610,7 +613,7 @@ tr:nth-child(even) {
 }
 
 #analysis .wrapper h5 {
-  padding: 20px 20px 5px 50px;
+  padding: 0px 20px 5px 50px;
   font-size: 1.5rem;
   margin: 5px;
 }
@@ -623,7 +626,7 @@ tr:nth-child(even) {
 #analysis .wrapper p {
   margin-left: 1cm;
   margin-top: 0px;
-  padding: 20px 50px 10px 55px;
+  padding: 0px 50px 10px 55px;
   padding-top: 5px;
   font-size: 1rem;
   text-align: justify;
@@ -631,7 +634,7 @@ tr:nth-child(even) {
 
 #analysis .wrapper ul {
   margin-top: 0px;
-  padding: 10px 50px 20px 55px;
+  padding: 0px 50px 20px 55px;
 }
 
 #analysis .wrapper li {
@@ -659,14 +662,16 @@ tr:nth-child(even) {
 
 #analysis .country-insight-wrapper .button-container button {
   display: inline-block;
-  font-size: 1.25em;
+  font-family:  "Nunito Sans", sans-serif;
+  color: #153448;
+  font-size: 1rem;
   padding: 2px 5px;
   border: 1px solid #c8bdbd;
 }
 
 #analysis .country-insight-wrapper .button-container .button-ci {
-  background-color: #ededed;
-  border-radius: 10px;
+  background-color: #fff;
+  border-radius: 3px;
 }
 
 #analysis .country-insight-wrapper .button-container .button-ci-active {
@@ -674,12 +679,13 @@ tr:nth-child(even) {
 }
 
 #analysis .country-insight-wrapper .button-container .button-ci:hover {
-  background-color: #eeefff;
+  background-color: #153448;
+  color: #fff;
   cursor: pointer;
 }
 
 #analysis .country-insight-wrapper .button-container .button-ci-active:hover {
-  background-color: #fff;
+  background-color: #153448;
   cursor: auto;
 }
 
@@ -771,6 +777,7 @@ tr:nth-child(even) {
   background-color: whitesmoke;
   margin: 0;
   padding: 15px;
+  width: 100%;
 }
 .footer p {
   text-align: center;
@@ -830,6 +837,8 @@ tr:nth-child(even) {
 
   button.hamburger {
     display: none;
+    background-color: #153448;
+    color: #fff;
   }
 
   .button {
@@ -1029,6 +1038,10 @@ tr:nth-child(even) {
     width: 95%;
   }
 
+  .filter h2 {
+    display: none;
+  }
+
   .section-1 {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -1078,4 +1091,5 @@ tr:nth-child(even) {
     gap: 1px;
     padding: 0 5px;
   }
+
 }

@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const genderPieChartCanvas = document.getElementById('bar-chart');
         const barStackCanvas = document.getElementById('bar-stack');
         const scatterChartCanvas = document.getElementById('scatter-chart');
+        const dataTable = document.getElementById('dataTable');
+        const paginationContainer = document.getElementById('pagination');
 
         const ctx = chartCanvas.getContext('2d');
         const pieCtx = pieChartCanvas.getContext('2d');
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawAgeHistogram(data);
                 drawBarStackChart(data);
                 drawScatterChart(data); 
+                updateTable(data);
 
                 // Add event listeners for each filter
                 filterForm.querySelectorAll('select').forEach(select => {
@@ -106,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         redrawAgeHistogram(filteredData);
                         redrawBarStackChart(filteredData);
                         redrawScatterChart(filteredData);
+                        updateTable(filteredData);
                     });
                 });
             })
@@ -204,15 +208,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: chartData,
                         fill: false,
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(54, 162, 235, 0.4)',
                         ],
                         borderColor: [
-                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(54, 162, 235, 0.8)',
                         ],
-                        borderWidth: 3,
-                        tension: 0.1,
+                        borderWidth: 4,
+                        tension: 0,
                         pointRadius: 6,
-                        pointHoverRadius: 8
+                        pointHoverRadius: 20
                     }]
                 },
                 options: options
@@ -440,195 +444,230 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Function to draw the initial bar stack chart
         function drawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
+            const barStackData = getBarStackData(data);
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: 'Order Quantity'
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Order Quantity'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Country'
+                        }
                     }
                 },
-                y: {
-                    stacked: true,
+                plugins: {
                     title: {
                         display: true,
-                        text: 'Country'
+                        text: 'Order Quantity by Country and Category',
+                        font: {
+                            size: 24
+                        },
+                        color: '#153448'
                     }
                 }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Order Quantity by Country and Sub-Category',
-                    font: {
-                        size: 24
-                    },
-                    color: '#153448'
-                }
+            };
+
+            const config = {
+                type: 'bar',
+                data: barStackData,
+                options: options
+            };
+
+            if (barStackChart) {
+                barStackChart.destroy();
             }
-        };
-
-        const config = {
-            type: 'bar',
-            data: barStackData,
-            options: options
-        };
-
-        if (barStackChart) {
-            barStackChart.destroy();
+            barStackChart = new Chart(barStackCtx, config);
         }
-        barStackChart = new Chart(barStackCtx, config);
-    }
 
-    // Function to redraw the bar stack chart with filtered data
-    function redrawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
-        if (barStackChart) {
-            barStackChart.data = barStackData;
-            barStackChart.update();
-        } else {
-            drawBarStackChart(data);
-        }
-    }
-
-    // Function to extract bar stack data with sorted countries by total order quantity
-    function getBarStackData(data) {
-        // Calculate total order quantity for each country
-        const countryOrderQuantities = {};
-        data.forEach(item => {
-            if (!countryOrderQuantities[item.Country]) {
-                countryOrderQuantities[item.Country] = 0;
+        // Function to redraw the bar stack chart with filtered data
+        function redrawBarStackChart(data) {
+            const barStackData = getBarStackData(data);
+            if (barStackChart) {
+                barStackChart.data = barStackData;
+                barStackChart.update();
+            } else {
+                drawBarStackChart(data);
             }
-            countryOrderQuantities[item.Country] += item.Order_Quantity;
-        });
+        }
 
-        // Sort countries by total order quantity
-        const sortedCountries = Object.keys(countryOrderQuantities).sort((a, b) => countryOrderQuantities[b] - countryOrderQuantities[a]);
+        // Function to extract bar stack data
+        function getBarStackData(data) {
+            const subCategories = [...new Set(data.map(item => item.Sub_Category))];
+            const countries = [...new Set(data.map(item => item.Country))];
 
-        // Get unique sub-categories
-        const subCategories = [...new Set(data.map(item => item.Sub_Category))];
-        
-        // Define a fixed color palette
-        const colorPalette = {
-            'Road Bikes': 'rgba(255, 99, 132, 1)',
-            'Mountain Bikes': 'rgba(54, 162, 235, 1)',
-            'Touring Bikes': 'rgba(255, 206, 86, 1)',
-            // Add more colors as needed for each sub-category
-        };
-
-        // Debug: Log the sub-categories and their corresponding colors
-        console.log('Sub-Categories:', subCategories);
-        console.log('Color Palette:', colorPalette);
-
-        // Create datasets for each sub-category
-        const datasets = subCategories.map(subCategory => {
-            const color = colorPalette[subCategory] || 'rgba(0, 0, 0, 1)'; // Fallback color for undefined sub-categories
-            console.log(`Sub-Category: ${subCategory}, Color: ${color}`); // Debug: Log the assigned color
-
-            return {
-                label: subCategory,
-                data: sortedCountries.map(country => {
+            // Calculate total order quantity for each country and sub-category
+            const totalOrderQuantities = {};
+            subCategories.forEach(subCategory => {
+                totalOrderQuantities[subCategory] = {};
+                countries.forEach(country => {
                     const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                    return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                }),
-                backgroundColor: color // Assign the predefined color
+                    console.log("Filtered data for", subCategory, "in", country, ":", filteredData); // Insert this log here
+                    totalOrderQuantities[subCategory][country] = filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                });
+            });
+
+            // Sort total order quantity in descending order
+            const sortedOrderQuantities = {};
+            for (const subCategory in totalOrderQuantities) {
+                sortedOrderQuantities[subCategory] = Object.entries(totalOrderQuantities[subCategory])
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([country]) => country);
+            }
+
+            // Define predefined colors for each sub-category
+            const colorPalette = {
+                'Road Bikes': {
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)'
+                },
+                'Touring Bikes': {
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)'
+                },
+                'Mountain Bikes': {
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)'
+                },
+                // Add more colors as needed for each sub-category
             };
-        });
 
-        return {
-            labels: sortedCountries,
-            datasets: datasets
-        };
-    }
+            const datasets = subCategories.map(subCategory => {
+                const color = colorPalette[subCategory] || { backgroundColor: getRandomColor(), borderColor: getRandomColor() }; // Fallback to random color if not predefined
 
-    // Function to get scatter chart data based on filtered data
-    function getScatterChartData(data) {
-        return data.map(item => {
+                return {
+                    label: subCategory,
+                    data: sortedOrderQuantities[subCategory].map(country => {
+                        const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                        return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                    }),
+                    backgroundColor: color.backgroundColor, // Assign the predefined background color or random color
+                    borderColor: color.borderColor, // Assign the predefined border color or random color
+                    borderWidth: 1 // Adjust border width as needed
+                };
+            });
+
             return {
-                x: item.Unit_Price,
-                y: item.Order_Quantity,
-                r: item.profit_per_quantity // Use 'r' for bubble radius in Chart.js
+                labels: sortedOrderQuantities['Road Bikes'], // Use the order of 'Road Bikes' for labels (since all sub-categories will have the same order)
+                datasets: datasets
             };
-        });
-    }
+        }
 
-    // Function to draw the initial scatter chart
-    function drawScatterChart(data) {
-        const scatterData = getScatterChartData(data);
-        console.log('Scatter Data:', scatterData); 
+        // Function to draw the initial scatter chart
+        function drawScatterChart(data) {
+            const scatterData = getScatterChartData(data);
+            console.log('Scatter Data:', scatterData);
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Unit Price'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Order Quantity'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Scatter Plot of Unit Price vs Order Quantity',
-                    font: {
-                        size: 24
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Profit'
+                        },
+                        ticks: {
+                            stepSize: 50, 
+                            callback: function(value) {
+                                return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+                            }
+                        }
                     },
-                    color: '#153448'
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Total Order Quantity'
+                        },
+                        ticks: {
+                            stepSize: 10 // Atur jarak antar nilai pada sumbu y
+                        }
+                    }
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const item = context.raw;
-                            return `Unit Price: ${item.x}, Order Quantity: ${item.y}, Profit per Quantity: ${item.r}`;
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Profit vs Total Order Quantity',
+                        font: {
+                            size: 24
+                        },
+                        color: '#153448'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const item = context.raw;
+                                return `Profit: ${item.x.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}, Total Order Quantity: ${item.y}, Profit per Quantity: ${item.r.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}`;
+                            }
                         }
                     }
                 }
+            };
+
+            const config = {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Scatter Dataset',
+                        data: scatterData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: options
+            };
+
+            if (scatterChart) {
+                scatterChart.destroy();
             }
-        };
-
-        const config = {
-            type: 'bubble',
-            data: {
-                datasets: [{
-                    label: 'Scatter Dataset',
-                    data: scatterData,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: options
-        };
-        if (scatterChart) {
-            scatterChart.destroy();
+            scatterChart = new Chart(scatterCtx, config);
         }
-        scatterChart = new Chart(scatterCtx, config);
-    }
 
-    // Function to redraw the scatter chart with filtered data
-    function redrawScatterChart(data) {
-        const scatterData = getScatterChartData(data);
-        if (scatterChart) {
-            scatterChart.data.datasets[0].data = scatterData;
-            scatterChart.update();
-        } else {
-            drawScatterChart(data);
+        // Function to prepare scatter chart data including profit per quantity for bubble size
+        function getScatterChartData(data) {
+            // Buat objek untuk menyimpan total order untuk setiap profit
+            const aggregatedData = {};
+
+            // Lakukan pengelompokan dan penjumlahan order_quantity berdasarkan profit
+            data.forEach(item => {
+                if (aggregatedData[item.Profit]) {
+                    aggregatedData[item.Profit] += item.Order_Quantity;
+                } else {
+                    aggregatedData[item.Profit] = item.Order_Quantity;
+                }
+            });
+
+            // Ubah hasil pengelompokan menjadi array objek yang cocok dengan format yang diperlukan untuk scatter chart
+            const scatterData = Object.keys(aggregatedData).map(profit => ({
+                x: parseFloat(profit), // Ubah string profit menjadi angka
+                y: aggregatedData[profit],
+                r: 10 // Misalnya, Anda bisa tetapkan ukuran tetap untuk gelembung
+            }));
+
+            return scatterData;
         }
-    }
+
+        // Function to redraw the scatter chart with filtered data
+        function redrawScatterChart(data) {
+            const scatterData = getScatterChartData(data);
+            if (scatterChart) {
+                scatterChart.data.datasets[0].data = scatterData;
+                scatterChart.update();
+            } else {
+                drawScatterChart(data);
+            }
+        }
 
         // Function to get pie chart data based on filtered data
         function getPieChartData(data) {
@@ -673,38 +712,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             console.log('Processed Gender Profit Data:', genderProfitData); // Debugging log
             return genderProfitData;
-        }
-
-        // Function to extract bar stack data
-        function getBarStackData(data) {
-            const subCategories = [...new Set(data.map(item => item.Sub_Category))];
-            const countries = [...new Set(data.map(item => item.Country))];
-            
-            const datasets = subCategories.map(subCategory => {
-                return {
-                    label: subCategory,
-                    data: countries.map(country => {
-                        const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                        return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                    }),
-                    backgroundColor: getRandomColor()
-                };
-            });
-
-            return {
-                labels: countries,
-                datasets: datasets
-            };
-        }
-
-        // Helper function to get random color
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
         }
 
         // Function to get yearly average profit data based on filtered data
@@ -758,95 +765,88 @@ document.addEventListener('DOMContentLoaded', function() {
             return chartData;
         }
 
-    });
-
-//pagination table
-document.addEventListener('DOMContentLoaded', function() {
-    // Memanggil elemen-elemen HTML yang diperlukan
-    const dataTable = document.getElementById('dataTable');
-    const paginationContainer = document.getElementById('pagination');
-
-    // Memanggil dataset dari file JSON
-    fetch('dataset.json')
-        .then(response => response.json())
-        .then(data => {
-            // Memperbarui tabel ketika dataset tersedia
-            updateTable(data);
-        })
-        .catch(error => console.error('Error loading the dataset:', error));
-
-    // Fungsi untuk memperbarui tabel dengan data yang diberikan
-    function updateTable(data) {
-        // Menghitung total profit untuk setiap produk
-        const productProfits = {};
-        data.forEach(item => {
-            const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
-            if (!productProfits[key]) {
-                productProfits[key] = 0;
-            }
-            productProfits[key] += item.Profit;
-        });
-
-        // Mengonversi objek productProfits menjadi array untuk diurutkan
-        const sortedProducts = Object.keys(productProfits)
-            .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
-            .sort((a, b) => b.totalProfit - a.totalProfit)
-            .slice(0, 100); // Mengambil 100 produk paling menguntungkan
-
-        // Menampilkan data di dalam tabel
-        renderTable(sortedProducts);
-    }
-
-    // Fungsi untuk menampilkan data dalam tabel dengan pagination
-    function renderTable(data) {
-        const rowsPerPage = 10; // Jumlah baris per halaman
-        const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
-
-        // Fungsi untuk membuat halaman data
-        function renderPage(page) {
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const pageData = data.slice(start, end);
-
-            // Menghapus konten tabel sebelumnya
-            dataTable.innerHTML = '';
-
-            // Membuat header tabel
-            const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Product Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
-            dataTable.appendChild(headerRow);
-
-            // Menambahkan baris untuk setiap produk
-            pageData.forEach((product, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${start + index + 1}</td><td>${product.product}</td><td>${product.category}</td><td>${product.subCategory}</td><td>${product.country}</td><td>${formatNumber(product.totalProfit)}</td>`; // Menggunakan fungsi formatNumber untuk memformat nominal profit
-                dataTable.appendChild(row);
+        // Fungsi untuk memperbarui tabel dengan data yang diberikan
+        function updateTable(data) {
+            // Menghitung total profit untuk setiap produk
+            const productProfits = {};
+            data.forEach(item => {
+                const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
+                if (!productProfits[key]) {
+                    productProfits[key] = 0;
+                }
+                productProfits[key] += item.Profit;
             });
+
+            // Mengonversi objek productProfits menjadi array untuk diurutkan
+            const sortedProducts = Object.keys(productProfits)
+                .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
+                .sort((a, b) => b.totalProfit - a.totalProfit)
+                .slice(0, 100); // Mengambil 100 produk paling menguntungkan
+
+            // Menampilkan data di dalam tabel
+            renderTable(sortedProducts);
         }
 
-        // Fungsi untuk membuat tombol halaman
-        function renderPaginationButtons() {
-            paginationContainer.innerHTML = '';
-            for (let i = 1; i <= pageCount; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.addEventListener('click', () => renderPage(i));
-                paginationContainer.appendChild(button);
+        // Fungsi untuk menampilkan data dalam tabel dengan pagination
+        function renderTable(data) {
+            const rowsPerPage = 10; // Jumlah baris per halaman
+            const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
+
+            // Fungsi untuk membuat halaman data
+            function renderPage(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const pageData = data.slice(start, end);
+
+                // Menghapus konten tabel sebelumnya
+                dataTable.innerHTML = '';
+
+                // Membuat header tabel
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
+                dataTable.appendChild(headerRow);
+
+                // Menambahkan baris data
+                pageData.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${formatCurrency(item.totalProfit, 'EUR')}</td>`;
+                    dataTable.appendChild(row);
+                });
+
+                // Menambahkan kelas aktif pada tombol halaman saat ini
+                const allPageLinks = paginationContainer.querySelectorAll('.pagination-button');
+                allPageLinks.forEach(link => link.classList.remove('active'));
+                const currentPageLink = paginationContainer.querySelector(`.pagination-button[data-page="${page}"]`);
+                if (currentPageLink) {
+                    currentPageLink.classList.add('active');
+                }
             }
+
+            // Menghapus konten pagination sebelumnya
+            paginationContainer.innerHTML = '';
+
+            // Membuat pagination baru
+            for (let i = 1; i <= pageCount; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.classList.add('pagination-button'); // Tambahkan kelas pagination-button
+                pageLink.setAttribute('data-page', i); // Tambahkan atribut data-page untuk memudahkan pengelolaan
+                pageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage(i);
+                });
+                paginationContainer.appendChild(pageLink);
+            }
+
+            // Render halaman pertama secara default
+            renderPage(1);
         }
 
-        // Menampilkan halaman pertama saat pertama kali memuat tabel
-        renderPage(1);
-
-        // Menampilkan tombol pagination
-        renderPaginationButtons();
-    }
-
-    // Fungsi untuk memformat nominal profit dengan titik
-    function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-});
+        function formatCurrency(num, currency) {
+            return num.toLocaleString('de-DE', { style: 'currency', currency: currency });
+        }
+    });
 
 // Function to change business insight per country
 function removeActive(){
