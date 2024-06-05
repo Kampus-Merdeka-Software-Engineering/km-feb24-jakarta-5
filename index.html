@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Capstone Project Team 5</title>
-    <link rel="icon" href="assets/images/km.png" type="images/x-icon"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="icon" href="assets/images/km.png" type="images/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -18,7 +18,7 @@
     <nav>
       <div class="wrapper">
         <div class="logo">
-          <img src="assets/images/icons/logo-revou.png"/>
+          <img src="assets/images/icons/logo-revou.png" />
         </div>
         <div class="menu">
           <ul>
@@ -87,322 +87,339 @@
 
     <!--Dashboard-->
     <section id="dashboard">
-      <div class="dashboard">
-        <h3>
-          Bike Sales in Europe <br/>
-          Dashboard
-        </h3>
-        <nav id="nav-dashboard">
-          <header class="filter">
-            <h2><img src="assets/images/icons/filter.png"/>Filter by</h2>
-            <form id="filterForm" class="filter-form">
-              <select name="year" id="year">
-                <option value="">Year</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-              </select>
-              <select name="countryType" id="countryType">
-                <option value="">Country</option>
-                <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Australia">Australia</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-                <option value="Canada">Canada</option>
-              </select>
-              <select name="subcategory" id="subcategory-filter">
-                <option value="">Category</option>
-                <option value="Road Bikes">Road Bikes</option>
-                <option value="Mountain Bikes">Mountain Bikes</option>
-                <option value="Touring Bikes">Touring Bikes</option>
-              </select>
-              <select name="gender" id="gender">
-                <option value="">Gender</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-            </form>
-          </header>
-        </nav>
-        <main>
-          <section class="section-1">
-            <div class="card" data-name="net.profit">
-              <p>
-                <i class="fa-solid fa-sack-dollar"></i
-                ><span id="netProfit">0</span>
-              </p>
-              <small>Net Profit</small>
+      <h3>
+        Bike Sales in Europe <br />
+        Dashboard
+      </h3>
+      <nav class="nav-dashboard">
+        <div class="filter">
+          <h2><img src="assets/images/icons/filter.png" />Filter by</h2>
+          <form id="filterForm" class="filter-form">
+            <select name="year" id="year">
+              <option value="">Year</option>
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+            </select>
+            <select name="countryType" id="countryType">
+              <option value="">Country</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Australia">Australia</option>
+              <option value="Germany">Germany</option>
+              <option value="France">France</option>
+              <option value="Canada">Canada</option>
+            </select>
+            <select name="subcategory" id="subcategory-filter">
+              <option value="">Category</option>
+              <option value="Road Bikes">Road Bikes</option>
+              <option value="Mountain Bikes">Mountain Bikes</option>
+              <option value="Touring Bikes">Touring Bikes</option>
+            </select>
+            <select name="gender" id="gender">
+              <option value="">Gender</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </form>
+        </div>
+      </nav>
+      <main>
+        <section class="section-1">
+          <div class="card" data-name="net.profit">
+            <p>
+              <i class="fa-solid fa-sack-dollar"></i
+              ><span id="netProfit">0</span>
+            </p>
+            <small>Net Profit</small>
+          </div>
+          <div class="card" data-name="revenue">
+            <p>
+              <i class="fa-solid fa-euro-sign"></i><span id="revenue">0</span>
+            </p>
+            <small>Revenue</small>
+          </div>
+          <div class="card" data-name="cost">
+            <p><i class="fa-solid fa-wallet"></i><span id="cost">0</span></p>
+            <small>Total cost</small>
+          </div>
+          <div class="card" data-name="total.orders">
+            <p>
+              <i class="fa-solid fa-cart-shopping"></i><span id="order">0</span>
+            </p>
+            <small>Total Orders</small>
+          </div>
+        </section>
+        <section class="section-2">
+          <div class="chart">
+            <div id="ts-chart-container" class="chart-container">
+              <canvas id="profitchartbyyear"></canvas>
             </div>
-            <div class="card" data-name="revenue">
-              <p>
-                <i class="fa-solid fa-euro-sign"></i><span id="revenue">0</span>
-              </p>
-              <small>Revenue</small>
+          </div>
+        </section>
+        <section class="section-3">
+          <div class="chart">
+            <div id="chart-container" class="chart-container">
+              <canvas id="pie-chart" width="400" height="400"></canvas>
             </div>
-            <div class="card" data-name="cost">
-              <p><i class="fa-solid fa-wallet"></i><span id="cost">0</span></p>
-              <small>Total cost</small>
+          </div>
+          <div class="chart">
+            <div id="age-histogram-container" class="chart-container">
+              <canvas id="age-histogram" width="400" height="400"></canvas>
             </div>
-            <div class="card" data-name="total.orders">
-              <p>
-                <i class="fa-solid fa-cart-shopping"></i
-                ><span id="order">0</span>
-              </p>
-              <small>Total Orders</small>
+          </div>
+          <div class="chart">
+            <div id="bar-chart-container" class="chart-container">
+              <canvas id="bar-chart" width="400" height="400"></canvas>
             </div>
-          </section>
-          <section class="section-2">
-            <div class="chart">
-              <div id="ts-chart-container" class="chart-container">
-                <canvas id="profitchartbyyear"></canvas>
-              </div>
+          </div>
+        </section>
+        <section class="section-4">
+          <div class="chart">
+            <div id="bar-stack-chart-container" class="chart-container">
+              <canvas id="bar-stack"></canvas>
             </div>
-          </section>
-          <section class="section-3">
-            <div class="chart">
-              <div id="chart-container" class="chart-container">
-                <canvas id="pie-chart" width="400" height="400"></canvas>
-              </div>
+          </div>
+          <div class="chart">
+            <div id="scatter-chart-container" class="chart-container">
+              <canvas id="scatter-chart"></canvas>
             </div>
-            <div class="chart">
-              <div id="age-histogram-container" class="chart-container">
-                <canvas id="age-histogram" width="400" height="400"></canvas>
-              </div>
-            </div>
-            <div class="chart">
-              <div id="bar-chart-container" class="chart-container">
-                <canvas id="bar-chart" width="400" height="400"></canvas>
-              </div>
-            </div>
-          </section>
-          <section class="section-4">
-            <div class="chart">
-              <div id="bar-stack-chart-container" class="chart-container">
-                <canvas id="bar-stack"></canvas>
-              </div>
-            </div>
-            <div class="chart">
-              <div id="scatter-chart-container" class="chart-container">
-                <canvas id="scatter-chart"></canvas>
-              </div>
-            </div>
-          </section>
-        </main>
+          </div>
+        </section>
         <section class="section-5">
           <div class="table-container">
-              <h2>Top 100 Profitable Products</h2>
-              <table id="dataTable"></table>
-              <div id="pagination" class="pagination-container">
-                <!-- Pagination buttons will be added here -->
-            </div>                        
+            <h2>Top 100 Profitable Products</h2>
+            <table id="dataTable"></table>
+            <div id="pagination" class="pagination-container">
+              <!-- Pagination buttons will be added here -->
+            </div>
           </div>
-      </section> 
-        <h4>
-          <p>
-            Data source:
-            <a
-              href="https://www.kaggle.com/datasets/sadiqshah/bike-sales-in-europe"
-              target="_blank"
-              title="Bike Sales in Europe"
-              >Kaggle</a
-            >
-          </p>
-        </h4>
-      </div>
+        </section>
+      </main>
+      <h4>
+        <p>
+          Data source:
+          <a
+            href="https://www.kaggle.com/datasets/sadiqshah/bike-sales-in-europe"
+            target="_blank"
+            title="Bike Sales in Europe"
+            >Kaggle</a
+          >
+        </p>
+      </h4>
     </section>
 
-    <section id="analysis"> 
-      <div class ="wrapper">
-      <h4>Business Insight</h4>
-      <section class="country-insight-wrapper">
+    <section id="analysis">
+      <div class="wrapper">
+        <h4>Business Insight</h4>
+        <section class="country-insight-wrapper">
           <div class="button-container">
-            <button type="button" class="button-ci button-ci-active" id="button-ci-ovr">Overall</button>
-            <button type="button" class="button-ci" id="button-ci-us">United States</button>
-            <button type="button" class="button-ci" id="button-ci-uk">United Kingdom</button>
-            <button type="button" class="button-ci" id="button-ci-aus">Australia</button>
-            <button type="button" class="button-ci" id="button-ci-ger">Germany</button>
-            <button type="button" class="button-ci" id="button-ci-fr">France</button>
-            <button type="button" class="button-ci" id="button-ci-cd">Canada</button>
+            <button
+              type="button"
+              class="button-ci button-ci-active"
+              id="button-ci-ovr"
+            >
+              Overall
+            </button>
+            <button type="button" class="button-ci" id="button-ci-us">
+              United States
+            </button>
+            <button type="button" class="button-ci" id="button-ci-uk">
+              United Kingdom
+            </button>
+            <button type="button" class="button-ci" id="button-ci-aus">
+              Australia
+            </button>
+            <button type="button" class="button-ci" id="button-ci-ger">
+              Germany
+            </button>
+            <button type="button" class="button-ci" id="button-ci-fr">
+              France
+            </button>
+            <button type="button" class="button-ci" id="button-ci-cd">
+              Canada
+            </button>
           </div>
-      </section>
-      <section class = container>
-          <h5><img src="assets/images/icons/conclusion.png">Conclusion</h5>
+        </section>
+        <section class="container">
+          <h5><img src="assets/images/icons/conclusion.png" />Conclusion</h5>
           <p id="conclusion-ovr" class="visible">
-              To increase our profit by 5-11%, we need to focus on
-              specific countries, product categories, and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11%, we need to focus on specific
+            countries, product categories, and customer age ranges that can make
+            a significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-us" class="hide">
-              To increase our profit by 5-11% in United States, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in United States, we need to focus
+            on product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-uk" class="hide">
-              To increase our profit by 5-11% in United Kingdom, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in United Kingdom, we need to focus
+            on product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-aus" class="hide">
-              To increase our profit by 5-11% in Australia, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in Australia, we need to focus on
+            product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-ger" class="hide">
-              To increase our profit by 5-11% in Germany, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in Germany, we need to focus on
+            product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-fr" class="hide">
-              To increase our profit by 5-11% in France, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in France, we need to focus on
+            product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
           <p id="conclusion-cd" class="hide">
-              To increase our profit by 5-11% in Canada, we need to focus on
-              product categories and customer age
-              ranges that can make a significant contribution to increased
-              profitability. Because when the focus is on a specific target,
-              we can reduce the unit cost and gain more profit. We also
-              should focus on our engagement to increase our profit.
+            To increase our profit by 5-11% in Canada, we need to focus on
+            product categories and customer age ranges that can make a
+            significant contribution to increased profitability. Because when
+            the focus is on a specific target, we can reduce the unit cost and
+            gain more profit. We also should focus on our engagement to increase
+            our profit.
           </p>
-          <h5><img src="assets/images/icons/recommend.png">Recommendations</h5>
+          <h5>
+            <img src="assets/images/icons/recommend.png" />Recommendations
+          </h5>
           <ul id="recommendations-ovr" class="visible">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-us" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-uk" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-aus" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-ger" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-fr" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
           <ul id="recommendations-cd" class="hide">
-              <li>
-                  Identify the negative factors and the root cause of
-                  the decrease in bicycle sales profit,
-                  by minimising or fixing the negative factors.
-              </li>
-              <li>
-                  Paying attention to engagement strategies, such as:
-                  market trend, age target, and advertisement.<br>Increasing
-                  engagement in the right way alongside appropriate
-                  strategies can lead us to have more customer.
-              </li>
-              <li>
-                  Cost optimisation. Involving minimising wastage to optimise costs.
-              </li>
+            <li>
+              Identify the negative factors and the root cause of the decrease
+              in bicycle sales profit, by minimising or fixing the negative
+              factors.
+            </li>
+            <li>
+              Paying attention to engagement strategies, such as: market trend,
+              age target, and advertisement.<br />Increasing engagement in the
+              right way alongside appropriate strategies can lead us to have
+              more customer.
+            </li>
+            <li>
+              Cost optimisation. Involving minimising wastage to optimise costs.
+            </li>
           </ul>
-      </section>
+        </section>
       </div>
-  </section>
+    </section>
 
     <section id="team">
       <div class="wrapper">
