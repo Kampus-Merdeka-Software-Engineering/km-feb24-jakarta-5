@@ -812,6 +812,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${formatCurrency(item.totalProfit, 'EUR')}</td>`;
                     dataTable.appendChild(row);
                 });
+
+                // Menambahkan kelas aktif pada tombol halaman saat ini
+                const allPageLinks = paginationContainer.querySelectorAll('.pagination-button');
+                allPageLinks.forEach(link => link.classList.remove('active'));
+                const currentPageLink = paginationContainer.querySelector(`.pagination-button[data-page="${page}"]`);
+                if (currentPageLink) {
+                    currentPageLink.classList.add('active');
+                }
             }
 
             // Menghapus konten pagination sebelumnya
@@ -822,6 +830,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const pageLink = document.createElement('a');
                 pageLink.href = '#';
                 pageLink.textContent = i;
+                pageLink.classList.add('pagination-button'); // Tambahkan kelas pagination-button
+                pageLink.setAttribute('data-page', i); // Tambahkan atribut data-page untuk memudahkan pengelolaan
                 pageLink.addEventListener('click', (e) => {
                     e.preventDefault();
                     renderPage(i);

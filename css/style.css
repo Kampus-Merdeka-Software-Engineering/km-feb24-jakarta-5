@@ -455,7 +455,7 @@ nav > .wrapper {
 }
 
 .table-container {
-  max-height: 1000px;
+  max-height: 1200px;
   overflow-y: auto;
   padding: 0;
   margin-top: 0;
@@ -468,7 +468,7 @@ nav > .wrapper {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  color: #575656;
+  color: #153448;
   background-color: white;
   position: -webkit-sticky;
   position: sticky;
@@ -551,17 +551,19 @@ tr:nth-child(even) {
 }
 
 .pagination-button {
-  margin: 0 5px;
+  margin: 0 2px;
   padding: 5px 10px;
   cursor: pointer;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 3px;
   font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  color: #153448;
 }
 
 .pagination-button.active {
-  background-color: #fb8904;
+  background-color: #153448;
   color: #fff;
 }
 
@@ -587,8 +589,7 @@ tr:nth-child(even) {
 }
 
 #analysis > .wrapper > .container {
-  grid-area: section5;
-  width: 1150px;
+  width: 1200px;
   background-color: #fff;
   display: block;
   justify-content: center;
@@ -774,6 +775,7 @@ tr:nth-child(even) {
   background-color: whitesmoke;
   margin: 0;
   padding: 15px;
+  width: 100%;
 }
 .footer p {
   text-align: center;
@@ -1066,4 +1068,5 @@ tr:nth-child(even) {
     gap: 1px;
     padding: 0 5px;
   }
+
 }
