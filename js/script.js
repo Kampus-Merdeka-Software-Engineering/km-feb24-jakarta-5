@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const genderPieChartCanvas = document.getElementById('bar-chart');
         const barStackCanvas = document.getElementById('bar-stack');
         const scatterChartCanvas = document.getElementById('scatter-chart');
+        const dataTable = document.getElementById('dataTable');
+        const paginationContainer = document.getElementById('pagination');
 
         const ctx = chartCanvas.getContext('2d');
         const pieCtx = pieChartCanvas.getContext('2d');
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawAgeHistogram(data);
                 drawBarStackChart(data);
                 drawScatterChart(data); 
+                updateTable(data);
 
                 // Add event listeners for each filter
                 filterForm.querySelectorAll('select').forEach(select => {
@@ -106,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         redrawAgeHistogram(filteredData);
                         redrawBarStackChart(filteredData);
                         redrawScatterChart(filteredData);
+                        updateTable(filteredData);
                     });
                 });
             })
@@ -559,7 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         }
 
-    // Function to draw the initial scatter chart
+        // Function to draw the initial scatter chart
         function drawScatterChart(data) {
             const scatterData = getScatterChartData(data);
             console.log('Scatter Data:', scatterData);
@@ -761,24 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return chartData;
         }
 
-    });
-
-//pagination table
-document.addEventListener('DOMContentLoaded', function() {
-    // Memanggil elemen-elemen HTML yang diperlukan
-    const dataTable = document.getElementById('dataTable');
-    const paginationContainer = document.getElementById('pagination');
-
-    // Memanggil dataset dari file JSON
-    fetch('dataset.json')
-        .then(response => response.json())
-        .then(data => {
-            // Memperbarui tabel ketika dataset tersedia
-            updateTable(data);
-        })
-        .catch(error => console.error('Error loading the dataset:', error));
-
-    // Fungsi untuk memperbarui tabel dengan data yang diberikan
+        // Fungsi untuk memperbarui tabel dengan data yang diberikan
     function updateTable(data) {
         // Menghitung total profit untuk setiap produk
         const productProfits = {};
@@ -816,40 +803,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Membuat header tabel
             const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Product Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
+            headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
             dataTable.appendChild(headerRow);
 
-            // Menambahkan baris untuk setiap produk
-            pageData.forEach((product, index) => {
+            // Menambahkan baris data
+            pageData.forEach((item, index) => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${start + index + 1}</td><td>${product.product}</td><td>${product.category}</td><td>${product.subCategory}</td><td>${product.country}</td><td>${formatNumber(product.totalProfit)}</td>`; // Menggunakan fungsi formatNumber untuk memformat nominal profit
+                row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${item.totalProfit.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>`;
                 dataTable.appendChild(row);
             });
         }
 
-        // Fungsi untuk membuat tombol halaman
-        function renderPaginationButtons() {
-            paginationContainer.innerHTML = '';
-            for (let i = 1; i <= pageCount; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.addEventListener('click', () => renderPage(i));
-                paginationContainer.appendChild(button);
-            }
+        // Menghapus konten pagination sebelumnya
+        paginationContainer.innerHTML = '';
+
+        // Membuat pagination baru
+        for (let i = 1; i <= pageCount; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            pageLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderPage(i);
+            });
+            paginationContainer.appendChild(pageLink);
         }
 
-        // Menampilkan halaman pertama saat pertama kali memuat tabel
+        // Render halaman pertama secara default
         renderPage(1);
-
-        // Menampilkan tombol pagination
-        renderPaginationButtons();
     }
 
-    // Fungsi untuk memformat nominal profit dengan titik
-    function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-});
+    });
 
 // Function to change business insight per country
 function removeActive(){
