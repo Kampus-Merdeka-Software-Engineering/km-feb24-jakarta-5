@@ -204,15 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: chartData,
                         fill: false,
                         backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(54, 162, 235, 0.4)',
                         ],
                         borderColor: [
-                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(54, 162, 235, 0.8)',
                         ],
-                        borderWidth: 3,
-                        tension: 0.1,
+                        borderWidth: 4,
+                        tension: 0,
                         pointRadius: 6,
-                        pointHoverRadius: 8
+                        pointHoverRadius: 20
                     }]
                 },
                 options: options
@@ -440,68 +440,87 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Function to draw the initial bar stack chart
         function drawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
+            const barStackData = getBarStackData(data);
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: 'Order Quantity'
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Order Quantity'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Country'
+                        }
                     }
                 },
-                y: {
-                    stacked: true,
+                plugins: {
                     title: {
                         display: true,
-                        text: 'Country'
+                        text: 'Order Quantity by Country and Category',
+                        font: {
+                            size: 24
+                        },
+                        color: '#153448'
                     }
                 }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Order Quantity by Country and Sub-Category',
-                    font: {
-                        size: 24
-                    },
-                    color: '#153448'
-                }
+            };
+
+            const config = {
+                type: 'bar',
+                data: barStackData,
+                options: options
+            };
+
+            if (barStackChart) {
+                barStackChart.destroy();
             }
-        };
-
-        const config = {
-            type: 'bar',
-            data: barStackData,
-            options: options
-        };
-
-        if (barStackChart) {
-            barStackChart.destroy();
+            barStackChart = new Chart(barStackCtx, config);
         }
-        barStackChart = new Chart(barStackCtx, config);
-    }
 
-    // Function to redraw the bar stack chart with filtered data
-    function redrawBarStackChart(data) {
-        const barStackData = getBarStackData(data);
-        if (barStackChart) {
-            barStackChart.data = barStackData;
-            barStackChart.update();
-        } else {
-            drawBarStackChart(data);
+        // Function to redraw the bar stack chart with filtered data
+        function redrawBarStackChart(data) {
+            const barStackData = getBarStackData(data);
+            if (barStackChart) {
+                barStackChart.data = barStackData;
+                barStackChart.update();
+            } else {
+                drawBarStackChart(data);
+            }
         }
-    }
 
         // Function to extract bar stack data
         function getBarStackData(data) {
             const subCategories = [...new Set(data.map(item => item.Sub_Category))];
             const countries = [...new Set(data.map(item => item.Country))];
-            
+
+            // Calculate total order quantity for each country and sub-category
+            const totalOrderQuantities = {};
+            subCategories.forEach(subCategory => {
+                totalOrderQuantities[subCategory] = {};
+                countries.forEach(country => {
+                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                    console.log("Filtered data for", subCategory, "in", country, ":", filteredData); // Insert this log here
+                    totalOrderQuantities[subCategory][country] = filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                });
+            });
+
+            // Sort total order quantity in descending order
+            const sortedOrderQuantities = {};
+            for (const subCategory in totalOrderQuantities) {
+                sortedOrderQuantities[subCategory] = Object.entries(totalOrderQuantities[subCategory])
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([country]) => country);
+            }
+
             // Define predefined colors for each sub-category
             const colorPalette = {
                 'Road Bikes': {
@@ -524,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 return {
                     label: subCategory,
-                    data: countries.map(country => {
+                    data: sortedOrderQuantities[subCategory].map(country => {
                         const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
                         return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
                     }),
@@ -535,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             return {
-                labels: countries,
+                labels: sortedOrderQuantities['Road Bikes'], // Use the order of 'Road Bikes' for labels (since all sub-categories will have the same order)
                 datasets: datasets
             };
         }
@@ -574,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Scatter Plot of Profit vs Total Order Quantity',
+                        text: 'Profit vs Total Order Quantity',
                         font: {
                             size: 24
                         },
