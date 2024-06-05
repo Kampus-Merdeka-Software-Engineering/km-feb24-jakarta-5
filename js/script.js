@@ -766,73 +766,76 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Fungsi untuk memperbarui tabel dengan data yang diberikan
-    function updateTable(data) {
-        // Menghitung total profit untuk setiap produk
-        const productProfits = {};
-        data.forEach(item => {
-            const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
-            if (!productProfits[key]) {
-                productProfits[key] = 0;
+        function updateTable(data) {
+            // Menghitung total profit untuk setiap produk
+            const productProfits = {};
+            data.forEach(item => {
+                const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
+                if (!productProfits[key]) {
+                    productProfits[key] = 0;
+                }
+                productProfits[key] += item.Profit;
+            });
+
+            // Mengonversi objek productProfits menjadi array untuk diurutkan
+            const sortedProducts = Object.keys(productProfits)
+                .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
+                .sort((a, b) => b.totalProfit - a.totalProfit)
+                .slice(0, 100); // Mengambil 100 produk paling menguntungkan
+
+            // Menampilkan data di dalam tabel
+            renderTable(sortedProducts);
+        }
+
+        // Fungsi untuk menampilkan data dalam tabel dengan pagination
+        function renderTable(data) {
+            const rowsPerPage = 10; // Jumlah baris per halaman
+            const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
+
+            // Fungsi untuk membuat halaman data
+            function renderPage(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const pageData = data.slice(start, end);
+
+                // Menghapus konten tabel sebelumnya
+                dataTable.innerHTML = '';
+
+                // Membuat header tabel
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
+                dataTable.appendChild(headerRow);
+
+                // Menambahkan baris data
+                pageData.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${formatCurrency(item.totalProfit, 'EUR')}</td>`;
+                    dataTable.appendChild(row);
+                });
             }
-            productProfits[key] += item.Profit;
-        });
 
-        // Mengonversi objek productProfits menjadi array untuk diurutkan
-        const sortedProducts = Object.keys(productProfits)
-            .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
-            .sort((a, b) => b.totalProfit - a.totalProfit)
-            .slice(0, 100); // Mengambil 100 produk paling menguntungkan
+            // Menghapus konten pagination sebelumnya
+            paginationContainer.innerHTML = '';
 
-        // Menampilkan data di dalam tabel
-        renderTable(sortedProducts);
-    }
+            // Membuat pagination baru
+            for (let i = 1; i <= pageCount; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage(i);
+                });
+                paginationContainer.appendChild(pageLink);
+            }
 
-    // Fungsi untuk menampilkan data dalam tabel dengan pagination
-    function renderTable(data) {
-        const rowsPerPage = 10; // Jumlah baris per halaman
-        const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
-
-        // Fungsi untuk membuat halaman data
-        function renderPage(page) {
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const pageData = data.slice(start, end);
-
-            // Menghapus konten tabel sebelumnya
-            dataTable.innerHTML = '';
-
-            // Membuat header tabel
-            const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
-            dataTable.appendChild(headerRow);
-
-            // Menambahkan baris data
-            pageData.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${item.totalProfit.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>`;
-                dataTable.appendChild(row);
-            });
+            // Render halaman pertama secara default
+            renderPage(1);
         }
 
-        // Menghapus konten pagination sebelumnya
-        paginationContainer.innerHTML = '';
-
-        // Membuat pagination baru
-        for (let i = 1; i <= pageCount; i++) {
-            const pageLink = document.createElement('a');
-            pageLink.href = '#';
-            pageLink.textContent = i;
-            pageLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                renderPage(i);
-            });
-            paginationContainer.appendChild(pageLink);
+        function formatCurrency(num, currency) {
+            return num.toLocaleString('de-DE', { style: 'currency', currency: currency });
         }
-
-        // Render halaman pertama secara default
-        renderPage(1);
-    }
-
     });
 
 // Function to change business insight per country

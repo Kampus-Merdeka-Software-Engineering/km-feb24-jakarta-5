@@ -53,6 +53,7 @@ nav > .wrapper {
   text-decoration: none;
   color: #fff;
   font-weight: 550;
+  font-size: 20px;
 }
 .menu > ul > li > a:hover {
   border-bottom: 2px solid #fff;
@@ -826,6 +827,8 @@ tr:nth-child(even) {
 
   button.hamburger {
     display: none;
+    background-color: #153448;
+    color: #fff;
   }
 
   .button {
@@ -1008,6 +1011,10 @@ tr:nth-child(even) {
 
   .filter {
     width: 95%;
+  }
+
+  .filter h2 {
+    display: none;
   }
 
   .section-1 {
