@@ -59,6 +59,10 @@ nav > .wrapper {
   border-bottom: 2px solid #fff;
 }
 
+button.hamburger {
+  display: none;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -662,7 +666,7 @@ tr:nth-child(even) {
 
 #analysis .country-insight-wrapper .button-container button {
   display: inline-block;
-  font-family:  "Nunito Sans", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   color: #153448;
   font-size: 1rem;
   padding: 2px 5px;
@@ -789,11 +793,7 @@ tr:nth-child(even) {
     width: 90%;
   }
 
-  button.hamburger {
-    display: none;
-  }
-
-  .section-1{
+  .section-1 {
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -821,7 +821,31 @@ tr:nth-child(even) {
 
 @media screen and (max-width: 768px) {
   .menu {
-    width: 70%;
+    display: none;
+  }
+
+  button.hamburger {
+    display: inline;
+    background-color: #153448;
+    color: #fff;
+  }
+
+  .tampil {
+    display: inline;
+  }
+
+  .tampil > ul {
+    flex-direction: column;
+    border-radius: 5%;
+    right: auto;
+    background-color: #153448;
+    width: 63.4%;
+    position: fixed;
+    top: 85px;
+  }
+
+  .tampil > ul > li {
+    padding: 10px 20px 10px 20px;
   }
 
   .header-jumbotron > h4 {
@@ -833,12 +857,6 @@ tr:nth-child(even) {
   }
   .header-jumbotron > p {
     font-size: 1rem;
-  }
-
-  button.hamburger {
-    display: none;
-    background-color: #153448;
-    color: #fff;
   }
 
   .button {
@@ -883,8 +901,6 @@ tr:nth-child(even) {
     align-items: center;
   }
 
-
-
   .section-3 .chart-container {
     /* width: 270px; */
     /* grid-template-columns: 2, ; */
@@ -904,17 +920,33 @@ tr:nth-child(even) {
 
 @media screen and (max-width: 480px) {
   .menu {
-    width: 78%;
-    /* display: inline; */
-  }
-
-  button.hamburger {
     display: none;
   }
 
-  .menu a {
-    font-size: 1em;
+  button.hamburger {
+    display: inline;
+    background-color: #153448;
+    color: #fff;
   }
+
+  .tampil {
+    display: inline;
+  }
+
+  .tampil > ul {
+    flex-direction: column;
+    border-radius: 5%;
+    right: auto;
+    background-color: #153448;
+    width: 63.4%;
+    position: fixed;
+    top: 85px;
+  }
+
+  .tampil > ul > li {
+    padding: 10px 20px 10px 20px;
+  }
+
   .header-jumbotron > h4 {
     font-size: 1rem;
   }
@@ -947,12 +979,11 @@ tr:nth-child(even) {
     font-size: 2rem;
   }
 
-  .section-1{
+  .section-1 {
     grid-template-columns: repeat(2, 1fr);
-    
   }
 
-  .section-1  .card  p {
+  .section-1 .card p {
     font-size: 1.6rem;
     margin: 0px;
     justify-content: center;
@@ -1091,5 +1122,4 @@ tr:nth-child(even) {
     gap: 1px;
     padding: 0 5px;
   }
-
 }
