@@ -497,138 +497,154 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to extract bar stack data with sorted countries by total order quantity
-    function getBarStackData(data) {
-        // Calculate total order quantity for each country
-        const countryOrderQuantities = {};
-        data.forEach(item => {
-            if (!countryOrderQuantities[item.Country]) {
-                countryOrderQuantities[item.Country] = 0;
-            }
-            countryOrderQuantities[item.Country] += item.Order_Quantity;
-        });
+        // Function to extract bar stack data
+        function getBarStackData(data) {
+            const subCategories = [...new Set(data.map(item => item.Sub_Category))];
+            const countries = [...new Set(data.map(item => item.Country))];
+            
+            // Define predefined colors for each sub-category
+            const colorPalette = {
+                'Road Bikes': {
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)'
+                },
+                'Touring Bikes': {
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)'
+                },
+                'Mountain Bikes': {
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)'
+                },
+                // Add more colors as needed for each sub-category
+            };
 
-        // Sort countries by total order quantity
-        const sortedCountries = Object.keys(countryOrderQuantities).sort((a, b) => countryOrderQuantities[b] - countryOrderQuantities[a]);
+            const datasets = subCategories.map(subCategory => {
+                const color = colorPalette[subCategory] || { backgroundColor: getRandomColor(), borderColor: getRandomColor() }; // Fallback to random color if not predefined
 
-        // Get unique sub-categories
-        const subCategories = [...new Set(data.map(item => item.Sub_Category))];
-        
-        // Define a fixed color palette
-        const colorPalette = {
-            'Road Bikes': 'rgba(255, 99, 132, 1)',
-            'Mountain Bikes': 'rgba(54, 162, 235, 1)',
-            'Touring Bikes': 'rgba(255, 206, 86, 1)',
-            // Add more colors as needed for each sub-category
-        };
-
-        // Debug: Log the sub-categories and their corresponding colors
-        console.log('Sub-Categories:', subCategories);
-        console.log('Color Palette:', colorPalette);
-
-        // Create datasets for each sub-category
-        const datasets = subCategories.map(subCategory => {
-            const color = colorPalette[subCategory] || 'rgba(0, 0, 0, 1)'; // Fallback color for undefined sub-categories
-            console.log(`Sub-Category: ${subCategory}, Color: ${color}`); // Debug: Log the assigned color
+                return {
+                    label: subCategory,
+                    data: countries.map(country => {
+                        const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                        return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                    }),
+                    backgroundColor: color.backgroundColor, // Assign the predefined background color or random color
+                    borderColor: color.borderColor, // Assign the predefined border color or random color
+                    borderWidth: 1 // Adjust border width as needed
+                };
+            });
 
             return {
-                label: subCategory,
-                data: sortedCountries.map(country => {
-                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                    return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                }),
-                backgroundColor: color // Assign the predefined color
+                labels: countries,
+                datasets: datasets
             };
-        });
-
-        return {
-            labels: sortedCountries,
-            datasets: datasets
-        };
-    }
-
-    // Function to get scatter chart data based on filtered data
-    function getScatterChartData(data) {
-        return data.map(item => {
-            return {
-                x: item.Unit_Price,
-                y: item.Order_Quantity,
-                r: item.profit_per_quantity // Use 'r' for bubble radius in Chart.js
-            };
-        });
-    }
+        }
 
     // Function to draw the initial scatter chart
-    function drawScatterChart(data) {
-        const scatterData = getScatterChartData(data);
-        console.log('Scatter Data:', scatterData); 
+        function drawScatterChart(data) {
+            const scatterData = getScatterChartData(data);
+            console.log('Scatter Data:', scatterData);
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Unit Price'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Order Quantity'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Scatter Plot of Unit Price vs Order Quantity',
-                    font: {
-                        size: 24
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Profit'
+                        },
+                        ticks: {
+                            stepSize: 50, 
+                            callback: function(value) {
+                                return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+                            }
+                        }
                     },
-                    color: '#153448'
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Total Order Quantity'
+                        },
+                        ticks: {
+                            stepSize: 10 // Atur jarak antar nilai pada sumbu y
+                        }
+                    }
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const item = context.raw;
-                            return `Unit Price: ${item.x}, Order Quantity: ${item.y}, Profit per Quantity: ${item.r}`;
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Scatter Plot of Profit vs Total Order Quantity',
+                        font: {
+                            size: 24
+                        },
+                        color: '#153448'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const item = context.raw;
+                                return `Profit: ${item.x.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}, Total Order Quantity: ${item.y}, Profit per Quantity: ${item.r.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}`;
+                            }
                         }
                     }
                 }
+            };
+
+            const config = {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Scatter Dataset',
+                        data: scatterData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: options
+            };
+
+            if (scatterChart) {
+                scatterChart.destroy();
             }
-        };
-
-        const config = {
-            type: 'bubble',
-            data: {
-                datasets: [{
-                    label: 'Scatter Dataset',
-                    data: scatterData,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: options
-        };
-        if (scatterChart) {
-            scatterChart.destroy();
+            scatterChart = new Chart(scatterCtx, config);
         }
-        scatterChart = new Chart(scatterCtx, config);
-    }
 
-    // Function to redraw the scatter chart with filtered data
-    function redrawScatterChart(data) {
-        const scatterData = getScatterChartData(data);
-        if (scatterChart) {
-            scatterChart.data.datasets[0].data = scatterData;
-            scatterChart.update();
-        } else {
-            drawScatterChart(data);
+        // Function to prepare scatter chart data including profit per quantity for bubble size
+        function getScatterChartData(data) {
+            // Buat objek untuk menyimpan total order untuk setiap profit
+            const aggregatedData = {};
+
+            // Lakukan pengelompokan dan penjumlahan order_quantity berdasarkan profit
+            data.forEach(item => {
+                if (aggregatedData[item.Profit]) {
+                    aggregatedData[item.Profit] += item.Order_Quantity;
+                } else {
+                    aggregatedData[item.Profit] = item.Order_Quantity;
+                }
+            });
+
+            // Ubah hasil pengelompokan menjadi array objek yang cocok dengan format yang diperlukan untuk scatter chart
+            const scatterData = Object.keys(aggregatedData).map(profit => ({
+                x: parseFloat(profit), // Ubah string profit menjadi angka
+                y: aggregatedData[profit],
+                r: 10 // Misalnya, Anda bisa tetapkan ukuran tetap untuk gelembung
+            }));
+
+            return scatterData;
         }
-    }
+
+        // Function to redraw the scatter chart with filtered data
+        function redrawScatterChart(data) {
+            const scatterData = getScatterChartData(data);
+            if (scatterChart) {
+                scatterChart.data.datasets[0].data = scatterData;
+                scatterChart.update();
+            } else {
+                drawScatterChart(data);
+            }
+        }
 
         // Function to get pie chart data based on filtered data
         function getPieChartData(data) {
@@ -673,38 +689,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             console.log('Processed Gender Profit Data:', genderProfitData); // Debugging log
             return genderProfitData;
-        }
-
-        // Function to extract bar stack data
-        function getBarStackData(data) {
-            const subCategories = [...new Set(data.map(item => item.Sub_Category))];
-            const countries = [...new Set(data.map(item => item.Country))];
-            
-            const datasets = subCategories.map(subCategory => {
-                return {
-                    label: subCategory,
-                    data: countries.map(country => {
-                        const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                        return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                    }),
-                    backgroundColor: getRandomColor()
-                };
-            });
-
-            return {
-                labels: countries,
-                datasets: datasets
-            };
-        }
-
-        // Helper function to get random color
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
         }
 
         // Function to get yearly average profit data based on filtered data
