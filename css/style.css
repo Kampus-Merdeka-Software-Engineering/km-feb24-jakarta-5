@@ -59,8 +59,20 @@ nav > .wrapper {
   border-bottom: 2px solid #fff;
 }
 
-button.hamburger {
+button.hamburger{
+  background-color: #153448;
+  border: none;
+  cursor: pointer;
   display: none;
+}
+
+button.hamburger > i{
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+button.hamburger > i.icon-close{
+  display  : none;
 }
 
 .logo {
@@ -825,27 +837,25 @@ tr:nth-child(even) {
     display: none;
   }
 
-  button.hamburger {
+  button.hamburger{
     display: inline;
-    background-color: #153448;
-    color: #fff;
   }
 
-  .tampil {
+  .tampil{
     display: inline;
   }
 
   .tampil > ul {
     flex-direction: column;
-    border-radius: 5%;
-    right: auto;
     background-color: #153448;
-    width: 63.4%;
+    width: 40%;
     position: fixed;
-    top: 85px;
+    top : 70px;
+    right: 0; 
+    left: auto;
   }
 
-  .tampil > ul > li {
+  .tampil > ul > li{
     padding: 10px 20px 10px 20px;
   }
 
@@ -919,32 +929,56 @@ tr:nth-child(even) {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .menu {
-    display: none;
-  }
-
-  button.hamburger {
+@media screen and (max-width: 600px) {
+  button.hamburger{
     display: inline;
-    background-color: #153448;
-    color: #fff;
   }
 
-  .tampil {
+  .menu{
+    display : none;
+  }
+  .tampil{
     display: inline;
   }
 
   .tampil > ul {
     flex-direction: column;
-    border-radius: 5%;
-    right: auto;
     background-color: #153448;
-    width: 63.4%;
+    width: 40.4%;
     position: fixed;
-    top: 85px;
+    top :70px;
   }
 
-  .tampil > ul > li {
+  .tampil > ul > li{
+    padding: 10px 20px 10px 20px;
+  }
+
+  .filter h2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  button.hamburger{
+    display: inline;
+  }
+
+  .menu{
+    display : none;
+  }
+  .tampil{
+    display: inline;
+  }
+
+  .tampil > ul {
+    flex-direction: column;
+    background-color: #153448;
+    width: 40.4%;
+    position: fixed;
+    top :70px;
+  }
+
+  .tampil > ul > li{
     padding: 10px 20px 10px 20px;
   }
 
@@ -978,6 +1012,10 @@ tr:nth-child(even) {
 
   #statistic > .wrapper > div > p > i {
     font-size: 2rem;
+  }
+
+  .filter h2 {
+    display: none;
   }
 
   .section-1 {
@@ -1040,29 +1078,26 @@ tr:nth-child(even) {
     text-shadow: black;
   }
 
-  button.hamburger {
+  button.hamburger{
     display: inline;
   }
 
-  .menu {
-    display: none;
+  .menu{
+    display : none;
   }
-
-  .tampil {
+  .tampil{
     display: inline;
   }
 
   .tampil > ul {
     flex-direction: column;
-    border-radius: 5%;
-    right: auto;
     background-color: #153448;
-    width: 63.4%;
+    width: 45.6%;
     position: fixed;
-    top: 85px;
+    top :70px;
   }
 
-  .tampil > ul > li {
+  .tampil > ul > li{
     padding: 10px 20px 10px 20px;
   }
 

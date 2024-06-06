@@ -1,4 +1,4 @@
-//hamburger menu
+//humburger menu
 const menu = document.querySelector('.menu');
 const hamburger = document.querySelector('.hamburger');
 const bars = document.querySelector('.icon-bars');
