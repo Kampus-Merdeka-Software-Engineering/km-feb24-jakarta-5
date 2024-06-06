@@ -605,7 +605,7 @@ tr:nth-child(even) {
 }
 
 #analysis > .wrapper > .container {
-  width: 1200px;
+  width: 98%;
   background-color: #fff;
   display: block;
   justify-content: center;
@@ -773,7 +773,7 @@ tr:nth-child(even) {
   color: #fff;
 }
 #team > .wrapper .member h5 {
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 0;
   font-size: 1rem;
   text-align: center;
@@ -790,13 +790,14 @@ tr:nth-child(even) {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-.footer {
-  background-color: whitesmoke;
+footer {
+  background-color:  whitesmoke;
+  color: #153448;
   margin: 0;
   padding: 15px;
-  width: 100%;
+  width: 97.6%;
 }
-.footer p {
+footer p {
   text-align: center;
   margin: 0;
 }
@@ -828,10 +829,21 @@ tr:nth-child(even) {
   }
 
   #analysis > .wrapper > .container {
-    width: 900px;
+    width: 96.1%;
   }
-}
 
+  footer {
+    background-color:  #ffde3d;
+    color: #fff;
+    margin: 0;
+    padding: 15px;
+    width: 96.3%;
+  }
+  footer p {
+    text-align: center;
+    margin: 0;
+}
+}
 @media screen and (max-width: 768px) {
   .menu {
     display: none;
@@ -920,12 +932,27 @@ tr:nth-child(even) {
   }
 
   .section-4 .chart-container {
-    width: 400px;
+    width: 120px;
+  }
+
+  .section-5 {
+    width: 90%;
   }
 
   #analysis > .wrapper > .container {
-    width: 760px;
+    width: 95%;
     height: 460px;
+  }
+
+  .footer {
+    background-color:  #ffde3d;
+    margin: 0;
+    padding: 15px;
+    width: 100%;
+  }
+  .footer p {
+    text-align: center;
+    margin: 0;
   }
 }
 
@@ -955,6 +982,35 @@ tr:nth-child(even) {
 
   .filter h2 {
     display: none;
+  }
+
+  .section-1 .card p {
+    font-size: 1rem;
+    margin: 0px;
+    justify-content: center;
+  }
+
+  .section-1 > .card > small {
+    font-size: 1rem;
+  }
+
+  .section-3 .chart-container {
+    /* width: 270px; */
+    /* grid-template-columns: 2, ; */
+    flex: 1 1 calc(50% - 20px);
+    width: 350px;
+  }
+
+  .section-4 .chart-container {
+    width: 100px;
+  }
+
+  .section-5 {
+    width: 90%;
+  }
+
+  footer{
+    width: 94.6%;
   }
 }
 
