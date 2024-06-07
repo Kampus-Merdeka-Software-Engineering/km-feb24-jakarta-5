@@ -404,7 +404,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to draw the initial gender pie chart
         function drawGenderPieChart(data) {
             const genderProfitData = getGenderProfitData(data);
-            console.log('Gender Profit Data:', genderProfitData); // Debugging log
             const labels = Object.keys(genderProfitData);
             const profitValues = Object.values(genderProfitData);
 
@@ -449,8 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Function to redraw the gender pie chart with filtered data
         function redrawGenderPieChart(data) {
-            const genderProfitData = getGenderProfitData(data);
-            console.log('Redrawing Gender Profit Data:', genderProfitData); // Debugging log
+            const genderProfitData = getGenderProfitData(data)
             const labels = Object.keys(genderProfitData);
             const profitValues = Object.values(genderProfitData);
 
@@ -587,8 +585,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to draw the initial scatter chart
         function drawScatterChart(data) {
             const scatterData = getScatterChartData(data);
-            console.log('Scatter Data:', scatterData);
-
             const options = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -731,7 +727,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 genderProfitData[genderLabel] += item.Profit;
             });
-            console.log('Processed Gender Profit Data:', genderProfitData); // Debugging log
             return genderProfitData;
         }
 

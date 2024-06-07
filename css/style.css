@@ -984,7 +984,8 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 96.1%;
+    width: 94%;
+    height: 100%;
   }
 
   #feedback > .wrapper {
@@ -1093,10 +1094,14 @@ footer p {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .section-1 > .card > p {
-    /* margin-top: 10px; */
-    font-size: 1.5rem;
-    align-items: center;
+  .section-1 .card p {
+    font-size: 1rem;
+    margin: 0px;
+    justify-content: center;
+  }
+
+  .section-1 > .card > small {
+    font-size: 1rem;
   }
 
   .section-3 .chart-container {
@@ -1115,7 +1120,7 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 95%;
+    width: 85%;
     height: 100%;
   }
 
@@ -1132,7 +1137,7 @@ footer p {
   }
 
   .fb-container form {
-    width: 80%;
+    width: 60%;
   }
 
   form input,
@@ -1181,13 +1186,13 @@ footer p {
   }
 
   .section-1 .card p {
-    font-size: 1rem;
+    font-size:0.8rem;
     margin: 0px;
     justify-content: center;
   }
 
   .section-1 > .card > small {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .section-3 .chart-container {
@@ -1196,7 +1201,7 @@ footer p {
     flex: 1 1 calc(50% - 20px);
     width: 350px;
   }
-
+  
   .section-4 .chart-container {
     width: 100px;
   }
@@ -1301,13 +1306,13 @@ footer p {
   }
 
   .section-1 .card p {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     margin: 0px;
     justify-content: center;
   }
 
   .section-1 > .card > small {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 
   .section-3 .chart-container {
@@ -1316,7 +1321,7 @@ footer p {
   }
 
   .section-4 .chart-container {
-    width: 350px;
+    width: 200px;
   }
 
   #analysis > .wrapper > .container {
