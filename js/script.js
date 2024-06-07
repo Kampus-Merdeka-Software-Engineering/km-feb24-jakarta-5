@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const scatterChartCanvas = document.getElementById('scatter-chart');
         const dataTable = document.getElementById('dataTable');
         const paginationContainer = document.getElementById('pagination');
+        const entriesSelect = document.getElementById('entriesSelect');
+        const searchInput = document.getElementById('searchInput');
 
         const ctx = chartCanvas.getContext('2d');
         const pieCtx = pieChartCanvas.getContext('2d');
@@ -82,38 +84,54 @@ document.addEventListener('DOMContentLoaded', function() {
         let ageHistogram;
         let barStackChart;
         let scatterChart;
-
+        let originalData = [];
+        let filteredData = [];
 
         // Fetch the JSON data
         fetch('dataset.json')
-            .then(response => response.json())
-            .then(data => {
-                // Initial rendering
-                updateDashboard(data);
-                drawChart(data);
-                drawPieChart(data);
-                drawGenderPieChart(data);
-                drawAgeHistogram(data);
-                drawBarStackChart(data);
-                drawScatterChart(data); 
-                updateTable(data);
+        .then(response => response.json())
+        .then(data => {
+            originalData = data;
+            filteredData = filterData(data);
 
-                // Add event listeners for each filter
-                filterForm.querySelectorAll('select').forEach(select => {
-                    select.addEventListener('change', function() {
-                        const filteredData = filterData(data);
-                        updateDashboard(filteredData);
-                        redrawChart(filteredData);
-                        redrawPieChart(filteredData);
-                        redrawGenderPieChart(filteredData);
-                        redrawAgeHistogram(filteredData);
-                        redrawBarStackChart(filteredData);
-                        redrawScatterChart(filteredData);
-                        updateTable(filteredData);
-                    });
+            updateDashboard(filteredData);
+            drawChart(filteredData);
+            drawPieChart(filteredData);
+            drawGenderPieChart(filteredData);
+            drawAgeHistogram(filteredData);
+            drawBarStackChart(filteredData);
+            drawScatterChart(filteredData); 
+            updateTable(filteredData);
+
+            // Add event listeners for each filter
+            filterForm.querySelectorAll('select').forEach(select => {
+                select.addEventListener('change', function() {
+                    filteredData = filterData(originalData);
+                    updateDashboard(filteredData);
+                    redrawChart(filteredData);
+                    redrawPieChart(filteredData);
+                    redrawGenderPieChart(filteredData);
+                    redrawAgeHistogram(filteredData);
+                    redrawBarStackChart(filteredData);
+                    redrawScatterChart(filteredData);
+                    updateTable(filteredData);
                 });
+            });
+
+            // Event listener for entries selection
+            entriesSelect.addEventListener('change', function() {
+                updateTable(filteredData);
+            });
+
+            // Event listener for search input
+            searchInput.addEventListener('input', function() {
+                filteredData = filterData(originalData);
+                updateDashboard(filteredData);
+                updateTable(filteredData, searchInput.value.toLowerCase()); // Menyediakan nilai searchTerm
             })
-            .catch(error => console.error('Error loading the dataset:', error));
+        })
+        .catch(error => console.error('Error loading the dataset:', error));
+        
 
         // Function to filter data based on selected criteria
         function filterData(data) {
@@ -121,15 +139,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const country = document.getElementById('countryType').value;
             const subcategory = document.getElementById('subcategory-filter').value;
             const gender = document.getElementById('gender').value;
+            const searchTerm = searchInput.value.toLowerCase();
 
             return data.filter(item => {
+                const combinedString = `${item.Product} ${item.Product_Category} ${item.Sub_Category} ${item.Country}`.toLowerCase();
                 return (year === "" || item.Year.toString() === year) &&
                     (!country || item.Country === country) &&
                     (!subcategory || item.Sub_Category === subcategory) &&
-                    (!gender || item.Customer_Gender === gender);
+                    (!gender || item.Customer_Gender === gender) &&
+                    combinedString.includes(searchTerm);
             });
         }
-
+            
         // Function to format numbers to millions or thousands
         function formatNumber(num) {
             if (num >= 1e6) {
@@ -766,8 +787,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Fungsi untuk memperbarui tabel dengan data yang diberikan
-        function updateTable(data) {
-            // Menghitung total profit untuk setiap produk
+        function updateTable(data, searchTerm) {
+            const rowsPerPage = parseInt(entriesSelect.value, 10);
             const productProfits = {};
             data.forEach(item => {
                 const key = `${item.Product}_${item.Product_Category}_${item.Sub_Category}_${item.Country}`;
@@ -777,43 +798,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 productProfits[key] += item.Profit;
             });
 
-            // Mengonversi objek productProfits menjadi array untuk diurutkan
             const sortedProducts = Object.keys(productProfits)
-                .map(key => ({ product: key.split('_')[0], category: key.split('_')[1], subCategory: key.split('_')[2], country: key.split('_')[3], totalProfit: productProfits[key] })) // Memformat nominal profit
+                .map(key => ({
+                    product: key.split('_')[0],
+                    category: key.split('_')[1],
+                    subCategory: key.split('_')[2],
+                    country: key.split('_')[3],
+                    totalProfit: productProfits[key]
+                }))
                 .sort((a, b) => b.totalProfit - a.totalProfit)
-                .slice(0, 100); // Mengambil 100 produk paling menguntungkan
+                .slice(0, 100);
 
-            // Menampilkan data di dalam tabel
-            renderTable(sortedProducts);
+            renderTable(sortedProducts, rowsPerPage, searchTerm); // Menyediakan nilai searchTerm
         }
 
-        // Fungsi untuk menampilkan data dalam tabel dengan pagination
-        function renderTable(data) {
-            const rowsPerPage = 10; // Jumlah baris per halaman
-            const pageCount = Math.ceil(data.length / rowsPerPage); // Jumlah halaman yang diperlukan
+        // Fungsi untuk render tabel
+        function renderTable(data, rowsPerPage, searchTerm) {
+            const pageCount = Math.ceil(data.length / rowsPerPage);
 
-            // Fungsi untuk membuat halaman data
             function renderPage(page) {
                 const start = (page - 1) * rowsPerPage;
                 const end = start + rowsPerPage;
                 const pageData = data.slice(start, end);
 
-                // Menghapus konten tabel sebelumnya
                 dataTable.innerHTML = '';
-
-                // Membuat header tabel
                 const headerRow = document.createElement('tr');
                 headerRow.innerHTML = '<th>No.</th><th>Product</th><th>Category</th><th>Sub Category</th><th>Country</th><th>Total Profit</th>';
                 dataTable.appendChild(headerRow);
 
-                // Menambahkan baris data
                 pageData.forEach((item, index) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${start + index + 1}</td><td>${item.product}</td><td>${item.category}</td><td>${item.subCategory}</td><td>${item.country}</td><td>${formatCurrency(item.totalProfit, 'EUR')}</td>`;
+                    row.innerHTML = `<td>${start + index + 1}</td><td>${highlightSearchTerm(item.product, searchTerm)}</td><td>${highlightSearchTerm(item.category, searchTerm)}</td><td>${highlightSearchTerm(item.subCategory, searchTerm)}</td><td>${highlightSearchTerm(item.country, searchTerm)}</td><td>${formatCurrency(item.totalProfit, 'EUR')}</td>`;
                     dataTable.appendChild(row);
                 });
 
-                // Menambahkan kelas aktif pada tombol halaman saat ini
                 const allPageLinks = paginationContainer.querySelectorAll('.pagination-button');
                 allPageLinks.forEach(link => link.classList.remove('active'));
                 const currentPageLink = paginationContainer.querySelector(`.pagination-button[data-page="${page}"]`);
@@ -822,16 +840,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // Menghapus konten pagination sebelumnya
             paginationContainer.innerHTML = '';
-
-            // Membuat pagination baru
             for (let i = 1; i <= pageCount; i++) {
                 const pageLink = document.createElement('a');
                 pageLink.href = '#';
                 pageLink.textContent = i;
-                pageLink.classList.add('pagination-button'); // Tambahkan kelas pagination-button
-                pageLink.setAttribute('data-page', i); // Tambahkan atribut data-page untuk memudahkan pengelolaan
+                pageLink.classList.add('pagination-button');
+                pageLink.setAttribute('data-page', i);
                 pageLink.addEventListener('click', (e) => {
                     e.preventDefault();
                     renderPage(i);
@@ -839,155 +854,167 @@ document.addEventListener('DOMContentLoaded', function() {
                 paginationContainer.appendChild(pageLink);
             }
 
-            // Render halaman pertama secara default
             renderPage(1);
         }
-
+    
+        //
         function formatCurrency(num, currency) {
             return num.toLocaleString('de-DE', { style: 'currency', currency: currency });
+        }
+
+        // Fungsi untuk menyorot kata kunci pencarian dalam baris tabel
+        function highlightSearchTerm(text, searchTerm) {
+            // Jika tidak ada kata kunci pencarian, kembalikan teks asli
+            if (!searchTerm || searchTerm.trim() === '') {
+                return text;
+            }
+        
+            // Menyorot kata kunci pencarian dalam teks dengan tag span
+            const regex = new RegExp(searchTerm, 'gi');
+            return text.replace(regex, `<span class="highlight">${searchTerm}</span>`);
         }
     });
 
 // Function to change business insight per country
-function removeActive(){
-    let buttonActive = document.querySelector('.button-ci-active');
-    if (buttonActive){
-        if (buttonActive.classList.contains('button-ci-active')){
-            buttonActive.classList.remove('button-ci-active');
+    function removeActive(){
+        let buttonActive = document.querySelector('.button-ci-active');
+        if (buttonActive){
+            if (buttonActive.classList.contains('button-ci-active')){
+                buttonActive.classList.remove('button-ci-active');
+            }
+        }  
+        let visibleContent = document.querySelectorAll('.visible');
+        if (visibleContent[0]){
+            if (visibleContent[0].classList.contains('visible')){
+                visibleContent[0].classList.add('hide');
+                visibleContent[0].classList.remove('visible');
+            }
         }
-    }  
-    let visibleContent = document.querySelectorAll('.visible');
-    if (visibleContent[0]){
-        if (visibleContent[0].classList.contains('visible')){
-            visibleContent[0].classList.add('hide');
-            visibleContent[0].classList.remove('visible');
+        if (visibleContent[1]){
+            if (visibleContent[1].classList.contains('visible')){
+                visibleContent[1].classList.add('hide');
+                visibleContent[1].classList.remove('visible');
+            }
+        }  
+    }
+
+    function showOvr(){
+        removeActive()
+        const concOvr = document.querySelector('#conclusion-ovr');
+        const recOvr = document.querySelector('#recommendations-ovr');
+        buttonOvr.classList.add('button-ci-active')
+        concOvr.classList.add('visible')
+        recOvr.classList.add('visible')
+        if (concOvr.classList.contains('hide')){
+            concOvr.classList.remove('hide')
+        }
+        if (recOvr.classList.contains('hide')){
+            recOvr.classList.remove('hide')
         }
     }
-    if (visibleContent[1]){
-        if (visibleContent[1].classList.contains('visible')){
-            visibleContent[1].classList.add('hide');
-            visibleContent[1].classList.remove('visible');
+
+    function showUs(){
+        removeActive()
+        const concUs = document.querySelector('#conclusion-us');
+        const recUs = document.querySelector('#recommendations-us');
+        buttonUs.classList.add('button-ci-active')
+        concUs.classList.add('visible')
+        recUs.classList.add('visible')
+        if (concUs.classList.contains('hide')){
+            concUs.classList.remove('hide')
         }
-    }  
-}
+        if (recUs.classList.contains('hide')){
+            recUs.classList.remove('hide')
+        }
+    }
 
-function showOvr(){
-    removeActive()
-    const concOvr = document.querySelector('#conclusion-ovr');
-    const recOvr = document.querySelector('#recommendations-ovr');
-    buttonOvr.classList.add('button-ci-active')
-    concOvr.classList.add('visible')
-    recOvr.classList.add('visible')
-    if (concOvr.classList.contains('hide')){
-        concOvr.classList.remove('hide')
+    function showUk(){
+        removeActive()
+        const concUk = document.querySelector('#conclusion-uk');
+        const recUk = document.querySelector('#recommendations-uk');
+        buttonUk.classList.add('button-ci-active')
+        concUk.classList.add('visible')
+        recUk.classList.add('visible')
+        if (concUk.classList.contains('hide')){
+            concUk.classList.remove('hide')
+        }
+        if (recUk.classList.contains('hide')){
+            recUk.classList.remove('hide')
+        }
     }
-    if (recOvr.classList.contains('hide')){
-        recOvr.classList.remove('hide')
-    }
-}
 
-function showUs(){
-    removeActive()
-    const concUs = document.querySelector('#conclusion-us');
-    const recUs = document.querySelector('#recommendations-us');
-    buttonUs.classList.add('button-ci-active')
-    concUs.classList.add('visible')
-    recUs.classList.add('visible')
-    if (concUs.classList.contains('hide')){
-        concUs.classList.remove('hide')
+    function showAus(){
+        removeActive()
+        const concAus = document.querySelector('#conclusion-aus');
+        const recAus = document.querySelector('#recommendations-aus');
+        buttonAus.classList.add('button-ci-active')
+        concAus.classList.add('visible')
+        recAus.classList.add('visible')
+        if (concAus.classList.contains('hide')){
+            concAus.classList.remove('hide')
+        }
+        if (recAus.classList.contains('hide')){
+            recAus.classList.remove('hide')
+        }
     }
-    if (recUs.classList.contains('hide')){
-        recUs.classList.remove('hide')
-    }
-}
 
-function showUk(){
-    removeActive()
-    const concUk = document.querySelector('#conclusion-uk');
-    const recUk = document.querySelector('#recommendations-uk');
-    buttonUk.classList.add('button-ci-active')
-    concUk.classList.add('visible')
-    recUk.classList.add('visible')
-    if (concUk.classList.contains('hide')){
-        concUk.classList.remove('hide')
+    function showGer(){
+        removeActive()
+        const concGer = document.querySelector('#conclusion-ger');
+        const recGer = document.querySelector('#recommendations-ger');
+        buttonGer.classList.add('button-ci-active')
+        concGer.classList.add('visible')
+        recGer.classList.add('visible')
+        if (concGer.classList.contains('hide')){
+            concGer.classList.remove('hide')
+        }
+        if (recGer.classList.contains('hide')){
+            recGer.classList.remove('hide')
+        }
     }
-    if (recUk.classList.contains('hide')){
-        recUk.classList.remove('hide')
-    }
-}
 
-function showAus(){
-    removeActive()
-    const concAus = document.querySelector('#conclusion-aus');
-    const recAus = document.querySelector('#recommendations-aus');
-    buttonAus.classList.add('button-ci-active')
-    concAus.classList.add('visible')
-    recAus.classList.add('visible')
-    if (concAus.classList.contains('hide')){
-        concAus.classList.remove('hide')
+    function showFr(){
+        removeActive()
+        const concFr = document.querySelector('#conclusion-fr');
+        const recFr = document.querySelector('#recommendations-fr');
+        buttonFr.classList.add('button-ci-active')
+        concFr.classList.add('visible')
+        recFr.classList.add('visible')
+        if (concFr.classList.contains('hide')){
+            concFr.classList.remove('hide')
+        }
+        if (recFr.classList.contains('hide')){
+            recFr.classList.remove('hide')
+        }
     }
-    if (recAus.classList.contains('hide')){
-        recAus.classList.remove('hide')
-    }
-}
 
-function showGer(){
-    removeActive()
-    const concGer = document.querySelector('#conclusion-ger');
-    const recGer = document.querySelector('#recommendations-ger');
-    buttonGer.classList.add('button-ci-active')
-    concGer.classList.add('visible')
-    recGer.classList.add('visible')
-    if (concGer.classList.contains('hide')){
-        concGer.classList.remove('hide')
+    function showCd(){
+        removeActive()
+        const concCd = document.querySelector('#conclusion-cd');
+        const recCd = document.querySelector('#recommendations-cd');
+        buttonCd.classList.add('button-ci-active')
+        concCd.classList.add('visible')
+        recCd.classList.add('visible')
+        if (concCd.classList.contains('hide')){
+            concCd.classList.remove('hide')
+        }
+        if (recCd.classList.contains('hide')){
+            recCd.classList.remove('hide')
+        }
     }
-    if (recGer.classList.contains('hide')){
-        recGer.classList.remove('hide')
-    }
-}
 
-function showFr(){
-    removeActive()
-    const concFr = document.querySelector('#conclusion-fr');
-    const recFr = document.querySelector('#recommendations-fr');
-    buttonFr.classList.add('button-ci-active')
-    concFr.classList.add('visible')
-    recFr.classList.add('visible')
-    if (concFr.classList.contains('hide')){
-        concFr.classList.remove('hide')
-    }
-    if (recFr.classList.contains('hide')){
-        recFr.classList.remove('hide')
-    }
-}
+    const buttonOvr = document.querySelector('#button-ci-ovr');
+    const buttonUs = document.querySelector('#button-ci-us');
+    const buttonUk = document.querySelector('#button-ci-uk');
+    const buttonAus = document.querySelector('#button-ci-aus');
+    const buttonGer = document.querySelector('#button-ci-ger');
+    const buttonFr = document.querySelector('#button-ci-fr');
+    const buttonCd = document.querySelector('#button-ci-cd');
 
-function showCd(){
-    removeActive()
-    const concCd = document.querySelector('#conclusion-cd');
-    const recCd = document.querySelector('#recommendations-cd');
-    buttonCd.classList.add('button-ci-active')
-    concCd.classList.add('visible')
-    recCd.classList.add('visible')
-    if (concCd.classList.contains('hide')){
-        concCd.classList.remove('hide')
-    }
-    if (recCd.classList.contains('hide')){
-        recCd.classList.remove('hide')
-    }
-}
-
-const buttonOvr = document.querySelector('#button-ci-ovr');
-const buttonUs = document.querySelector('#button-ci-us');
-const buttonUk = document.querySelector('#button-ci-uk');
-const buttonAus = document.querySelector('#button-ci-aus');
-const buttonGer = document.querySelector('#button-ci-ger');
-const buttonFr = document.querySelector('#button-ci-fr');
-const buttonCd = document.querySelector('#button-ci-cd');
-
-buttonOvr.addEventListener('click',showOvr);
-buttonUs.addEventListener('click',showUs);
-buttonUk.addEventListener('click',showUk);
-buttonAus.addEventListener('click',showAus);
-buttonGer.addEventListener('click',showGer);
-buttonFr.addEventListener('click',showFr);
-buttonCd.addEventListener('click',showCd);
+    buttonOvr.addEventListener('click',showOvr);
+    buttonUs.addEventListener('click',showUs);
+    buttonUk.addEventListener('click',showUk);
+    buttonAus.addEventListener('click',showAus);
+    buttonGer.addEventListener('click',showGer);
+    buttonFr.addEventListener('click',showFr);
+    buttonCd.addEventListener('click',showCd);

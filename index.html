@@ -191,7 +191,22 @@
         </section>
         <section class="section-5">
           <div class="table-container">
-            <h2>Top 100 Profitable Products</h2>
+            <h2>Top 100 <br> Profitable Products</h2>
+            <div class="controls">
+              <div>
+                  Show 
+                  <select id="entriesSelect">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                  </select> 
+                  entries
+              </div>
+              <div>
+                  Search: <input type="text" id="searchInput">
+              </div>
+          </div>
             <table id="dataTable"></table>
             <div id="pagination" class="pagination-container">
               <!-- Pagination buttons will be added here -->
