@@ -151,6 +151,7 @@ button.hamburger > i.icon-close{
   text-align: center;
   font-size: 1.2rem;
   color: #153448;
+  text-decoration: none;
 }
 
 #about {
