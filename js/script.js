@@ -530,8 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
             subCategories.forEach(subCategory => {
                 totalOrderQuantities[subCategory] = {};
                 countries.forEach(country => {
-                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                    console.log("Filtered data for", subCategory, "in", country, ":", filteredData); // Insert this log here
+                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCateg
                     totalOrderQuantities[subCategory][country] = filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
                 });
             });
