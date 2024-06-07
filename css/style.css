@@ -846,7 +846,8 @@ tr:nth-child(even) {
 #feedback > .wrapper > .thank-you > h1{
   color: #fff;
   font-style: italic;
-  font-size: 2rem; /* Allow the text to take up available space */
+  font-size: 2.5rem;
+  margin-bottom: 15px; /* Allow the text to take up available space */
 }
 
 #feedback > .wrapper > .thank-you > p{
@@ -986,6 +987,26 @@ footer p {
     width: 96.1%;
   }
 
+  #feedback > .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #feedback > .wrapper > .thank-you,
+  #feedback > .wrapper > .fb-container {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .fb-container form {
+    width: 80%;
+  }
+
+  form input,
+  form textarea {
+    width: 70%;
+  }
+
   footer {
     background-color:  whitesmoke;
     color: #153448;
@@ -1095,7 +1116,28 @@ footer p {
 
   #analysis > .wrapper > .container {
     width: 95%;
-    height: 460px;
+    height: 100%;
+  }
+
+  #feedback > .wrapper {
+    padding: 15px 30px;
+  }
+
+  #feedback > .wrapper > .thank-you > h1 {
+    font-size: 2rem;
+  }
+
+  #feedback > .wrapper > .thank-you > p {
+    font-size: 16px;
+  }
+
+  .fb-container form {
+    width: 80%;
+  }
+
+  form input,
+  form textarea {
+    width: 70%;
   }
 
   .footer {
@@ -1161,6 +1203,32 @@ footer p {
 
   .section-5 {
     width: 90%;
+  }
+
+  #analysis .wrapper h5 {
+    padding: 0px 20px 0px 50px;
+    font-size: 1rem;
+    margin: 5px;
+  }
+
+  #feedback > .wrapper {
+    padding: 15px 20px;
+  }
+
+  #feedback > .wrapper > .thank-you > h1 {
+    font-size: 1.75rem;
+  }
+
+  #feedback > .wrapper > .thank-you > p {
+    font-size: 15px;
+  }
+
+  .fb-container form {
+    padding: 15px 5px 20px 10px;
+  }
+
+  form button {
+    width: 60%;
   }
 
   footer{
@@ -1252,8 +1320,49 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 635px;
-    height: 480px;
+    width: 80%;
+    height: 100%;
+  }
+
+  #analysis .wrapper h5 {
+    padding: 0px 20px 0px 50px;
+    font-size: 1rem;
+    margin: 5px;
+  }
+
+  #analysis .wrapper p {
+    margin-left: 1cm;
+    margin-top: 0px;
+    padding: 0px 50px 0px 55px;
+    font-size: 0.8rem;
+    text-align: justify;
+  }
+  
+  #analysis .wrapper ul {
+    margin-top: 0px;
+    padding: 0px 50px 20px 70px;
+    font-size: 0.8rem;
+  }
+
+  #feedback > .wrapper {
+    padding: 10px 15px;
+  }
+
+  #feedback > .wrapper > .thank-you > h1 {
+    font-size: 1.5rem;
+  }
+
+  #feedback > .wrapper > .thank-you > p {
+    font-size: 14px;
+  }
+
+  form input,
+  form textarea {
+    width: 80%;
+  }
+
+  form button {
+    width: 70%;
   }
 }
 
@@ -1360,12 +1469,52 @@ footer p {
   }
 
   #analysis > .wrapper > .container {
-    width: 455px;
-    height: 680px;
+    width: 80%;
+    height: 100%;
+  }
+
+  #analysis .wrapper h5 {
+    padding: 0px 20px 0px 50px;
+    font-size: 0.8rem;
+    margin: 5px;
+  }
+
+  #analysis .wrapper p {
+    margin-left: 1cm;
+    margin-top: 0px;
+    padding: 0px 50px 0px 55px;
+    font-size: 0.6rem;
+    text-align: justify;
+  }
+  
+  #analysis .wrapper ul {
+    margin-top: 0px;
+    padding: 0px 50px 20px 70px;
+    font-size: 0.6rem;
   }
 
   #team > .wrapper .member-wrapper {
     gap: 1px;
     padding: 0 5px;
+  }
+
+  #feedback > .wrapper {
+    padding: 10px 10px;
+  }
+
+  #feedback > .wrapper > .thank-you > h1 {
+    font-size: 1.25rem;
+  }
+
+  #feedback > .wrapper > .thank-you > p {
+    font-size: 12px;
+  }
+
+  .fb-container form {
+    padding: 10px 5px 15px 5px;
+  }
+
+  form button {
+    width: 80%;
   }
 }
