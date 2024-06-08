@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Number of Customers by Age',
+                        text: 'Histogram of Age Customers',
                         font: {
                             size: 24
                         },
