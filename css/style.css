@@ -1247,7 +1247,7 @@ footer p {
     padding: 10px 20px 10px 20px;
   }
 
-<<<<<<< Updated upstream
+  /* Updated upstream  */
   .filter-form select {
     margin: 0px 16.5px;
   }
@@ -1262,7 +1262,7 @@ footer p {
     margin: 2px;
   }
 
-  .filter-form {
+  .filter form {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -1294,12 +1294,12 @@ footer p {
   }
 
   .section-4 .chart .chart-container {
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
     width: 95%;
-=======
+/* ======= */
     display: inline-block;
     width: 350px;
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes */
   }
 
   #dataTable {
@@ -1446,9 +1446,11 @@ footer p {
   }
 
   .filter form {
-    /* display: grid; */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 50%;
+    justify-content: center;
+    /* flex: content 1 ; */
   }
 
   .filter-form select {
