@@ -309,21 +309,15 @@ button.hamburger > i.icon-close{
 }
 
 .filter-form select:hover {
-  border-color: #0056b3; /* Darker blue on hover */
+  border-color: #153448; /* Darker blue on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
 }
 
-/* #dashboard > main {
-  margin: 125px 0 20px;
-  grid-area: main;
-  display: grid;
-  grid-template-areas:
-    "section1 section1 section1 section1"
-    "section2 section2 section2 section2"
-    "section3 section3 section3 section3"
-    "section4 section4 section4 section4";
-  grid-template-columns: repeat(4, 1fr);
-} */
+.filter-form select:focus {
+  outline: none;
+  border-color: #153448;
+  box-shadow: 0 0 5px rgba(3, 22, 40, 0.5);
+}
 
 .section-1 {
   display: grid;
@@ -334,14 +328,6 @@ button.hamburger > i.icon-close{
   align-items: center;
   background-color: whitesmoke;
   z-index: 95;
-  /* margin: 10px 15px; */
-  /* grid-area: section1; */
-  /* margin-top: 15px;
-  margin-bottom: 0px; */
-  /* gap: 7px; */
-  /* width: 97%; */
-  /* margin-left: 20px;
-  margin-right: 20px; */
 }
 
 .section-1 .card {
@@ -385,10 +371,6 @@ button.hamburger > i.icon-close{
   margin: 10px;
   z-index: 94;
   cursor: pointer;
-  /* width: 100%; */
-  /* margin-left: 5px;
-  margin-top: 15px; */
-  /* grid-area: section2; */
 }
 .section-2 .chart {
   flex: 1;
@@ -421,13 +403,10 @@ button.hamburger > i.icon-close{
 .section-3 .chart-container {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   background-color: white;
-  /* flex: 1 1 calc(33% - 20px); */
   justify-content: center;
   border-radius: 15px;
   width: 95%;
   height: 97.5%;
-  /* max-width: 400px;
-  max-height: 400px; */
   margin: 0px 10px;
   margin-bottom: 10px;
 }
@@ -436,7 +415,6 @@ button.hamburger > i.icon-close{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* align-items: center */
   cursor: pointer;
 }
 
@@ -445,17 +423,11 @@ button.hamburger > i.icon-close{
   border-radius: 5px;
   margin-top: 0px;
   margin-bottom: 9px;
-  /* width: 50% 50%; */
-
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 .section-4 .chart .chart-container {
   background-color: #fff;
   justify-content: center;
-  /* flex: 1 1 calc(50% - 20px); */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 5px;
@@ -818,6 +790,7 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px 0;
 }
 #team > .wrapper .member h6 {
   margin-top: 0;
@@ -972,7 +945,7 @@ form textarea:focus ::placeholder{
 }
 
 footer {
-  background-color:  #fff;
+  background-color: #fff;
   color: #153448;
   margin: 0;
   padding: 15px;
@@ -1156,6 +1129,21 @@ footer p {
     font-size: 1.4rem;
   }
 
+  #team > .wrapper .leader-wrapper {
+    flex-direction: row;
+  }
+  #team > .wrapper .member-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  #team > .wrapper .member {
+    width: 45%;
+    margin: 5px 0;
+  }
+  #team > .wrapper .member img {
+    width: 85%;
+  }
+
   #feedback > .wrapper {
     padding: 15px 30px;
   }
@@ -1274,6 +1262,13 @@ footer p {
     margin-top: 0px;
     padding: 0px 20px 20px 25px;
     font-size: 0.8rem;
+  }
+
+  #team > .wrapper .member {
+    width: 60%;
+  }
+  #team > .wrapper .member img {
+    width: 80%;
   }
 
   #feedback > .wrapper {
@@ -1446,6 +1441,19 @@ footer p {
     font-size: 0.8rem;
   }
 
+  #team > .wrapper .leader-wrapper {
+    align-items: center;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  #team > .wrapper .member {
+    width: 80%;
+  }
+  #team > .wrapper .member img {
+    width: 75%;
+  }
+
   #feedback > .wrapper {
     padding: 10px 15px;
   }
@@ -1611,9 +1619,11 @@ footer p {
     font-size: 0.6rem;
   }
 
-  #team > .wrapper .member-wrapper {
-    gap: 1px;
-    padding: 0 5px;
+  #team > .wrapper .member {
+    width: 95%;
+  }
+  #team > .wrapper .member img {
+    width: 70%;
   }
 
   #feedback > .wrapper {
@@ -1630,10 +1640,10 @@ footer p {
 
 
   #feedback > .wrapper > .fb-container {
-    width: 60%;
+    width: 70%;
   }
   form input {
-    width: 52%;
+    width: 50%;
   }
 
   form textarea {
