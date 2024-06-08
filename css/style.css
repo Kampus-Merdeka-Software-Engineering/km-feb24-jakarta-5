@@ -966,9 +966,27 @@ footer p {
 }
 
 @media screen and (max-width: 1024px) {
-  .wrapper {
+  /* .wrapper {
     width: 90%;
+  } */
+
+  #about > .wrapper {
+    width: 80%;
   }
+  /* #about > .wrapper > h4 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0px 0px 10px 0px;
+    padding: 30px 0px 10px 0px;
+    font-family: "Kanit", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  } */
+
+  #about > .wrapper > p {
+    width: 90%;
+    font-size: 17px;
+  } 
 
   .section-1 {
     grid-template-columns: repeat(4, 1fr);
@@ -1229,6 +1247,7 @@ footer p {
     padding: 10px 20px 10px 20px;
   }
 
+<<<<<<< Updated upstream
   .filter-form select {
     margin: 0px 16.5px;
   }
@@ -1275,7 +1294,12 @@ footer p {
   }
 
   .section-4 .chart .chart-container {
+<<<<<<< Updated upstream
     width: 95%;
+=======
+    display: inline-block;
+    width: 350px;
+>>>>>>> Stashed changes
   }
 
   #dataTable {
@@ -1446,7 +1470,8 @@ footer p {
   }
 
   .section-2 .chart-container {
-    width: 98%;
+    width: 100%;
+    height: 300px;
   }
 
   .section-3 .chart-container {
@@ -1520,15 +1545,15 @@ footer p {
   }
 
   #feedback > .wrapper > .fb-container {
-    width: 60%;
-    height: 70%;
+    width: 200px;
+    height: 90%;
   }
   form input {
-    width: 50%;
+    width: 80%;
   }
 
   form textarea {
-    width: 63%;
+    width: 83%;
   }
 
   form button {
@@ -1540,6 +1565,12 @@ footer p {
     width: 92%;
   }
 }
+
+/* @media screen and (max-width: 400px) {
+.section-2 .chart {
+  width: 20%;
+}
+} */
 
 @media screen and (max-width: 360px) {
   .header-jumbotron > h5 {
@@ -1653,8 +1684,7 @@ footer p {
   }
 
   .section-4 .chart-container {
-    width: 520px;
-    height: 310px;
+    width: 94%;
   }
 
   .section-5 .table-container {
