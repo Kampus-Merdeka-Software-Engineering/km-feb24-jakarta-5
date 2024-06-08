@@ -266,17 +266,18 @@ button.hamburger > i.icon-close {
 }
 
 .filter {
-  display: flex;
-  width: 98%;
+  display: grid;
+  grid-template-columns: 25% 75%;
   justify-content: space-between;
   align-items: center;
   position: absolute;
+  width: 100%;
   top: 70px;
-  padding: 15px;
-  background-color: #153448;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  padding: 0px 15px;
   height: 45px;
   border-radius: 10px;
+  background-color: #153448;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
   z-index: 50;
 }
 
@@ -291,15 +292,12 @@ button.hamburger > i.icon-close {
   margin-right: 5px;
 }
 .filter form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 3px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
 .filter-form select {
-  flex: 1 1 auto;
-  margin-right: 10px;
   background-color: #ffff;
   padding: 4px;
   font-family: "Montserrat", sans-serif;
@@ -1235,8 +1233,28 @@ footer p {
     margin: 0px 16.5px;
   }
 
+  .filter {
+    height: 90px;
+    grid-template-columns: 100%;
+  }
+
   .filter h2 {
-    display: none;
+    text-align: center;
+    margin: 2px;
+  }
+
+  .filter-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .filter-form select {
+    margin: 0px;
+  }
+
+  .section-1 {
+    margin-top: 4.5cm;
   }
 
   .section-1 .card p {
@@ -1403,31 +1421,14 @@ footer p {
     font-size: 2rem;
   }
 
-  .filter {
-    height: fit-content;
-    display: grid;
-    /* grid-template-columns: repeat(2, 1fr); */
-  }
-  .filter .filter-form {
-    display: grid;
+  .filter form {
+    /* display: grid; */
     grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
   }
 
-  .filter .filter-form select {
-    margin: 0px 2.5px;
-  }
-
-  /* .filter {
-    width: 100%;
-  } */
-  /*  
-  form > #filterForm > .filter-form{
-    display: flex;
-    flex-wrap: wrap;
-  } */
-
-  .filter h2 {
-    display: none;
+  .filter-form select {
+    margin: 0px;
   }
 
   .section-1 {
@@ -1594,25 +1595,25 @@ footer p {
     padding: 10px 20px 10px 20px;
   }
 
-  /* .filter {
-    width: 95%;
-  } */
   .filter {
-    height: fit-content;
+    height: 120px;
     display: grid;
-    /* grid-template-columns: repeat(2, 1fr); */
-  }
-  .filter .filter-form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .filter .filter-form select {
-    margin: 5px 10px;
+    grid-template-columns: 100%;
   }
 
   .filter h2 {
-    display: none;
+    text-align: center;
+    margin: 2px;
+  }
+
+  .filter form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .filter-form select {
+    margin: 0px;
   }
 
   .section-1 {
