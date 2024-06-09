@@ -1626,9 +1626,14 @@ footer p {
   }
 
   .section-1 {
-    margin-top: 1.5cm;
+    margin-top: 5.5cm;
     grid-template-columns: repeat(1, 1fr);
   }
+
+  .section-1 .card{
+    margin: 2.5px 0px;
+  }
+
 
   .section-1 > .card > p {
     /* margin-top: 10px; */
