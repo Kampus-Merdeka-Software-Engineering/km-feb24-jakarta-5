@@ -427,6 +427,7 @@ button.hamburger > i.icon-close {
   display: flex;
   flex: 1;
   justify-content: center;
+  align-items: center;
 }
 
 .section-4 .chart .chart-container {
@@ -437,6 +438,7 @@ button.hamburger > i.icon-close {
   border-radius: 10px;
   padding: 5px;
   width: 98%;
+  min-height: 300px;
 }
 
 .table-container {
@@ -982,7 +984,7 @@ footer p {
   #about > .wrapper > p {
     width: 90%;
     font-size: 17px;
-  }
+  } 
 
   .section-1 {
     grid-template-columns: repeat(4, 1fr);
