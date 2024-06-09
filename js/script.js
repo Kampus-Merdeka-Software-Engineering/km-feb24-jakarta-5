@@ -523,23 +523,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const subCategories = [...new Set(data.map(item => item.Sub_Category))];
             const countries = [...new Set(data.map(item => item.Country))];
 
-            // Calculate total order quantity for each country and sub-category
-            const totalOrderQuantities = {};
-            subCategories.forEach(subCategory => {
-                totalOrderQuantities[subCategory] = {};
-                countries.forEach(country => {
-                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                    totalOrderQuantities[subCategory][country] = filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                });
+            // Calculate total order quantity for each country
+            const totalOrderQuantities = countries.map(country => {
+                return {
+                    country: country,
+                    totalQuantity: data.filter(item => item.Country === country)
+                                        .reduce((sum, item) => sum + item.Order_Quantity, 0)
+                };
             });
 
-            // Sort total order quantity in descending order
-            const sortedOrderQuantities = {};
-            for (const subCategory in totalOrderQuantities) {
-                sortedOrderQuantities[subCategory] = Object.entries(totalOrderQuantities[subCategory])
-                    .sort(([, a], [, b]) => b - a)
-                    .map(([country]) => country);
-            }
+            // Sort countries by total order quantity in descending order
+            totalOrderQuantities.sort((a, b) => b.totalQuantity - a.totalQuantity);
+
+            // Extract sorted country names
+            const sortedCountries = totalOrderQuantities.map(item => item.country);
 
             // Define predefined colors for each sub-category
             const colorPalette = {
@@ -558,22 +555,27 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             const datasets = subCategories.map(subCategory => {
-                const color = colorPalette[subCategory] || { backgroundColor: getRandomColor(), borderColor: getRandomColor() }; // Fallback to random color if not predefined
+                const color = colorPalette[subCategory] || { backgroundColor: 'rgba(0, 0, 0, 0.2)', borderColor: 'rgba(0, 0, 0, 1)' }; // Fallback to default color if not predefined
+                const dataValues = sortedCountries.map(country => {
+                    const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
+                    return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
+                });
+
+                console.log(`Data Values for ${subCategory}:`, dataValues); // Debugging log
 
                 return {
                     label: subCategory,
-                    data: sortedOrderQuantities[subCategory].map(country => {
-                        const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
-                        return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
-                    }),
-                    backgroundColor: color.backgroundColor, 
-                    borderColor: color.borderColor, 
-                    borderWidth: 1 
+                    data: dataValues,
+                    backgroundColor: color.backgroundColor,
+                    borderColor: color.borderColor,
+                    borderWidth: 1
                 };
             });
 
+            console.log('Datasets:', datasets); // Debugging log
+
             return {
-                labels: sortedOrderQuantities['Road Bikes'], 
+                labels: sortedCountries, // Use sorted countries as labels
                 datasets: datasets
             };
         }
