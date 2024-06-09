@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 //interactive card and dashboard
     document.addEventListener('DOMContentLoaded', function() {
         const filterForm = document.getElementById('filterForm');
@@ -132,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error loading the dataset:', error));
         
-
         // Function to filter data based on selected criteria
         function filterData(data) {
             const year = document.getElementById('year').value;
@@ -557,7 +555,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     backgroundColor: 'rgba(255, 206, 86, 0.2)',
                     borderColor: 'rgba(255, 206, 86, 1)'
                 },
-                // Add more colors as needed for each sub-category
             };
 
             const datasets = subCategories.map(subCategory => {
@@ -569,14 +566,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         const filteredData = data.filter(item => item.Country === country && item.Sub_Category === subCategory);
                         return filteredData.reduce((sum, item) => sum + item.Order_Quantity, 0);
                     }),
-                    backgroundColor: color.backgroundColor, // Assign the predefined background color or random color
-                    borderColor: color.borderColor, // Assign the predefined border color or random color
-                    borderWidth: 1 // Adjust border width as needed
+                    backgroundColor: color.backgroundColor, 
+                    borderColor: color.borderColor, 
+                    borderWidth: 1 
                 };
             });
 
             return {
-                labels: sortedOrderQuantities['Road Bikes'], // Use the order of 'Road Bikes' for labels (since all sub-categories will have the same order)
+                labels: sortedOrderQuantities['Road Bikes'], 
                 datasets: datasets
             };
         }
@@ -606,7 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             text: 'Total Order Quantity'
                         },
                         ticks: {
-                            stepSize: 10 // Atur jarak antar nilai pada sumbu y
+                            stepSize: 10
                         }
                     }
                 },
@@ -652,10 +649,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Function to prepare scatter chart data including profit per quantity for bubble size
         function getScatterChartData(data) {
-            // Buat objek untuk menyimpan total order untuk setiap profit
             const aggregatedData = {};
-
-            // Lakukan pengelompokan dan penjumlahan order_quantity berdasarkan profit
             data.forEach(item => {
                 if (aggregatedData[item.Profit]) {
                     aggregatedData[item.Profit] += item.Order_Quantity;
@@ -664,11 +658,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Ubah hasil pengelompokan menjadi array objek yang cocok dengan format yang diperlukan untuk scatter chart
             const scatterData = Object.keys(aggregatedData).map(profit => ({
-                x: parseFloat(profit), // Ubah string profit menjadi angka
+                x: parseFloat(profit), 
                 y: aggregatedData[profit],
-                r: 10 // Misalnya, Anda bisa tetapkan ukuran tetap untuk gelembung
+                r: 10 
             }));
 
             return scatterData;
@@ -755,8 +748,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to get monthly average profit data based on filtered data for a specific year
         function getMonthlyAverageData(data, year) {
             const filteredData = data.filter(item => item.Year.toString() === year);
-
-            // Calculate the monthly average profit
             const monthlyData = {};
             filteredData.forEach(item => {
                 const date = new Date(item.Date);
@@ -768,7 +759,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 monthlyData[month].count += 1;
             });
 
-            // Generate chart data with all months
             const chartData = [];
             for (let i = 0; i < 12; i++) {
                 chartData.push({
@@ -780,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return chartData;
         }
 
-        // Fungsi untuk memperbarui tabel dengan data yang diberikan
+       // Function to update the table with the provided data
         function updateTable(data, searchTerm) {
             const rowsPerPage = parseInt(entriesSelect.value, 10);
             const productProfits = {};
@@ -803,10 +793,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 .sort((a, b) => b.totalProfit - a.totalProfit)
                 .slice(0, 100);
 
-            renderTable(sortedProducts, rowsPerPage, searchTerm); // Menyediakan nilai searchTerm
+            renderTable(sortedProducts, rowsPerPage, searchTerm);
         }
 
-        // Fungsi untuk render tabel
+        // Function to render a paginated HTML table with search term highlighting
         function renderTable(data, rowsPerPage, searchTerm) {
             const pageCount = Math.ceil(data.length / rowsPerPage);
 
@@ -851,19 +841,17 @@ document.addEventListener('DOMContentLoaded', function() {
             renderPage(1);
         }
     
-        //
+        // Function to format a number as a currency string
         function formatCurrency(num, currency) {
             return num.toLocaleString('de-DE', { style: 'currency', currency: currency });
         }
 
-        // Fungsi untuk menyorot kata kunci pencarian dalam baris tabel
+        // Function to highlight search keywords in table rows
         function highlightSearchTerm(text, searchTerm) {
-            // Jika tidak ada kata kunci pencarian, kembalikan teks asli
             if (!searchTerm || searchTerm.trim() === '') {
                 return text;
             }
-        
-            // Menyorot kata kunci pencarian dalam teks dengan tag span
+            // Highlight search keywords in text with span tags
             const regex = new RegExp(searchTerm, 'gi');
             return text.replace(regex, `<span class="highlight">${searchTerm}</span>`);
         }
